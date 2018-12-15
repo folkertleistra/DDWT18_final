@@ -57,7 +57,7 @@ if (new_route('/DDWT18_final/', 'get')) {
 elseif (new_route('/DDWT18_final/test/', 'get')) {
     /* page info */
     $page_title = 'Home';
-    $navigation = get_navigation($nav_template, 1);
+    $navigation = get_navigation($nav_template, 2);
     /*page content */
     $page_subtitle = 'Living on my own!';
     $page_content = 'Boom Boom Boom Boom, I want you in my room!';

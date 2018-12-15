@@ -12,7 +12,7 @@
 
 /* Navigation bar active link */
 .navbar-light .navbar-nav .active>.nav-link {
-
+    color: #353558;
 }
 
 /* END: NAVIGATION */
