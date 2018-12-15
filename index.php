@@ -12,7 +12,7 @@ include 'model.php';
 //$db = connect_db('','','','');
 
 
-$template =
+$nav_template =
     Array(
         1 => Array(
             'name' => 'Home',
@@ -39,11 +39,13 @@ $template =
 /* This section contains all routes */
 if (new_route('/DDWT18_final/', 'get')) {
     $page_title = 'Home';
-    $navigation = get_navigation($template, 1);
+    $navigation = get_navigation($nav_template, 1);
 
     /*page content */
     $page_subtitle = 'Living on my own!';
     $page_content = 'Boom Boom Boom Boom, I want you in my room!';
+
+    include use_template('main');
 }
 
 
