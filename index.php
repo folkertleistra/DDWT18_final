@@ -38,15 +38,45 @@ $nav_template =
     Array(
         1 => Array(
             'name' => 'Home',
-            'url' => '/DDWT18_final/'
+            'url' => '/DDWT18_final/',
+            'state' => 'all',
+            'role' => 'all'
         ),
         2 => Array(
             'name' => 'Rooms for rent',
-            'url' => '/DDWT18_final/test/'
+            'url' => '/DDWT18_final/rentable-rooms/',
+            'state' => 'all',
+            'role' => 'all'
         ),
+        3 => Array(
+            'name' => 'My account',
+            'url' => '/DDWT18_final/myaccount/',
+            'state' => 'login',
+            'role' => 'all'
+        ),
+        4 => Array(
+            'name' => 'Register',
+            'url' => '/DDWT18_final/register/',
+            'state' => 'logout',
+            'role' => 'all'
+        ),
+        5 => Array(
+            'name' => 'Login',
+            'url' => '/DDDWT18_final/login/',
+            'state' => 'logout',
+            'role' => 'all'
+        ),
+        6 => Array(
+            'name' => 'Logout',
+            'url' => '/DDDWT18_final/logout/',
+            'state' => 'login',
+            'role' => 'all'
+        )
+
     );
 
 /* This section contains all routes */
+/* Landing page for ApartRent. (GET) */
 if (new_route('/DDWT18_final/', 'get')) {
     /* page info */
     $page_title = 'Home';
@@ -58,9 +88,10 @@ if (new_route('/DDWT18_final/', 'get')) {
     include use_template('home');
 }
 
-elseif (new_route('/DDWT18_final/test/', 'get')) {
+/* rooms for rent page. (GET) */
+elseif (new_route('/DDWT18_final/rentable-rooms/', 'get')) {
     /* page info */
-    $page_title = 'Home';
+    $page_title = 'Rooms for rent';
     $navigation = get_navigation($nav_template, 2);
     /*page content */
     $page_subtitle = 'Living on my own!';
@@ -68,6 +99,59 @@ elseif (new_route('/DDWT18_final/test/', 'get')) {
 
     include use_template('home');
 }
+
+/* information about a single room. (GET) */
+elseif (new_route('/DDWT18_final/room/', 'get')) {
+    /* get ID of the room */
+    //$room_id = $_GET['room_id']
+    include use_template('');
+}
+
+/* Register an user. (POST) */
+elseif (new_route('/DDWT18_final/register/', 'get')) {
+
+}
+
+/* Register an user. (POST) */
+elseif (new_route('/DDWT18_final/register/', 'post')) {
+
+}
+
+/* Login an user. (GET) */
+elseif (new_route('/DDWT18_final/login/', 'post')) {
+
+}
+
+/* Login an user. (POST) */
+elseif (new_route('/DDWT18_final/login/', 'post')) {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* Route for OWNERS to add a room. (GET) */
+elseif (new_route('/DDWT18_final/add/', 'get')) {
+    /* page info */
+    $page_title = 'Add a room';
+    /*page content */
+}
+
+/* Route for OWNERS to add a room. (POST) */
+elseif (new_route('/DDWT18_final/add/', 'post')) {
+
+}
+
+
+
 
 else {
     http_response_code(404);
