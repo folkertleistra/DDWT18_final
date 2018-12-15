@@ -15,4 +15,11 @@
     color: #353558;
 }
 
+/* Navbar left padding > 1200 px */
+@media screen and (min-width: 1200px) {
+    .navbar {
+        padding-left: 15%;
+    }
+}
+
 /* END: NAVIGATION */
