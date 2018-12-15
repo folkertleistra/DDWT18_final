@@ -1,0 +1,43 @@
+/* START: FULLWIDTH HEADER IMAGE */
+.jumbotron {
+    color: white;
+    background-image: url("/DDWT18_final/resources/home-header.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 500px;
+    position: relative;
+}
+.home-jumbo:before {
+    content:"";
+    display: block;
+    height: 500px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .5);
+}
+@media screen and (min-width: 992px) {
+    .home-jumbo {
+        padding-top: 71px;
+        padding-bottom: 71px;
+    }
+    .hero-container {
+        padding-top: 25px;
+        height: 100%;
+    }
+}
+.hero-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.hero-text {
+    text-align: center;
+}
+.hero-text h1 {
+    font-family: 'Vidaloka', serif;
+}
+/* END: FULLWIDTH HEADER IMAGE */
