@@ -107,52 +107,76 @@ elseif (new_route('/DDWT18_final/room/', 'get')) {
     include use_template('');
 }
 
-/* Register an user. (POST) */
+/* THE FOLLOWING SECTION DEALS WITH USER AUTHENTICATION */
+
+/* Register a user. (GET) */
 elseif (new_route('/DDWT18_final/register/', 'get')) {
 
 }
 
-/* Register an user. (POST) */
+/* Register a user. (POST) */
 elseif (new_route('/DDWT18_final/register/', 'post')) {
 
 }
 
-/* Login an user. (GET) */
+/* Login a user. (GET) */
+elseif (new_route('/DDWT18_final/login/', 'get')) {
+
+}
+
+/* Login a user. (POST) */
 elseif (new_route('/DDWT18_final/login/', 'post')) {
 
 }
 
-/* Login an user. (POST) */
-elseif (new_route('/DDWT18_final/login/', 'post')) {
+/* Logout a user. (GET) */
+elseif (new_route('/DDWT18_final/logout/', 'get')) {
 
 }
 
+/* END SECTION OF USER AUTHENTICATION */
 
 
+/* THE FOLLOWING ROUTES ARE ONLY AVAILABLE FOR OWNERS */
 
+/* edit room for. (GET) */
+elseif (new_route('/DDWT18_final/edit/', 'get')) {
 
+}
 
+/* edit room for. (POST) */
+elseif (new_route('/DDWT18_final/edit/', 'post')) {
 
+}
 
-
-
-
-
-/* Route for OWNERS to add a room. (GET) */
+/* add a room for. (GET) */
 elseif (new_route('/DDWT18_final/add/', 'get')) {
-    /* page info */
-    $page_title = 'Add a room';
-    /*page content */
+
 }
 
-/* Route for OWNERS to add a room. (POST) */
+/* add room for. (POST) */
 elseif (new_route('/DDWT18_final/add/', 'post')) {
 
 }
 
+/* Remove a room. (POST) */
+/* edit room for an Owner. (GET) */
+elseif (new_route('/DDWT18_final/remove/', 'post')) {
 
+}
 
+/* END SECTION CONTAINING ROUTES ONLY AVAILABLE FOR OWNERS */
 
+/* THE FOLLOWING ROUTES ARE ONLY AVAILABLE FOR TENANTS */
+
+/* opt-in to a room. (POST) */
+elseif (new_route('/DDWT18_final/optin/', 'post')) {
+
+}
+
+/* END SECTION CONTAINING ROUTES ONLY AVAILABLE FOR TENANTS */
+
+/* ERROR HANDLING WHEN THE ROUTE IS NOT FOUND */
 else {
     http_response_code(404);
 }
