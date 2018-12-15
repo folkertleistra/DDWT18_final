@@ -78,7 +78,7 @@ function use_template($template){
  */
 function get_navigation($template, $active_id){
     $navigation_exp = '
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light">
     <a class="navbar-brand">
         <img src="resources/apartrent-logo.png" class="navbar-logo" alt="">
     </a>
