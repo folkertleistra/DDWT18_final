@@ -45,7 +45,7 @@ function connect_db($host, $db, $user, $pass){
 
 function new_route($route_uri, $request_type){
     $route_uri_expl = array_filter(explode('/', $route_uri));
-    $current_path_expl = array_filter(explode('/',parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)));
+    $current_path_expl = array_filter(explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)));
     if ($route_uri_expl == $current_path_expl && $_SERVER['REQUEST_METHOD'] == strtoupper($request_type)) {
         return True;
     }

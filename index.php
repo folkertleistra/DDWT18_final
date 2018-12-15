@@ -65,9 +65,6 @@ elseif (new_route('/DDWT18_final/test/', 'get')) {
     include use_template('main');
 }
 
-
-
-
 else {
     http_response_code(404);
 }
