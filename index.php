@@ -38,7 +38,7 @@ $nav_template =
         ),
         2 => Array(
             'name' => 'Rooms for rent',
-            'url' => '/DDWT18_final/rentable-rooms/'
+            'url' => '/DDWT18_final/test/'
         ),
     );
 
@@ -47,37 +47,26 @@ if (new_route('/DDWT18_final/', 'get')) {
     /* page info */
     $page_title = 'Home';
     $navigation = get_navigation($nav_template, 1);
-
     /*page content */
     $page_subtitle = 'Living on my own!';
     $page_content = 'Boom Boom Boom Boom, I want you in my room!';
 
     include use_template('main');
 }
-
-/* Page that contains all the rooms that are currently for rent */
-elseif (new_route('/DDWT18_final/rentable-rooms/', 'get' )) {
-    /* page info */
-    $page_title = 'Rooms for rent';
-    $navigation = get_navigation($nav_template, 2);
-    echo 'test';
-
-    include use_template('main');
-}
-
-
 
 elseif (new_route('/DDWT18_final/test/', 'get')) {
     /* page info */
     $page_title = 'Home';
     $navigation = get_navigation($nav_template, 1);
-
     /*page content */
     $page_subtitle = 'Living on my own!';
     $page_content = 'Boom Boom Boom Boom, I want you in my room!';
 
     include use_template('main');
 }
+
+
+
 
 else {
     http_response_code(404);
