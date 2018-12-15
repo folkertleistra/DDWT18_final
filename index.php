@@ -20,19 +20,19 @@ $nav_template =
         ),
         2 => Array(
             'name' => 'Overview',
-            'url' => '/DDWT18/week2/overview/'
+            'url' => '/DDWT18_final'
         ),
         3 => Array(
             'name' => 'My Account',
-            'url' => '/DDWT18/week2/myaccount/'
+            'url' => '/DDWT18_final'
         ),
         4 => Array(
             'name' => 'Register',
-            'url' => '/DDWT18/week2/register/'
+            'url' => '/DDWT18_final'
         ),
         5 => Array(
             'name'=> 'Login',
-            'url' => '/DDWT18/week2/login/'
+            'url' => '/DDWT18_final'
         )
     );
 
