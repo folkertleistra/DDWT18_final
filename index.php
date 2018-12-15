@@ -51,6 +51,10 @@ $nav_template =
         5 => Array(
             'name'=> 'Login',
             'url' => '/DDWT18_final'
+        ),
+        6 => Array(
+            'name'=> 'Rooms for rent',
+            'url' => '/DDWT18_final'
         )
     );
 
