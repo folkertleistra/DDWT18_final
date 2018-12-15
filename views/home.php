@@ -20,6 +20,14 @@
                 </div>
             </div>
 
+        <!-- Footer -->
+        <footer class="page-footer font-small">
+            <div class="footer-img-wrapper">
+                <img src="/DDWT18_final/resources/apartrent-logo.png" class="navbar-logo" alt="">
+            </div>
+            <div class="footer-copyright text-center py-3">© <?php echo date("Y") ?> Copyright - ApartRent</div>
+        </footer>
+
 
         <?= $imported_scripts ?>
     </body>

@@ -4,8 +4,19 @@ body {
     font-family: 'Open Sans', sans-serif;
     background-color: #f2f2f2;
 }
-
 /* END: MAIN CSS */
+
+/* START: FOOTER */
+footer {
+    padding-top: 16px;
+    background-color: #fff;
+}
+.footer-img-wrapper {
+    display: flex;
+    justify-content: center;
+}
+/* END: FOOTER */
+
 
 /* START: NAVIGATION */
 
