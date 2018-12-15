@@ -20,7 +20,7 @@ $head_upper_content = '<meta charset="utf-8">
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
         <!-- Custom CSS -->
-        <link rel="stylesheet" href="/DDWT18/week2/css/main.css">';
+        <link rel="stylesheet" href="/DDWT18_final/css/main.css">';
 
 /* Imported scripts */
 $imported_scripts ='
