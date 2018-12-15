@@ -29,4 +29,4 @@ Alles wat we gebruikt hebben bij ons systeem...
 * **Folkert Leistra** - [folkertleistra](https://github.com/folkertleistra)
 * **Hylke van der Veen** - [hylkevdveen](https://github.com/hylkevdveen)
 
-DDWT18 - Group 07 
+DDWT18 - Group 07
