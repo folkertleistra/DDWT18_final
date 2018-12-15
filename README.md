@@ -13,7 +13,7 @@ Alles nodig voor de het gebruik van ons programma...
 
 ### Installing
 
-
+Hoe je dit systeem installeert
 
 ## Deployment
 
@@ -25,8 +25,8 @@ Alles wat we gebruikt hebben bij ons systeem...
 
 ## Authors
 
-* **Thijmen Dam** - [ThijmenDam](https://github.com/ThijmenDam)
-* **Folkert Leistra** - [folkertleistra](https://github.com/folkertleistra)
-* **Hylke van der Veen** - [hylkevdveen](https://github.com/hylkevdveen)
+* **Thijmen Dam** - s3360695 - [ThijmenDam](https://github.com/ThijmenDam)
+* **Folkert Leistra** - s3469573 - [folkertleistra](https://github.com/folkertleistra)
+* **Hylke van der Veen** - s3348431 - [hylkevdveen](https://github.com/hylkevdveen)
 
 DDWT18 - Group 07
