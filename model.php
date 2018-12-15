@@ -115,3 +115,58 @@ function p_print($input){
     print_r($input);
     echo '</pre>';
 }
+
+
+/**
+ * Returns the HTML head upper content in HTML code
+ * @return string
+ */
+function get_head_upper_content() {
+    return '<meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
+        <!-- Custom Google fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Vidaloka" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i" rel="stylesheet">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" 
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/DDWT18_final/css/main.css">';
+}
+
+
+/**
+ * Returns imported scripts HTML
+ * @return string
+ */
+function get_imported_scripts() {
+    return '<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script src="/DDWT_final/js/main.js"></script>';
+}
+
+function get_footer_content() {
+    return '<footer class="page-footer font-small">
+        <div class="footer-img-wrapper">
+            <img src="/DDWT18_final/resources/apartrent-logo.png" class="navbar-logo" alt="">
+        </div>
+        <div class="footer-copyright text-center py-3">© <?php echo date("Y") ?> Copyright - ApartRent</div>
+        </footer>';
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
