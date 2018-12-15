@@ -9,14 +9,14 @@
 include 'model.php';
 
 /* Connect to DB */
-$db = connect_db('','','','');
+//$db = connect_db('','','','');
 
 
 $template =
     Array(
         1 => Array(
             'name' => 'Home',
-            'url' => '/DDWT18/week2/'
+            'url' => '/DDWT18_final/'
         ),
         2 => Array(
             'name' => 'Overview',
@@ -36,76 +36,18 @@ $template =
         )
     );
 
-/* Landing page */
+/* This section contains all routes */
 if (new_route('/DDWT18_final/', 'get')) {
-    echo 'WELKOM VIEZE JONGENTJES';
-}
+    $page_title = 'Home';
+    $navigation = get_navigation($template, 1);
 
-/* Overview page */
-elseif (new_route('/DDWT18_final/overview/', 'get')) {
-
-}
-
-/* Single Serie */
-elseif (new_route('/DDWT18_final/serie/', 'get')) {
-
-}
-
-/* Add serie GET */
-elseif (new_route('/DDWT18/week2/add/', 'get')) {
-
-}
-
-/* Add serie POST */
-elseif (new_route('/DDWT18/week2/add/', 'post')) {
-
-}
-
-/* Edit serie GET */
-elseif (new_route('/DDWT18/week2/edit/', 'get')) {
-
-}
-
-/* Edit serie POST */
-elseif (new_route('/DDWT18/week2/edit/', 'post')) {
-
+    /*page content */
+    $page_subtitle = 'Living on my own!';
+    $page_content = 'Boom Boom Boom Boom, I want you in my room!';
 }
 
 
-/* Remove serie POST */
-elseif (new_route('/DDWT18/week2/remove/', 'post')) {
 
-}
-
-/* my account GET */
-elseif (new_route('/DDWT18/week2/myaccount/', 'get')) {
-
-
-}
-/* register GET */
-elseif (new_route('/DDWT18/week2/register/', 'get')) {
-
-}
-
-/* register POST */
-elseif (new_route('/DDWT18/week2/register/', 'post')) {
-
-}
-
-/* login GET */
-elseif (new_route('/DDWT18/week2/login/', 'get')) {
-
-
-}
-/* login POST */
-elseif (new_route('/DDWT18/week2/login/', 'post')) {
-
-
-}
-/* logout GET */
-elseif (new_route('/DDWT18/week2/logout/', 'get')) {
-    $feedback = logout_user();
-}
 else {
     http_response_code(404);
 }
