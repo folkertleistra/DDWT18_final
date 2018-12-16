@@ -162,11 +162,75 @@ function get_footer_content() {
         </footer>';
 }
 
+/*
+ * -------------------
+ * START: DATABASE GET
+ * -------------------
+*/
 
+/**
+ * @param $pdo
+ * @param $user_id
+ * @return array
+ */
+function get_user_info($pdo, $user_id) {
+    /* Create and execute SQL statement */
+    $stmt = $pdo->prepare('SELECT * FROM users WHERE id = ?');
+    $stmt->execute([$user_id]);
+    $users = $stmt->fetchAll();
+    $users_exp = Array();
 
+    /* Create array with htmlspecialchars */
+    foreach ($users as $key => $value){
+        $users_exp[$key] = htmlspecialchars($value);
+    }
+    return $users_exp;
+}
 
+/**
+ * @param $pdo
+ * @param $room_id
+ * @return array
+ */
+function get_room_info($pdo, $room_id) {
+    /* Create and execute SQL statement */
+    $stmt = $pdo->prepare('SELECT * FROM rooms WHERE id = ?');
+    $stmt->execute([$room_id]);
+    $rooms = $stmt->fetchAll();
+    $rooms_exp = Array();
 
+    /* Create array with htmlspecialchars */
+    foreach ($rooms as $key => $value){
+        $rooms_exp[$key] = htmlspecialchars($value);
+    }
+    return $rooms_exp;
+}
 
+/**
+ * @param $pdo
+ * @return array
+ */
+function get_rooms($pdo) {
+    /* Create and execute SQL statement */
+    $stmt = $pdo->prepare('SELECT * FROM rooms');
+    $stmt->execute();
+    $rooms = $stmt->fetchAll();
+    $rooms_exp = Array();
+
+    /* Create array with htmlspecialchars */
+    foreach ($rooms as $key => $value){
+        foreach ($value as $user_key => $user_input) {
+            $rooms_exp[$key][$user_key] = htmlspecialchars($user_input);
+        }
+    }
+    return $rooms_exp;
+}
+
+/*
+ * -----------------
+ * END: DATABASE GET
+ * -----------------
+*/
 
 
 

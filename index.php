@@ -88,6 +88,19 @@ elseif (new_route('/DDWT18_final/rentable-rooms/', 'get')) {
     include use_template('rentable-rooms');
 }
 
+/* test route (GET) */
+elseif (new_route('/DDWT18_final/test-route/', 'get')) {
+    /* page info */
+    $page_title = 'Rooms for rent';
+    $state = 'login';
+    $navigation = get_navigation($nav_template, 2, $state);
+    /*page content */
+    $page_subtitle = 'Living on my own!';
+    $page_content = 'Boom Boom Boom Boom, I want you in my room!';
+
+    include use_template('home');
+}
+
 /* information about a single room. (GET) */
 elseif (new_route('/DDWT18_final/room/', 'get')) {
     /* get ID of the room */
