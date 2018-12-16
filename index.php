@@ -9,7 +9,7 @@
 include 'model.php';
 
 /* Connect to DB */
-//$db = connect_db('','','','');
+$db = connect_db('localhost','ddwt18_final','ddwt18','ddwt18');
 
 /* HTML views - head upper content */
 $head_upper_content = get_head_upper_content();
@@ -71,6 +71,7 @@ if (new_route('/DDWT18_final/', 'get')) {
     /*page content */
     $page_subtitle = 'Living on my own!';
     $page_content = 'Boom Boom Boom Boom, I want you in my room!';
+    print_r(test_db($db));
 
     include use_template('home');
 }
