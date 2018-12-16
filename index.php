@@ -21,6 +21,7 @@ $imported_scripts = get_imported_scripts();
 $footer = get_footer_content();
 
 /* Navigation template */
+$state = 'logout';
 $nav_template =
     Array(
         1 => Array(
@@ -66,7 +67,6 @@ $nav_template =
 if (new_route('/DDWT18_final/', 'get')) {
     /* page info */
     $page_title = 'Home';
-    $state = 'login';
     $navigation = get_navigation($nav_template, 1, $state);
     /*page content */
     $page_subtitle = 'Living on my own!';
@@ -79,7 +79,7 @@ if (new_route('/DDWT18_final/', 'get')) {
 elseif (new_route('/DDWT18_final/rentable-rooms/', 'get')) {
     /* page info */
     $page_title = 'Rooms for rent';
-    $state = 'login';
+
     $navigation = get_navigation($nav_template, 2, $state);
     /*page content */
     $page_subtitle = 'Living on my own!';
@@ -92,7 +92,7 @@ elseif (new_route('/DDWT18_final/rentable-rooms/', 'get')) {
 elseif (new_route('/DDWT18_final/test-route/', 'get')) {
     /* page info */
     $page_title = 'Rooms for rent';
-    $state = 'login';
+
     $navigation = get_navigation($nav_template, 2, $state);
     /*page content */
     $page_subtitle = 'Living on my own!';
@@ -127,6 +127,7 @@ elseif (new_route('/DDWT18_final/register/', 'post')) {
 
 /* Login a user. (GET) */
 elseif (new_route('/DDWT18_final/login/', 'get')) {
+    $navigation = get_navigation($nav_template, 5, $state);
     include use_template('login');
 }
 

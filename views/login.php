@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
     <head>
-
+        <?= $head_upper_content ?>
         <link rel="stylesheet" href="/DDWT18_final/css/login.css">';
         <title><?= $page_title ?></title>
     </head>
