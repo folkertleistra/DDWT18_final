@@ -129,6 +129,7 @@ elseif (new_route('/DDWT18_final/register/', 'post')) {
 /* Login a user. (GET) */
 elseif (new_route('/DDWT18_final/login/', 'get')) {
     $navigation = get_navigation($nav_template, 5, $state);
+    $page_title = 'Login';
     include use_template('login');
 }
 
