@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 16, 2018 at 07:23 PM
+-- Generation Time: Dec 16, 2018 at 08:18 PM
 -- Server version: 5.6.34-log
 -- PHP Version: 7.2.1
 
@@ -23,29 +23,6 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `ddwt18_final` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `ddwt18_final`;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `occupation`
---
-
-CREATE TABLE `occupation` (
-  `user_id` int(11) NOT NULL,
-  `occupation` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `occupation`
---
-
-INSERT INTO `occupation` (`user_id`, `occupation`) VALUES
-(1, 'buschauffeur'),
-(2, 'boer'),
-(3, 'student Informatiekunde'),
-(4, 'student Psychologie'),
-(1, 'treinmachinist'),
-(4, 'wietverkoper');
 
 -- --------------------------------------------------------
 
@@ -169,6 +146,7 @@ CREATE TABLE `users` (
   `phone` varchar(10) NOT NULL,
   `birthdate` date NOT NULL,
   `language` varchar(255) NOT NULL,
+  `occupation` varchar(255) NOT NULL,
   `biography` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -176,21 +154,15 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `firstname`, `lastname`, `email`, `phone`, `birthdate`, `language`, `biography`) VALUES
-(1, 'testowner1', 'test', 'firstname1', 'lastname1', 'test1@test.com', '1234567890', '2000-01-01', 'English', 'This is the test1 account for owners.'),
-(2, 'testowner2', 'test', 'firstname2', 'lastname2', 'test2@test.com', '2345678901', '2000-01-02', 'Dutch', 'This is the test2 account for owners.'),
-(3, 'testtenant3', 'test', 'firstname3', 'lastname3', 'test3@test.com', '3456789012', '2000-01-03', 'German', 'This is the test3 account for tenants.'),
-(4, 'testtenant4', 'test', 'firstname4', 'lastname4', 'test4@test.com', '4567890123', '2000-01-04', 'French', 'This is the test4 account for tenants.');
+INSERT INTO `users` (`id`, `username`, `password`, `firstname`, `lastname`, `email`, `phone`, `birthdate`, `language`, `occupation`, `biography`) VALUES
+(1, 'testowner1', 'test', 'firstname1', 'lastname1', 'test1@test.com', '1234567890', '2000-01-01', 'English', 'bus driver', 'This is the test1 account for owners.'),
+(2, 'testowner2', 'test', 'firstname2', 'lastname2', 'test2@test.com', '2345678901', '2000-01-02', 'Dutch', 'farmer', 'This is the test2 account for owners.'),
+(3, 'testtenant3', 'test', 'firstname3', 'lastname3', 'test3@test.com', '3456789012', '2000-01-03', 'German', 'student Information Sciences', 'This is the test3 account for tenants.'),
+(4, 'testtenant4', 'test', 'firstname4', 'lastname4', 'test4@test.com', '4567890123', '2000-01-04', 'French', 'student Psychology', 'This is the test4 account for tenants.');
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `occupation`
---
-ALTER TABLE `occupation`
-  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `optin`
@@ -249,12 +221,6 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `occupation`
---
-ALTER TABLE `occupation`
-  ADD CONSTRAINT `occupation_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `optin`

@@ -161,6 +161,7 @@ function get_footer_content() {
         </footer>';
 }
 
+
 /*
  * ------------------
  * START: CARDS COUNT
@@ -223,7 +224,7 @@ function count_rooms($pdo) {
  */
 
 /**
- * Return all info for a single user
+ * Returns all info for a single user
  * @param $pdo
  * @param $user_id
  * @return array
@@ -244,29 +245,24 @@ function get_user_info($pdo, $user_id) {
 }
 
 /**
- * Return a single user's occupation
+ * Returns username for a single user
  * @param $pdo
  * @param $user_id
- * @return array
+ * @return string
  */
-function get_user_occupations($pdo, $user_id) {
+function get_user_username($pdo, $user_id) {
     /* Create and execute SQL statement */
-    $stmt = $pdo->prepare('SELECT occupation FROM occupation WHERE user_id = ?');
+    $stmt = $pdo->prepare('SELECT username FROM users WHERE id = ?');
     $stmt->execute([$user_id]);
-    $occupations = $stmt->fetchAll();
-    $occupations_exp = Array();
+    $users = $stmt->fetchAll();
+    $user = $users[0];
 
-    /* Create array with htmlspecialchars */
-    foreach ($occupations as $key => $value){
-        foreach ($value as $user_key => $user_input) {
-            $occupations_exp[$key] = htmlspecialchars($user_input);
-        }
-    }
-    return $occupations_exp;
+    $username = htmlspecialchars($user['username']);
+    return $username;
 }
 
 /**
- * Return all applications for a single room
+ * Returns all applications for a single room
  * @param $pdo
  * @param $room_id
  * @return array
@@ -288,7 +284,7 @@ function get_room_optin($pdo, $room_id) {
 }
 
 /**
- * Return all room applications for a single user
+ * Returns all room applications for a single user
  * @param $pdo
  * @param $user_id
  * @return array
@@ -310,7 +306,7 @@ function get_tenant_optin($pdo, $user_id) {
 }
 
 /**
- * Return all information for a single room
+ * Returns all information for a single room
  * @param $pdo
  * @param $room_id
  * @return array
@@ -331,7 +327,7 @@ function get_room_info($pdo, $room_id) {
 }
 
 /**
- * Return the information of all available rooms
+ * Returns the information of all available rooms
  * @param $pdo
  * @return array
  */
@@ -364,7 +360,84 @@ function get_rooms($pdo) {
  * ----------------------
  */
 
+function register_user($pdo, $form_data) {
+    /* Check if all fields are set */
+    /* TODO: fix role check */
+    if (
+        empty($form_data['role']) or
+        empty($form_data['firstname']) or
+        empty($form_data['lastname']) or
+        empty($form_data['username']) or
+        empty($form_data['password']) or
+        empty($form_data['email']) or
+        empty($form_data['phone']) or
+        empty($form_data['birthdate']) or
+        empty($form_data['language']) or
+        empty($form_data['biography'])
+    ) {
+        return [
+            'type' => 'danger',
+            'message' => 'Please fill in all fields marked with an \'*\' (asterisk).'
+        ];
+    }
 
+    /* Check data type for the phone field */
+    if (!is_numeric($form_data['phone'])) {
+        return [
+            'type' => 'danger',
+            'message' => 'Please only enter numbers in the \'Phone Number\' field.'
+        ];
+    }
+
+    /* Check if user already exists */
+    try {
+        $stmt = $pdo->prepare('SELECT * FROM users WHERE username = ? OR email = ?');
+        $stmt->execute([$form_data['username'], $form_data['email']]);
+        $user_exists = $stmt->rowCount();
+    } catch (\PDOException $e) {
+        return [
+            'type' => 'danger',
+            'message' => sprintf('There was an error: %s', $e->getMessage())
+        ];
+    }
+
+    /* Return error message for existing username */
+    if ( !empty($user_exists) ) {
+        return [
+            'type' => 'danger',
+            'message' => 'The username or e-mail address you entered already exists.'
+        ];
+    }
+
+    /* Hash password */
+    $password = password_hash($form_data['password'], PASSWORD_DEFAULT);;
+
+    /* Set date to proper form */
+    $birthdate = date("Y-m-d", strtotime($form_data['birthdate']));
+
+    /* Save user to the database */
+    try {
+        $stmt = $pdo->prepare('INSERT INTO users (username, password, firstname, lastname, email, phone, birthdate, language, 
+                               occupation, biography) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        $stmt->execute([$form_data['username'], $password, $form_data['firstname'], $form_data['lastname'], $form_data['email'],
+            $form_data['phone'], $birthdate, $form_data['language'], $form_data['occupation'], $form_data['biography']]);
+        $user_id = $pdo->lastInsertId();
+    } catch (PDOException $e) {
+        return [
+            'type' => 'danger',
+            'message' => sprintf('There was an error: %s', $e->getMessage())
+        ];
+    }
+
+    /* Login user and redirect */
+    session_start();
+    $_SESSION['user_id'] = $user_id;
+    $feedback = [
+        'type' => 'success',
+        'message' => sprintf('%s, your account was successfully created!', get_user_username($pdo, $_SESSION['user_id']))
+    ];
+    redirect(sprintf('/DDWT18_final/myaccount/?error_msg=%s', json_encode($feedback)));
+}
 
 /*
  * --------------------
