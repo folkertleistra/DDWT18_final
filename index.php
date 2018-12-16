@@ -59,7 +59,6 @@ $nav_template =
             'state' => 'login',
             'role' => 'all'
         )
-
     );
 
 /* This section contains all routes */
@@ -86,7 +85,7 @@ elseif (new_route('/DDWT18_final/rentable-rooms/', 'get')) {
     $page_subtitle = 'Living on my own!';
     $page_content = 'Boom Boom Boom Boom, I want you in my room!';
 
-    include use_template('home');
+    include use_template('rentable-rooms');
 }
 
 /* information about a single room. (GET) */
