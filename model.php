@@ -246,22 +246,61 @@ function get_user_info($pdo, $user_id) {
  */
 function get_user_occupations($pdo, $user_id) {
     /* Create and execute SQL statement */
-    $stmt = $pdo->prepare('SELECT * FROM occupation WHERE user_id = ?');
+    $stmt = $pdo->prepare('SELECT occupation FROM occupation WHERE user_id = ?');
     $stmt->execute([$user_id]);
     $occupations = $stmt->fetchAll();
     $occupations_exp = Array();
 
     /* Create array with htmlspecialchars */
-    $occupations_arr = array_column($occupations, 'occupation');
-    foreach ($occupations_arr as $key => $value){
-        $occupations_exp[$key] = htmlspecialchars($value);
+    foreach ($occupations as $key => $value){
+        foreach ($value as $user_key => $user_input) {
+            $occupations_exp[$key] = htmlspecialchars($user_input);
+        }
     }
     return $occupations_exp;
 }
 
+/**
+ * @param $pdo
+ * @param $room_id
+ * @return array
+ */
+function get_room_optin($pdo, $room_id) {
+    /* Create and execute SQL statement */
+    $stmt = $pdo->prepare('SELECT tenant_id, message FROM optin WHERE room_id = ?');
+    $stmt->execute([$room_id]);
+    $messages = $stmt->fetchAll();
+    $messages_exp = Array();
 
+    /* Create array with htmlspecialchars */
+    foreach ($messages as $key => $value){
+        foreach ($value as $user_key => $user_input) {
+            $messages_exp[$key][$user_key] = htmlspecialchars($user_input);
+        }
+    }
+    return $messages_exp;
+}
 
+/**
+ * @param $pdo
+ * @param $user_id
+ * @return array
+ */
+function get_tenant_optin($pdo, $user_id) {
+    /* Create and execute SQL statement */
+    $stmt = $pdo->prepare('SELECT room_id, message FROM optin WHERE tenant_id = ?');
+    $stmt->execute([$user_id]);
+    $messages = $stmt->fetchAll();
+    $messages_exp = Array();
 
+    /* Create array with htmlspecialchars */
+    foreach ($messages as $key => $value){
+        foreach ($value as $user_key => $user_input) {
+            $messages_exp[$key][$user_key] = htmlspecialchars($user_input);
+        }
+    }
+    return $messages_exp;
+}
 
 /**
  * @param $pdo

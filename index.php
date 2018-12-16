@@ -98,7 +98,7 @@ elseif (new_route('/DDWT18_final/test-route/', 'get')) {
     $page_subtitle = 'Living on my own!';
     $page_content = 'Boom Boom Boom Boom, I want you in my room!';
     echo '<br/><br/><br/><br/>';
-    print_r(count_tenants($db));
+    print_r(get_tenant_optin($db, 4));
     include use_template('home');
 }
 
