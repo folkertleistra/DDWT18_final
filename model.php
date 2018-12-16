@@ -189,6 +189,28 @@ function get_user_info($pdo, $user_id) {
 
 /**
  * @param $pdo
+ * @param $user_id
+ * @return array
+ */
+function get_user_occupations($pdo, $user_id) {
+    /* Create and execute SQL statement */
+    $stmt = $pdo->prepare('SELECT * FROM occupation WHERE user_id = ?');
+    $stmt->execute([$user_id]);
+    $occupations = $stmt->fetchAll();
+    $occupations_exp = Array();
+
+    /* Create array with htmlspecialchars */
+    foreach ($occupations as $key => $value){
+        foreach ($value as $user_key => $user_input) {
+            $occupations_exp[$key][$user_key] = htmlspecialchars($user_input);
+        }
+    }
+    return $occupations_exp;
+}
+
+
+/**
+ * @param $pdo
  * @param $room_id
  * @return array
  */
