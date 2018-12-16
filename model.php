@@ -223,6 +223,7 @@ function count_rooms($pdo) {
  */
 
 /**
+ * Return all info for a single user
  * @param $pdo
  * @param $user_id
  * @return array
@@ -243,6 +244,7 @@ function get_user_info($pdo, $user_id) {
 }
 
 /**
+ * Return a single user's occupation
  * @param $pdo
  * @param $user_id
  * @return array
@@ -264,6 +266,7 @@ function get_user_occupations($pdo, $user_id) {
 }
 
 /**
+ * Return all applications for a single room
  * @param $pdo
  * @param $room_id
  * @return array
@@ -285,6 +288,7 @@ function get_room_optin($pdo, $room_id) {
 }
 
 /**
+ * Return all room applications for a single user
  * @param $pdo
  * @param $user_id
  * @return array
@@ -306,6 +310,7 @@ function get_tenant_optin($pdo, $user_id) {
 }
 
 /**
+ * Return all information for a single room
  * @param $pdo
  * @param $room_id
  * @return array
@@ -326,6 +331,7 @@ function get_room_info($pdo, $room_id) {
 }
 
 /**
+ * Return the information of all available rooms
  * @param $pdo
  * @return array
  */
