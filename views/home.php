@@ -11,14 +11,25 @@
 
         <!-- Content -->
 
-            <div class="jumbotron jumbotron-fluid home-jumbo">
-                <div class="container hero-container">
-                    <div class="hero-text">
-                        <h1 class="display-4">ApartRent</h1>
-                        <h2 class="display-6">Lorem ipsum di amor</h2>
-                    </div>
+        <div class="jumbotron jumbotron-fluid home-jumbo">
+            <div class="container hero-container">
+                <div class="hero-text">
+                    <h1 class="display-4">ApartRent</h1>
+                    <h2 class="display-6">Lorem ipsum di amor</h2>
                 </div>
             </div>
+        </div>
+
+        <div class="container-fluid home-button-section">
+            <div class="row justify-content-center">
+                 <div class="col-3 home-btn-col">
+                  One of three columns
+                </div>
+                <div class="col-3 home-btn-col">
+                  One of three columns
+                </div>
+            </div>
+        </div>
 
         <!-- Footer -->
         <?= $footer ?>
