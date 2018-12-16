@@ -12,8 +12,8 @@
         <div class="container">
             <div class="row justify-content-center">
 
-                <div class="col-lg-4 col-md-6">
-                    <div class="main-logo">
+                <div class="col">
+                    <div class="form-box">
                         <div class="login-box">
 
                             <div class="apr-logo">
