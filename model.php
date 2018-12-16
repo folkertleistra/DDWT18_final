@@ -200,10 +200,9 @@ function get_user_occupations($pdo, $user_id) {
     $occupations_exp = Array();
 
     /* Create array with htmlspecialchars */
-    foreach ($occupations as $key => $value){
-        foreach ($value as $user_key => $user_input) {
-            $occupations_exp[$key][$user_key] = htmlspecialchars($user_input);
-        }
+    $occupations_arr = array_column($occupations, 'occupation');
+    foreach ($occupations_arr as $key => $value){
+        $occupations_exp[$key] = htmlspecialchars($value);
     }
     return $occupations_exp;
 }
