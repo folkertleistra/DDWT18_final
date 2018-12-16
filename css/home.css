@@ -28,8 +28,8 @@
     transition-property: transform;
 }
 .home-btn:hover img {
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
+    -webkit-transform: scale(1.06);
+    transform: scale(1.06);
 }
 .home-btn {
     padding: 15px 20px 15px 20px;

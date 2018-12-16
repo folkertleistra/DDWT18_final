@@ -1,5 +1,94 @@
 /* START: FULLWIDTH HEADER IMAGE */
 .jumbotron.rr-jumbo {
     background-image: url("/DDWT18_final/resources/headers/rr-header.jpeg");
+    margin-bottom: 50px;
 }
 /* END: FULLWIDTH HEADER IMAGE */
+
+/* START: RENTABLE ROOM SECTION */
+.rr-room-row {
+    justify-content: space-around;
+}
+.rr-container {
+    margin-bottom: 50px;
+}
+.rr-room-box {
+    border-radius: 5px;
+}
+@media screen and (min-width: 992px) {
+    .rr-room-box {
+        max-width: 48%;
+    }
+}
+@media screen and (max-width: 991px) {
+    .rr-room-box {
+        margin-bottom: 25px;
+        max-width: 550px;
+    }
+}
+@media screen and (max-width: 575px) {
+    .rr-room-box {
+        border-radius: 0;
+    }
+    .rr-room-box img {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+    .rr-inner-row {
+        background-color: #fff;
+    }
+    .rr-img-col {
+        padding: 20px 20px 0 20px;
+    }
+    .rr-info-col {
+        padding-bottom: 10px;
+    }
+}
+@media screen and (min-width: 576px) {
+    .rr-room-box img {
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+    }
+    .rr-img-col {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+.rr-room-box a {
+    color: #222222;
+}
+.rr-room-box a:hover {
+    text-decoration: none;
+    color: initial;
+}
+.rr-room-box img {
+    max-width: 100%;
+}
+.rr-info-col {
+    padding-left: 20px;
+    padding-top: 15px;
+    background-color: #fff;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+.rr-info-col h3 {
+    font-size: 18px;
+    font-weight: 600;
+    word-break: break-word;
+    color: #222;
+}
+.rr-info-col p {
+    margin-bottom: 5px;
+}
+.rr-info-col p:last-of-type {
+    color: #f26b3a;
+}
+/* END: RENTABLE ROOM SECTION */
+
+/* START: JUMBO HEADER */
+@media screen and (max-width: 575px) {
+    .rr-jumbo {
+        margin-bottom: 25px!important;
+    }
+}
+/* END: JUMBO HEADER */
