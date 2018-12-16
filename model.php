@@ -162,20 +162,6 @@ function get_footer_content() {
         </footer>';
 }
 
-function test_db($pdo) {
-    $stmt = $pdo->prepare('SELECT * FROM users');
-    $stmt->execute();
-    $users = $stmt->fetchAll();
-    $users_exp = Array();
-
-    /* Create array with htmlspecialchars */
-    foreach ($users as $key => $value){
-        foreach ($value as $user_key => $user_input) {
-            $users_exp[$key][$user_key] = htmlspecialchars($user_input);
-        }
-    }
-    return $users_exp;
-}
 
 
 

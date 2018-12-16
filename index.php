@@ -71,7 +71,6 @@ if (new_route('/DDWT18_final/', 'get')) {
     /*page content */
     $page_subtitle = 'Living on my own!';
     $page_content = 'Boom Boom Boom Boom, I want you in my room!';
-    print_r(test_db($db));
 
     include use_template('home');
 }
