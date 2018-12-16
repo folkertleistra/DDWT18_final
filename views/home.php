@@ -25,7 +25,7 @@
 
                 <div class="col-lg-3 col-md-4 col-sm-6 home-btn-col">
                   <div class="home-btn hb-1">
-                      Test
+                      <img src="/DDWT18_final/resources/"
                   </div>
                 </div>
 
