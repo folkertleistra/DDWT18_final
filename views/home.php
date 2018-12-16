@@ -22,12 +22,19 @@
 
         <div class="container-fluid home-button-section">
             <div class="row justify-content-center">
-                 <div class="col-3 home-btn-col">
-                  One of three columns
-                </div>
+
                 <div class="col-3 home-btn-col">
-                  One of three columns
+                  <div class="home-btn">
+                      Test
+                  </div>
                 </div>
+
+                <div class="col-3 home-btn-col">
+                  <div class="home-btn">
+                      Test
+                  </div>
+                </div>
+
             </div>
         </div>
 

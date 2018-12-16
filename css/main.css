@@ -68,7 +68,7 @@ footer {
     position: relative;
     margin-bottom: 0;
 }
-.home-jumbo:before {
+.jumbotron:before {
     content:"";
     display: block;
     position: absolute;
@@ -78,14 +78,14 @@ footer {
     background-color: rgba(0, 0, 0, .4);
 }
 @media screen and (min-width: 992px) {
-    .home-jumbo {
+    .jumbotron {
         padding-top: 71px;
         padding-bottom: 71px;
     }
     .jumbotron {
         height: 500px;
     }
-    .home-jumbo:before {
+    .jumbotron:before {
         height: 500px;
     }
     .hero-container {
@@ -93,11 +93,11 @@ footer {
     }
 }
 @media screen and (min-width: 768px) {
-    .home-jumbo {
+    .jumbotron {
         padding-top: 71px;
         padding-bottom: 71px;
     }
-    .home-jumbo:before {
+    .jumbotron:before {
         height: 400px;
     }
     .jumbotron {
@@ -108,10 +108,10 @@ footer {
     }
 }
 @media screen and (max-width: 767px) {
-   .home-jumbo {
+   .jumbotron {
         height: 250px;
     }
-    .home-jumbo:before {
+    .jumbotron:before {
         height: 250px;
     }
     .hero-text h1 {

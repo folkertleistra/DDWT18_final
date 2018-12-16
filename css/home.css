@@ -6,7 +6,12 @@
 
 /* START: HOME BUTTON SECTION */
 .home-button-section {
+    padding-top: 25px;
+    padding-bottom: 25px;
     background-color: #fff;
     margin-bottom: 200px;
+}
+.home-btn {
+    background-color: #000;
 }
 /* END: HOME BUTTON SECTION */
