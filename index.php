@@ -80,7 +80,8 @@ if (new_route('/DDWT18_final/', 'get')) {
 elseif (new_route('/DDWT18_final/rentable-rooms/', 'get')) {
     /* page info */
     $page_title = 'Rooms for rent';
-    $navigation = get_navigation($nav_template, 2);
+    $state = 'login';
+    $navigation = get_navigation($nav_template, 2, $state);
     /*page content */
     $page_subtitle = 'Living on my own!';
     $page_content = 'Boom Boom Boom Boom, I want you in my room!';

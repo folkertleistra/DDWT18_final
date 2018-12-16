@@ -88,7 +88,6 @@ function get_navigation($template, $active_id, $state){
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">';
     foreach ($template as $name => $info) {
-        print_r($info['name']);
         if ($info['state'] == $state or $info['state'] == 'all') {
             /* makes the active url bold */
             if ($name == $active_id) {
