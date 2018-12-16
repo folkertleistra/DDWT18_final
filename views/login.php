@@ -2,44 +2,50 @@
 <html lang="en">
     <head>
         <?= $head_upper_content ?>
-        <link rel="stylesheet" href="/DDWT18_final/css/login.css">';
+        <link rel="stylesheet" href="/DDWT18_final/css/login.css">
         <title><?= $page_title ?></title>
     </head>
     <body>
-    <!-- Navigation Menu -->
-    <?= $navigation ?>
 
-    <!-- Content -->
 
-        <div class="jumbotron jumbotron-fluid home-jumbo">
-            <div class="container hero-container">
-                <div class="hero-text">
-                    <h1 class="display-4">ApartRent</h1>
-                    <h2 class="display-6">Lorem ipsum di amor</h2>
-                </div>
-            </div>
-        </div>
-
-        <div class="container-fluid home-button-section">
+        <!-- Content -->
+        <div class="container">
             <div class="row justify-content-center">
 
-            <div class="col-3 home-btn-col">
-                <div class="home-btn">
-                    Test
+                <div class="col-lg-4 col-md-6">
+                    <div class="main-logo">
+                        <div class="login-box">
+
+                            <div class="apr-logo">
+                                <img src="../resources/logo/apartrent-logo-square.png">
+                            </div>
+
+                            <div class="heading">
+                                <h4>Sign In</h4>
+                            </div>
+                            <form class="sign-in-form">
+                                <div class="form-row">
+                                    <label for="username"  class="sign-in-label" >Username</label>
+                                    <input type="text" name="password" placeholder="Enter Username" class="form-input" required>
+                                </div>
+                                <div class="form-row">
+                                    <label for="password" class="sign-in-label" >Password</label>
+                                    <input type="password" name="password" placeholder="Enter Password" class="form-input" required>
+                                </div>
+                                <div>
+
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="col-3 home-btn-col">
-                <div class="home-btn">
-                    Test
-                </div>
             </div>
-
-        </div>
         </div>
 
-        <!-- Footer -->
-        <?= $footer ?>
+
 
         <?= $imported_scripts ?>
     </body>
