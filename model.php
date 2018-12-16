@@ -169,6 +169,19 @@ function get_footer_content() {
 
 /**
  * @param $pdo
+ * @return mixed
+ */
+function count_owners($pdo) {
+    /* Create and execute SQL statement */
+    $stmt = $pdo->prepare('SELECT * FROM owner');
+    $stmt->execute();
+    $owners = $stmt->rowCount();
+
+    return $owners;
+}
+
+/**
+ * @param $pdo
  * @param $user_id
  * @return array
  */
