@@ -49,13 +49,13 @@ $nav_template =
         ),
         5 => Array(
             'name' => 'Login',
-            'url' => '/DDDWT18_final/login/',
+            'url' => '/DDWT18_final/login/',
             'state' => 'logout',
             'role' => 'all'
         ),
         6 => Array(
             'name' => 'Logout',
-            'url' => '/DDDWT18_final/logout/',
+            'url' => '/DDWT18_final/logout/',
             'state' => 'login',
             'role' => 'all'
         )
@@ -94,11 +94,16 @@ elseif (new_route('/DDWT18_final/room/', 'get')) {
     include use_template('');
 }
 
+elseif (new_route('/DDWT18_final/myaccount/', 'get')) {
+    echo 'myaccount';
+}
+
+
 /* THE FOLLOWING SECTION DEALS WITH USER AUTHENTICATION */
 
 /* Register a user. (GET) */
 elseif (new_route('/DDWT18_final/register/', 'get')) {
-
+    echo 'register';
 }
 
 /* Register a user. (POST) */
@@ -108,7 +113,7 @@ elseif (new_route('/DDWT18_final/register/', 'post')) {
 
 /* Login a user. (GET) */
 elseif (new_route('/DDWT18_final/login/', 'get')) {
-
+    echo 'login';
 }
 
 /* Login a user. (POST) */
