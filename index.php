@@ -118,6 +118,7 @@ elseif (new_route('/DDWT18_final/myaccount/', 'get')) {
 
 /* Register a user. (GET) */
 elseif (new_route('/DDWT18_final/register/', 'get')) {
+    $page_title = 'Register';
     include use_template('register');
 }
 
