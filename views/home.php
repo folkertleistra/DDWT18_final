@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <?= $head_upper_content ?>
-        <link rel="stylesheet" href="/DDWT18_final/css/home.css">';
+        <link rel="stylesheet" href="/DDWT18_final/css/home.css">
         <title><?= $page_title ?></title>
     </head>
     <body>
@@ -24,15 +24,21 @@
             <div class="row justify-content-center">
 
                 <div class="col-lg-3 col-md-4 col-sm-6 home-btn-col">
-                  <div class="home-btn hb-1">
-                      <img src="/DDWT18_final/resources/apartrent-logo"
-                  </div>
+                    <a href="#">
+                        <div class="home-btn hb-1">
+                            <img src="/DDWT18_final/resources/icons/my-account-icon.png">
+                            <p>All available rooms</p>
+                        </div>
+                    </a>
                 </div>
 
                 <div class="col-lg-3 col-md-4 col-sm-6 home-btn-col">
-                  <div class="home-btn hb-2">
-                      Test
-                  </div>
+                    <a href="#">
+                        <div class="home-btn hb-2">
+                          <img src="/DDWT18_final/resources/icons/my-account-icon.png">
+                          <p>My ApartRent</p>
+                        </div>
+                    </a>
                 </div>
 
             </div>
