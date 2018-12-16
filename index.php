@@ -118,7 +118,7 @@ elseif (new_route('/DDWT18_final/myaccount/', 'get')) {
 
 /* Register a user. (GET) */
 elseif (new_route('/DDWT18_final/register/', 'get')) {
-    echo 'register';
+    include use_template('register');
 }
 
 /* Register a user. (POST) */
