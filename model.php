@@ -162,9 +162,9 @@ function get_footer_content() {
 }
 
 /*
- * ----------------------
- * START: DATABASE SELECT
- * ----------------------
+ * ------------------
+ * START: CARDS COUNT
+ * ------------------
  */
 
 /**
@@ -179,6 +179,45 @@ function count_owners($pdo) {
 
     return $owners;
 }
+
+/**
+ * @param $pdo
+ * @return mixed
+ */
+function count_tenants($pdo) {
+    /* Create and execute SQL statement */
+    $stmt = $pdo->prepare('SELECT * FROM tenant');
+    $stmt->execute();
+    $tenants = $stmt->rowCount();
+
+    return $tenants;
+}
+
+/**
+ * @param $pdo
+ * @return mixed
+ */
+function count_rooms($pdo) {
+    /* Create and execute SQL statement */
+    $stmt = $pdo->prepare('SELECT * FROM rooms');
+    $stmt->execute();
+    $rooms = $stmt->rowCount();
+
+    return $rooms;
+}
+
+/*
+ * ----------------
+ * END: CARDS COUNT
+ * ----------------
+ */
+
+
+/*
+ * ----------------------
+ * START: DATABASE SELECT
+ * ----------------------
+ */
 
 /**
  * @param $pdo
@@ -219,6 +258,9 @@ function get_user_occupations($pdo, $user_id) {
     }
     return $occupations_exp;
 }
+
+
+
 
 
 /**
@@ -266,6 +308,7 @@ function get_rooms($pdo) {
  * END: DATABASE SELECT
  * --------------------
  */
+
 
 /*
  * ----------------------
