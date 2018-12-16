@@ -42,7 +42,6 @@ function connect_db($host, $db, $user, $pass){
  * @return bool
  *
  */
-
 function new_route($route_uri, $request_type){
     $route_uri_expl = array_filter(explode('/', $route_uri));
     $current_path_expl = array_filter(explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)));
@@ -163,10 +162,10 @@ function get_footer_content() {
 }
 
 /*
- * -------------------
- * START: DATABASE GET
- * -------------------
-*/
+ * ----------------------
+ * START: DATABASE SELECT
+ * ----------------------
+ */
 
 /**
  * @param $pdo
@@ -178,13 +177,14 @@ function get_user_info($pdo, $user_id) {
     $stmt = $pdo->prepare('SELECT * FROM users WHERE id = ?');
     $stmt->execute([$user_id]);
     $users = $stmt->fetchAll();
-    $users_exp = Array();
+    $user = $users[0];
+    $user_exp = Array();
 
     /* Create array with htmlspecialchars */
-    foreach ($users as $key => $value){
-        $users_exp[$key] = htmlspecialchars($value);
+    foreach ($user as $key => $value){
+        $user_exp[$key] = htmlspecialchars($value);
     }
-    return $users_exp;
+    return $user_exp;
 }
 
 /**
@@ -197,13 +197,14 @@ function get_room_info($pdo, $room_id) {
     $stmt = $pdo->prepare('SELECT * FROM rooms WHERE id = ?');
     $stmt->execute([$room_id]);
     $rooms = $stmt->fetchAll();
-    $rooms_exp = Array();
+    $room = $rooms[0];
+    $room_exp = Array();
 
     /* Create array with htmlspecialchars */
-    foreach ($rooms as $key => $value){
-        $rooms_exp[$key] = htmlspecialchars($value);
+    foreach ($room as $key => $value){
+        $room_exp[$key] = htmlspecialchars($value);
     }
-    return $rooms_exp;
+    return $room_exp;
 }
 
 /**
@@ -227,13 +228,24 @@ function get_rooms($pdo) {
 }
 
 /*
- * -----------------
- * END: DATABASE GET
- * -----------------
-*/
+ * --------------------
+ * END: DATABASE SELECT
+ * --------------------
+ */
+
+/*
+ * ----------------------
+ * START: DATABASE INSERT
+ * ----------------------
+ */
 
 
 
+/*
+ * --------------------
+ * END: DATABASE INSERT
+ * --------------------
+ */
 
 
 
