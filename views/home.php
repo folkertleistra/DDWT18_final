@@ -23,14 +23,14 @@
         <div class="container-fluid home-button-section">
             <div class="row justify-content-center">
 
-                <div class="col-3 home-btn-col">
-                  <div class="home-btn">
+                <div class="col-lg-3 col-md-4 col-sm-6 home-btn-col">
+                  <div class="home-btn hb-1">
                       Test
                   </div>
                 </div>
 
-                <div class="col-3 home-btn-col">
-                  <div class="home-btn">
+                <div class="col-lg-3 col-md-4 col-sm-6 home-btn-col">
+                  <div class="home-btn hb-2">
                       Test
                   </div>
                 </div>

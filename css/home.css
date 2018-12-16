@@ -12,6 +12,12 @@
     margin-bottom: 200px;
 }
 .home-btn {
-    background-color: #000;
+
+}
+.hb-1 {
+    background-color: #f26b3a;
+}
+.hb-2 {
+    background-color: #5c5cdc;
 }
 /* END: HOME BUTTON SECTION */
