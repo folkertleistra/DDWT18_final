@@ -76,7 +76,7 @@ function use_template($template){
  * @param array $navigation Array with as Key the page name and as Value the corresponding url
  * @return string html code that represents the navigation
  */
-function get_navigation($template, $active_id){
+function get_navigation($template, $active_id, $state){
     $navigation_exp = '
     <nav class="navbar fixed-top navbar-expand-lg navbar-light">
     <a class="navbar-brand">
@@ -88,16 +88,21 @@ function get_navigation($template, $active_id){
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">';
     foreach ($template as $name => $info) {
-        /* makes the active url bold */
-        if ($name == $active_id) {
-            $navigation_exp .= '<li class="nav-item active">';
-            $navigation_exp .= '<a class="nav-link" href="' . $template[$active_id]['url'] . '">' . $template[$active_id]['name'] . '</a>';
+        print_r($info['name']);
+        if ($info['state'] == $state or $info['state'] == 'all') {
+            /* makes the active url bold */
+            if ($name == $active_id) {
+                $navigation_exp .= '<li class="nav-item active">';
+                $navigation_exp .= '<a class="nav-link" href="' . $template[$active_id]['url'] . '">' . $template[$active_id]['name'] . '</a>';
+            }
+            else {
+                $navigation_exp .= '<li class="nav-item">';
+                $navigation_exp .= '<a class="nav-link" href="' . $info['url'] . '">' . $info['name'] . '</a>';
+            }
+            $navigation_exp .= '</li>';
+
         }
-        else {
-            $navigation_exp .= '<li class="nav-item">';
-            $navigation_exp .= '<a class="nav-link" href="' . $info['url'] . '">' . $info['name'] . '</a>';
-        }
-        $navigation_exp .= '</li>';
+
     }
     $navigation_exp .= '
     </ul>

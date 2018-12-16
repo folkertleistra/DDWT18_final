@@ -67,7 +67,8 @@ $nav_template =
 if (new_route('/DDWT18_final/', 'get')) {
     /* page info */
     $page_title = 'Home';
-    $navigation = get_navigation($nav_template, 1);
+    $state = 'login';
+    $navigation = get_navigation($nav_template, 1, $state);
     /*page content */
     $page_subtitle = 'Living on my own!';
     $page_content = 'Boom Boom Boom Boom, I want you in my room!';
