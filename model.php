@@ -168,6 +168,7 @@ function get_footer_content() {
  */
 
 /**
+ * Returns number of owners in the database
  * @param $pdo
  * @return mixed
  */
@@ -181,6 +182,7 @@ function count_owners($pdo) {
 }
 
 /**
+ * Returns number of tenants in the database
  * @param $pdo
  * @return mixed
  */
@@ -194,6 +196,7 @@ function count_tenants($pdo) {
 }
 
 /**
+ * Returns number of available rooms in the database
  * @param $pdo
  * @return mixed
  */

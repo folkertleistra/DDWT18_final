@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 16, 2018 at 01:55 PM
+-- Generation Time: Dec 16, 2018 at 07:23 PM
 -- Server version: 5.6.34-log
 -- PHP Version: 7.2.1
 
@@ -122,6 +122,7 @@ CREATE TABLE `rooms` (
   `size` int(11) NOT NULL,
   `type` varchar(255) NOT NULL,
   `price` int(11) NOT NULL,
+  `description` varchar(255) NOT NULL,
   `image` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -129,10 +130,10 @@ CREATE TABLE `rooms` (
 -- Dumping data for table `rooms`
 --
 
-INSERT INTO `rooms` (`id`, `city`, `postal_code`, `street`, `street_number`, `addition`, `size`, `type`, `price`, `image`) VALUES
-(1, 'Groningen', '1234GR', 'Herestraat', 1, NULL, 25, 'studio', 500, NULL),
-(2, 'Klijndijk', '1234KL', 'Melkweg', 2, 'B', 100, 'flatwoning', 600, NULL),
-(3, 'Randwijk', '1234RA', 'Bredeweg', 3, NULL, 200, 'stal', 20, NULL);
+INSERT INTO `rooms` (`id`, `city`, `postal_code`, `street`, `street_number`, `addition`, `size`, `type`, `price`, `description`, `image`) VALUES
+(1, 'Groningen', '1234GR', 'Herestraat', 1, NULL, 25, 'studio', 500, 'Ruime studio in het centrum van Groningen.', NULL),
+(2, 'Klijndijk', '1234KL', 'Melkweg', 2, 'B', 100, 'flatwoning', 600, 'Ruime woning op de 40ste etage in de gloednieuwe flat in klijndijk.', NULL),
+(3, 'Randwijk', '1234RA', 'Bredeweg', 3, NULL, 200, 'stal', 20, 'Ruime woning, landelijk gelegen.', NULL);
 
 -- --------------------------------------------------------
 
