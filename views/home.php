@@ -23,16 +23,16 @@
         <div class="container-fluid home-button-section">
             <div class="row justify-content-center">
 
-                <div class="col-lg-3 col-md-4 col-sm-6 home-btn-col">
+                <div class="home-btn-col">
                     <a href="#">
                         <div class="home-btn hb-1">
-                            <img src="/DDWT18_final/resources/icons/my-account-icon.png">
+                            <img src="/DDWT18_final/resources/icons/appartments-icon.png">
                             <p>All available rooms</p>
                         </div>
                     </a>
                 </div>
 
-                <div class="col-lg-3 col-md-4 col-sm-6 home-btn-col">
+                <div class="home-btn-col">
                     <a href="#">
                         <div class="home-btn hb-2">
                           <img src="/DDWT18_final/resources/icons/my-account-icon.png">

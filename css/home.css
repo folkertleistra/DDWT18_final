@@ -5,16 +5,10 @@
 /* END: FULLWIDTH HEADER IMAGE */
 
 /* START: HOME BUTTON SECTION */
-.home-button-section {
-
-}
 .home-button-section .row {
     padding-top: 25px;
     padding-bottom: 25px;
     background-color: #fff;
-}
-.home-btn {
-    padding: 20px;
 }
 .hb-1 {
     background-color: #f26b3a;
@@ -24,15 +18,39 @@
 }
 .home-btn img {
     max-height: 40px;
-    padding-right: 15px;
-    float: left;
+    padding-right: 20px;
 }
 .home-btn {
+    padding: 15px 20px 15px 20px;
     border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 320px;
+    min-width: 293px;
 }
 .home-btn p {
     color: #fff;
-    height: 50px;
+    margin-bottom: 0;
+    font-size: 22px;
+}
+.home-btn-col {
+    display: flex;
+    justify-content: center;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.home-btn-col a:hover {
+    text-decoration: none;
+}
+
+@media screen and (max-width: 628px) {
+    .hb-1 {
+        margin-bottom: 15px;
+    }
+    .hb-2 {
+        justify-content: left;
+    }
 }
 /* END: HOME BUTTON SECTION */
 
