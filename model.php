@@ -79,7 +79,7 @@ function get_navigation($template, $active_id, $state){
     $navigation_exp = '
     <nav class="navbar fixed-top navbar-expand-lg navbar-light">
     <a class="navbar-brand">
-        <img src="/DDWT18_final/resources/apartrent-logo.png" class="navbar-logo" alt="">
+        <img src="/DDWT18_final/resources/logo/apartrent-logo.png" class="navbar-logo" alt="">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -155,7 +155,7 @@ function get_imported_scripts() {
 function get_footer_content() {
     return '<footer class="page-footer font-small">
         <div class="footer-img-wrapper">
-            <img src="/DDWT18_final/resources/apartrent-logo.png" class="navbar-logo" alt="">
+            <img src="/DDWT18_final/resources/logo/apartrent-logo.png" class="navbar-logo" alt="">
         </div>
         <div class="footer-copyright text-center py-3">© <?php echo date("Y") ?> Copyright - ApartRent</div>
         </footer>';
