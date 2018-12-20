@@ -51,6 +51,15 @@ function new_route($route_uri, $request_type){
 }
 
 /**
+ * Changes the HTTP Header to a given location
+ * @param string $location location to be redirected to
+ */
+function redirect($location){
+    header(sprintf('Location: %s', $location));
+    die();
+}
+
+/**
  * Creates a new navigation array item using url and active status
  * @param string $url The url of the navigation item
  * @param bool $active Set the navigation item to active or inactive
@@ -360,9 +369,14 @@ function get_rooms($pdo) {
  * ----------------------
  */
 
+/**
+ * Adds a new user to the database and logs them in
+ * @param $pdo
+ * @param $form_data
+ * @return array
+ */
 function register_user($pdo, $form_data) {
     /* Check if all fields are set */
-    /* TODO: fix role check */
     if (
         empty($form_data['role']) or
         empty($form_data['firstname']) or
@@ -401,7 +415,7 @@ function register_user($pdo, $form_data) {
         ];
     }
 
-    /* Return error message for existing username */
+    /* Return error message for existing user */
     if ( !empty($user_exists) ) {
         return [
             'type' => 'danger',
@@ -429,6 +443,34 @@ function register_user($pdo, $form_data) {
         ];
     }
 
+    /* Add user id to correct group (owner/tenant) */
+    if ($form_data['role'] == 'owner') {
+        try {
+            $stmt = $pdo->prepare('INSERT INTO owner (id) VALUES (?)');
+            $stmt->execute([$user_id]);
+        } catch (PDOException $e) {
+            return [
+                'type' => 'danger',
+                'message' => sprintf('There was an error: %s', $e->getMessage())
+            ];
+        }
+    } elseif ($form_data['role'] == 'tenant') {
+        try {
+            $stmt = $pdo->prepare('INSERT INTO tenant (id) VALUES (?)');
+            $stmt->execute([$user_id]);
+        } catch (PDOException $e) {
+            return [
+                'type' => 'danger',
+                'message' => sprintf('There was an error: %s', $e->getMessage())
+            ];
+        }
+    } else {
+        return [
+            'type' => 'danger',
+            'message' => sprintf('No correct role was found.')
+        ];
+    }
+
     /* Login user and redirect */
     session_start();
     $_SESSION['user_id'] = $user_id;
@@ -437,6 +479,96 @@ function register_user($pdo, $form_data) {
         'message' => sprintf('%s, your account was successfully created!', get_user_username($pdo, $_SESSION['user_id']))
     ];
     redirect(sprintf('/DDWT18_final/myaccount/?error_msg=%s', json_encode($feedback)));
+}
+
+/**
+ * Adds a new room to the database
+ * @param $pdo
+ * @param $form_data
+ * @return array
+ */
+function add_room($pdo, $form_data) {
+    /* Check if all fields are set */
+    if (
+        empty($form_data['city']) or
+        empty($form_data['postal_code']) or
+        empty($form_data['street']) or
+        empty($form_data['street_number']) or
+        empty($form_data['size']) or
+        empty($form_data['type']) or
+        empty($form_data['price']) or
+        empty($form_data['description'])
+    ) {
+        return [
+            'type' => 'danger',
+            'message' => 'Please fill in all fields marked with an \'*\' (asterisk).'
+        ];
+    }
+
+    /* Check data type for the phone field */
+    if (!is_numeric($form_data['street_number'])) {
+        return [
+            'type' => 'danger',
+            'message' => 'Please only enter numbers in the \'Street number\' field.'
+        ];
+    }
+
+    /* Check data type for the size field */
+    if (!is_numeric($form_data['size'])) {
+        return [
+            'type' => 'danger',
+            'message' => 'Please only enter numbers in the \'Size\' field.'
+        ];
+    }
+
+    /* Check data type for the price field */
+    if (!is_numeric($form_data['price'])) {
+        return [
+            'type' => 'danger',
+            'message' => 'Please only enter numbers in the \'Price\' field.'
+        ];
+    }
+
+    /* Check if room address already exists */
+    try {
+        $stmt = $pdo->prepare('SELECT * FROM rooms WHERE city = ? AND postal_code = ? AND street = ? AND street_number = ? AND addition = ?');
+        $stmt->execute([$form_data['city'], $form_data['postal_code'], $form_data['street'], $form_data['street_number'], $form_data['addition']]);
+        $room_exists = $stmt->rowCount();
+    } catch (\PDOException $e) {
+        return [
+            'type' => 'danger',
+            'message' => sprintf('There was an error: %s', $e->getMessage())
+        ];
+    }
+
+    /* Return error message for existing address */
+    if ( !empty($room_exists) ) {
+        return [
+            'type' => 'danger',
+            'message' => 'The address you entered already exists.'
+        ];
+    }
+
+    /* Save room to the database */
+    try {
+        $stmt = $pdo->prepare('INSERT INTO rooms (city, postal_code, street, street_number, addition, size, type, price, 
+                               description, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        $stmt->execute([$form_data['city'], $form_data['postal_code'], $form_data['street'], $form_data['street_number'], $form_data['addition'],
+            $form_data['size'], $form_data['type'], $form_data['price'], $form_data['description'], $form_data['image']]);
+        $room_id = $pdo->lastInsertId();
+    } catch (PDOException $e) {
+        return [
+            'type' => 'danger',
+            'message' => sprintf('There was an error: %s', $e->getMessage())
+        ];
+    }
+
+    /* Redirect to room page */
+    $feedback = [
+        'type' => 'success',
+        'message' => sprintf('The room was successfully created!')
+    ];
+    redirect(sprintf('/DDWT18_final/room/?room_id=%s&error_msg=%s', $room_id, json_encode($feedback)));
 }
 
 /*
