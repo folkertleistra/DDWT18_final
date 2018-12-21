@@ -135,6 +135,7 @@
     background-color: #f26b3a;
     border-radius: 4px;
     margin-top: 25px;
+    margin-bottom: 15px;
 }
 
 .form-box a {
@@ -174,6 +175,10 @@
     border: 1px solid #f2f2f2;
 }
 
+.inputGroup:first-child {
+    border-bottom: none;
+
+}
 .inputGroup label {
     padding: 12px 30px;
     width: 100%;
