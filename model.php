@@ -459,6 +459,14 @@ function register_user($pdo, $form_data) {
     /* Set date to proper form */
     $birthdate = date("Y-m-d", strtotime($form_data['birthdate']));
 
+    /* Check if role has been set */
+    if (!($form_data['radio'] == 'owner' or $form_data['radio'] == 'tenant')) {
+        return [
+            'type' => 'danger',
+            'message' => sprintf('No correct role was found.')
+        ];
+    }
+
     /* Save user to the database */
     try {
         $stmt = $pdo->prepare('INSERT INTO users (username, password, firstname, lastname, email, phone, birthdate, language, 
@@ -474,9 +482,9 @@ function register_user($pdo, $form_data) {
     }
 
     /* Add user id to correct group (owner/tenant) */
-    if ($form_data['role'] == 'owner') {
+    if ($form_data['radio'] == 'owner') {
         try {
-            $stmt = $pdo->prepare('INSERT INTO owner (id) VALUES (?)');
+            $stmt = $pdo->prepare('INSERT INTO owner (owner_id) VALUES (?)');
             $stmt->execute([$user_id]);
         } catch (PDOException $e) {
             return [
@@ -484,9 +492,9 @@ function register_user($pdo, $form_data) {
                 'message' => sprintf('There was an error: %s', $e->getMessage())
             ];
         }
-    } elseif ($form_data['role'] == 'tenant') {
+    } elseif ($form_data['radio'] == 'tenant') {
         try {
-            $stmt = $pdo->prepare('INSERT INTO tenant (id) VALUES (?)');
+            $stmt = $pdo->prepare('INSERT INTO tenant (tenant_id) VALUES (?)');
             $stmt->execute([$user_id]);
         } catch (PDOException $e) {
             return [
