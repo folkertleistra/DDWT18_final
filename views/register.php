@@ -55,18 +55,19 @@
                                     </div>
                                 </div>-->
                                 <section class="radio-section">
+                                    <h4>Role</h4>
                                     <div>
                                         <input type="radio" id="option1"  name="radio-option" value="tenant" checked >
                                         <label for="option1">
-                                            <h2>Tenant</h2>
-                                            <p>Select this option when you are looking for a room to rent.</p>
+                                            <h5>Tenant</h5>
+                                            <p>Select this option for tenant</p>
                                         </label>
                                     </div>
                                     <div>
                                         <input type="radio" id="option2" name="radio-option" value="owner" >
                                         <label for="option2">
-                                            <h2>Owner</h2>
-                                            <p>Select this option if you want rent out your own places.</p>
+                                            <h5>Owner</h5>
+                                            <p>Select this option for owner.</p>
                                         </label>
                                     </div>
                                 </section>
