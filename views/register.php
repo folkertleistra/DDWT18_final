@@ -41,7 +41,7 @@
                                     <label for="email"  class="sign-in-register-label" >E-mail</label>
                                     <input type="email" name="email" placeholder="name@mail.com" class="form-input" required>
                                 </div>
-                                <div class="radio-section">
+                                <div class="form-section">
                                     <p>Role</p>
                                     <div class="inputGroup">
                                         <input id="radio1" name="radio" type="radio" value="owner"/>
@@ -87,7 +87,7 @@
                                 </div>
                             </div>
                             <div class="form-row">
-                                <button type="submit" id="sign-in-btn">Sign In</button>
+                                <button type="submit" id="sign-in-btn">Register</button>
                             </div>
                             <a href="/DDWT18_final/"> Return to the Homepage</a>
 
