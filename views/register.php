@@ -76,10 +76,14 @@
                                         <input type="text" name="language" placeholder="Language" class="form-input" required>
                                     </div>
                                     <div class="form-row">
+                                        <label for="occupation"  class="sign-in-register-label" >Occupation</label>
+                                        <input type="text" name="occupation" placeholder="Occupation" class="form-input" required>
+                                    </div>
+                                    <div class="form-row">
                                         <label for="biography"  class="sign-in-register-label" >Biography</label>
                                         <textarea class="form-input" placeholder="Enter something about yourself" name="biography" required></textarea>
-
                                     </div>
+
                                 </div>
                             </div>
                             <div class="form-row">
