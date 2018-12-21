@@ -26,20 +26,7 @@
                                 <a href="/DDWT18_final/login/"> Sign In </a>
                             </div>
                         </div>
-                        <form class="sign-in-register-form">
-                            <div class="form-section">
-                                <p>Role</p>
-                                <div class="form-row">
-                                    <div class="checkbox-owner">
-                                        <label for="Role">Owner</label>
-                                        <input type="radio" value="owner" name="role" required>
-                                    </div>
-                                    <div class="checkbox-tenant">
-                                        <label for="role">Tenant</label>
-                                        <input type="radio" value="tenant" name="role" required>
-                                    </div>
-                                </div>
-                            </div>
+                        <form action="/DDWT18_final/register/" method="POST" class="sign-in-register-form">
                             <div class="form-section">
                                 <p>Account Details</p>
                                 <div class="form-row">
@@ -53,6 +40,17 @@
                                 <div class="form-row">
                                     <label for="email"  class="sign-in-register-label" >E-mail</label>
                                     <input type="email" name="email" placeholder="name@mail.com" class="form-input" required>
+                                </div>
+                                <div class="form-section">
+                                    <p>Role</p>
+                                    <div class="inputGroup">
+                                        <input id="radio1" name="radio" type="radio"/>
+                                        <label for="radio1">Owner</label>
+                                    </div>
+                                    <div class="inputGroup">
+                                        <input id="radio2" name="radio" type="radio"/>
+                                        <label for="radio2">Tenant</label>
+                                    </div>
                                 </div>
 
                                 <div class="form-section">
@@ -79,7 +77,7 @@
                                     </div>
                                     <div class="form-row">
                                         <label for="biography"  class="sign-in-register-label" >Biography</label>
-                                        <textarea class="form-input" placeholder="Enter something about yourself"  name="biography" required></textarea>
+                                        <textarea class="form-input" placeholder="Enter something about yourself" name="biography" required></textarea>
 
                                     </div>
                                 </div>
