@@ -135,6 +135,7 @@
     background-color: #f26b3a;
     border-radius: 4px;
     margin-top: 25px;
+    margin-bottom: 15px;
 }
 
 .form-box a {
@@ -170,8 +171,13 @@
 .inputGroup {
     background-color: #fff;
     display: block;
-    margin: 10px 0;
     position: relative;
+    border: 1px solid #f2f2f2;
+}
+
+.inputGroup:first-child {
+    border-bottom: none;
+
 }
 .inputGroup label {
     padding: 12px 30px;
@@ -184,11 +190,14 @@
     z-index: 2;
     transition: color 200ms ease-in;
     overflow: hidden;
+    margin: 0px;
 }
+
 .inputGroup label:before {
-    width: 10px;
-    height: 10px;
+    width: 15px;
+    height: 5px;
     border-radius: 50%;
+    border: 1px solid #f2f2f2;
     content: '';
     background-color: #5562eb;
     position: absolute;
@@ -200,6 +209,7 @@
     opacity: 0;
     z-index: -1;
 }
+
 .inputGroup label:after {
     width: 24px;
     height: 24px;
@@ -215,18 +225,22 @@
     cursor: pointer;
     transition: all 200ms ease-in;
 }
+
 .inputGroup input:checked ~ label {
     color: #fff;
 }
+
 .inputGroup input:checked ~ label:before {
     -webkit-transform: translate(-50%, -50%) scale3d(56, 56, 1);
     transform: translate(-50%, -50%) scale3d(56, 56, 1);
     opacity: 1;
 }
+
 .inputGroup input:checked ~ label:after {
     background-color: #f26b3a;
     border-color: #ffffff;
 }
+
 .inputGroup input {
     width: 32px;
     height: 32px;
@@ -240,6 +254,5 @@
     cursor: pointer;
     visibility: hidden;
 }
-
 
 
