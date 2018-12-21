@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <?= $head_upper_content ?>
-        <link rel="stylesheet" href="/DDWT18_final/css/login-register.css">
+        <link rel="stylesheet" href="/DDWT18_final/css/login-register-backup.css">
         <title><?= $page_title ?></title>
     </head>
     <body>
