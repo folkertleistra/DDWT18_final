@@ -166,7 +166,7 @@
 /* END OF STYLING FOR THE DATE PLACEHOLDER */
 
 /* UNDER CONSTRUCTION */
-
+/* STYLING FOR THE RADIO CHECKBOXES: SOURCE: https://freefrontend.com/css-radio-buttons/ */
 .inputGroup {
     background-color: #fff;
     display: block;
@@ -201,8 +201,8 @@
     z-index: -1;
 }
 .inputGroup label:after {
-    width: 32px;
-    height: 32px;
+    width: 24px;
+    height: 24px;
     content: '';
     border: 2px solid #f26b3a;
     border-radius: 50%;
@@ -239,30 +239,6 @@
     transform: translateY(-50%);
     cursor: pointer;
     visibility: hidden;
-}
-
-.form {
-    padding: 0 16px;
-    max-width: 550px;
-    margin: 50px auto;
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 36px;
-}
-
-
-*::before,
-*::after {
-    box-sizing: inherit;
-}
-
-html {
-    box-sizing: border-box;
-}
-
-code {
-    background-color: #9AA3AC;
-    padding: 0 8px;
 }
 
 
