@@ -26,7 +26,7 @@
                                     <a href="/DDWT18_final/register/"> Register Now </a>
                                 </div>
                             </div>
-                            <form class="sign-in-register-form">
+                            <form action="/DDWT18_final/login/" method="POST" class="sign-in-register-form">
                                 <div class="form-row-sign-in">
                                     <label for="username"  class="sign-in-register-label" >Username</label>
                                     <input type="text" name="username" placeholder="Enter Username" class="form-input" required>

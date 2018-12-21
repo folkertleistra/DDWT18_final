@@ -113,7 +113,7 @@ elseif (new_route('/DDWT18_final/myaccount/', 'get')) {
     echo 'myaccount';
     /* Check if logged in */
     if ( !check_login() ) {
-        redirect('/DDWT18/week2/login/');
+        redirect('/DDWT18_final/login/');
     }
 
     /* Get error message from POST route */
@@ -151,17 +151,30 @@ elseif (new_route('/DDWT18_final/register/', 'post')) {
 elseif (new_route('/DDWT18_final/login/', 'get')) {
     $navigation = get_navigation($nav_template, 5, $state);
     $page_title = 'Login';
+
+    /* Get error message from POST route */
+    if (isset($_GET['error_msg'])){
+        $error_msg = get_error($_GET['error_msg']);
+    }
+
     include use_template('login');
 }
 
 /* Login a user. (POST) */
 elseif (new_route('/DDWT18_final/login/', 'post')) {
+    /* Login user */
+    $error_msg = login_user($db, $_POST);
 
+    /* Redirect to homepage */
+    redirect(sprintf('/DDWT18_final/myaccount/?id=%s', $_POST['id']));
 }
 
 /* Logout a user. (GET) */
 elseif (new_route('/DDWT18_final/logout/', 'get')) {
+    $error_msg = logout_user();
 
+    /* Redirect to homepage */
+    redirect(sprintf('/DDWT18_final/?error_msg=%s', json_encode($error_msg)));
 }
 
 /* END SECTION OF USER AUTHENTICATION */

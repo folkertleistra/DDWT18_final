@@ -128,7 +128,6 @@ function p_print($input){
     echo '</pre>';
 }
 
-
 /**
  * Returns the HTML head upper content in HTML code
  * @return string
@@ -148,7 +147,6 @@ function get_head_upper_content() {
         <!-- Custom CSS -->
         <link rel="stylesheet" href="/DDWT18_final/css/main.css">';
 }
-
 
 /**
  * Returns imported scripts HTML
@@ -171,19 +169,6 @@ function get_footer_content() {
 }
 
 /**
- * Check if a user is logged in
- * @return bool
- */
-function check_login(){
-    session_start();
-    if (isset($_SESSION['user_id'])){
-        return True;
-    } else {
-        return False;
-    }
-}
-
-/**
  * Create HTML alert code with information about the success or failure
  * @param bool $type True if success, False if failure
  * @param string $message Error/Success message
@@ -197,6 +182,114 @@ function get_error($feedback){
         </div>';
     return $error_exp;
 }
+
+
+/*
+ * --------------
+ * START: SESSION
+ * --------------
+ */
+
+/**
+ * Check if a user is logged in
+ * @return bool
+ */
+function check_login(){
+    session_start();
+    if (isset($_SESSION['user_id'])){
+        return True;
+    } else {
+        return False;
+    }
+}
+
+/**
+ * Get current user id
+ * @return bool current user id or False if not logged in
+ */
+function get_user_id(){
+    session_start();
+    if (isset($_SESSION['user_id'])){
+        return $_SESSION['user_id'];
+    } else {
+        return False;
+    }
+}
+
+/**
+ * Start a session for a user
+ * @param $pdo
+ * @param $form_data
+ * @return array
+ */
+function login_user($pdo, $form_data){
+    /* Check if all fields are set */
+    if (
+        empty($form_data['username']) or
+        empty($form_data['password'])
+    ) {
+        return [
+            'type' => 'danger',
+            'message' => 'Please enter your username and password.'
+        ];
+    }
+
+    /* Check if user exists */
+    try {
+        $stmt = $pdo->prepare('SELECT * FROM users WHERE username = ?');
+        $stmt->execute([$form_data['username']]);
+        $user_info = $stmt->fetch();
+    } catch (\PDOException $e) {
+        return [
+            'type' => 'danger',
+            'message' => sprintf('There was an error: %s', $e->getMessage())
+        ];
+    }
+    /* Return error message for wrong username */
+    if (empty($user_info)) {
+        return [
+            'type' => 'danger',
+            'message' => 'The username you entered does not exist.'
+        ];
+    }
+
+    /* Check password */
+    if (!password_verify($form_data['password'], $user_info['password'])) {
+        return [
+            'type' => 'danger',
+            'message' => 'The password you entered is incorrect.'
+        ];
+    } else {
+        session_start();
+        $_SESSION['user_id'] = $user_info['id'];
+        $feedback = [
+            'type' => 'success',
+            'message' => sprintf('%s, you were logged in successfully.', get_user_username($pdo, $_SESSION['user_id']))
+        ];
+        redirect(sprintf('/DDWT18_final/myaccount/?error_msg=%s', json_encode($feedback)));
+    }
+}
+
+/**
+ * Logout user
+ * @return array
+ */
+function logout_user(){
+    session_start();
+    session_unset();
+    session_destroy();
+    $feedback = [
+        'type' => 'success',
+        'message' => sprintf('You were logged out successfully.')
+    ];
+    return $feedback;
+}
+
+/*
+ * ------------
+ * END: SESSION
+ * ------------
+ */
 
 
 /*
@@ -616,4 +709,31 @@ function add_room($pdo, $form_data) {
  */
 
 
+/*
+ * ----------------------
+ * START: DATABASE UPDATE
+ * ----------------------
+ */
 
+
+
+/*
+ * --------------------
+ * END: DATABASE UPDATE
+ * --------------------
+ */
+
+
+/*
+ * ----------------------
+ * START: DATABASE REMOVE
+ * ----------------------
+ */
+
+
+
+/*
+ * --------------------
+ * END: DATABASE REMOVE
+ * --------------------
+ */
