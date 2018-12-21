@@ -54,6 +54,7 @@
                                     <label for="email"  class="sign-in-register-label" >E-mail</label>
                                     <input type="email" name="email" placeholder="name@mail.com" class="form-input" required>
                                 </div>
+
                                 <div class="form-section">
                                     <p>Personal Details</p>
                                     <div class="form-row">
@@ -71,6 +72,15 @@
                                     <div class="form-row">
                                         <label for="phone" class="sign-in-register-label" >Phone Number</label>
                                         <input type="number" name="phone" placeholder="0612345678" class="form-input" required>
+                                    </div>
+                                    <div class="form-row">
+                                        <label for="language"  class="sign-in-register-label" >Language</label>
+                                        <input type="text" name="language" placeholder="Language" class="form-input" required>
+                                    </div>
+                                    <div class="form-row">
+                                        <label for="biography"  class="sign-in-register-label" >Biography</label>
+                                        <textarea class="form-input" placeholder="Enter something about yourself"  name="biography" required></textarea>
+
                                     </div>
                                 </div>
                             </div>

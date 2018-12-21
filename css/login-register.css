@@ -102,17 +102,23 @@
     padding-left: 10px;
 }
 
+.form-row-sign-in input:focus {
+    outline: 0;
+    border: 1px solid #f26b3a;
+}
+/* REDUNDANT CODE HIERONDER */
 .form-row input:focus {
     outline: 0;
     border: 1px solid #f26b3a;
 }
 
-.sign-in-register-form button {
+#sign-in-btn {
     width: 100%;
     color: white;
     height: 40px;
     background-color: #f26b3a;
     border-radius: 4px;
+    margin-top: 25px;
 }
 
 .form-box a {
