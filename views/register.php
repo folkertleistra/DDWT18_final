@@ -2,7 +2,9 @@
 <html lang="en">
     <head>
         <?= $head_upper_content ?>
+
         <link rel="stylesheet" href="/DDWT18_final/css/login-register.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <title><?= $page_title ?></title>
     </head>
     <body>
@@ -41,7 +43,7 @@
                                     <label for="email"  class="sign-in-register-label" >E-mail</label>
                                     <input type="email" name="email" placeholder="name@mail.com" class="form-input" required>
                                 </div>
-                                <div class="form-section">
+                                <!--<div class="form-section">
                                     <p>Role</p>
                                     <div class="inputGroup">
                                         <input id="radio1" name="radio" type="radio" value="owner"/>
@@ -51,7 +53,23 @@
                                         <input id="radio2" name="radio" type="radio" value="tenant"/>
                                         <label for="radio2">Tenant</label>
                                     </div>
-                                </div>
+                                </div>-->
+                                <section class="radio-section">
+                                    <div>
+                                        <input type="radio" id="option1"  name="radio-option" value="tenant" checked >
+                                        <label for="option1">
+                                            <h2>Tenant</h2>
+                                            <p>Select this option when you are looking for a room to rent.</p>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="option2" name="radio-option" value="owner" >
+                                        <label for="option2">
+                                            <h2>Owner</h2>
+                                            <p>Select this option if you want rent out your own places.</p>
+                                        </label>
+                                    </div>
+                                </section>
 
                                 <div class="form-section">
                                     <p>Personal Details</p>

@@ -168,6 +168,7 @@
 
 /* UNDER CONSTRUCTION */
 /* STYLING FOR THE RADIO CHECKBOXES: SOURCE: https://freefrontend.com/css-radio-buttons/ */
+/*
 .inputGroup {
     background-color: #fff;
     display: block;
@@ -214,7 +215,7 @@
     width: 24px;
     height: 24px;
     content: '';
-    border: 2px solid #f26b3a;
+    border: 1px solid #f26b3a;
     border-radius: 50%;
     z-index: 2;
     position: absolute;
@@ -254,5 +255,76 @@
     cursor: pointer;
     visibility: hidden;
 }
+*/
+
+/* OPTION 2 FORR RADIO BUTTONS */
+
+.radio-section  {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+section > div {
+    flex: 1;
+    padding: 0.5rem;
+}
+
+/* remove the original radio button */
+.radio-section input {
+    display: none;
+}
+ input:not(:disabled) ~ label {
+    cursor: pointer;
+}
+
+ .radio-section p {
+     color: black;
+ }
+input[type="radio"]:disabled ~ label {
+    color: #bcc2bf;
+    border-color: #bcc2bf;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+/* styling for the radio sections */
+.radio-section label {
+    height: 100%;
+    display: block;
+    background: white;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    position: relative;
+}
+
+input[type="radio"]:checked + label {
+    background: #fff;
+    color: #f26b3a;
+    border: 1px solid #f26b3a;
+
+
+}
+
+.radio-section input:checked + label:after {
+    color: #f26b3a;
+    border: 1px solid #f26b3a;
+    content: "\f00c";
+    font-family: 'FontAwesome';
+    font-size: 24px;
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 50px;
+    width: 50px;
+    line-height: 50px;
+    text-align: center;
+    border-radius: 50%;
+    background: white;
+}
+
 
 
