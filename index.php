@@ -137,17 +137,6 @@ elseif (new_route('/DDWT18_final/register/', 'get')) {
     include use_template('register');
 }
 
-elseif (new_route('/DDWT18_final/register-backup/', 'get')) {
-    $page_title = 'Register';
-
-    /* Get error message from POST route */
-    if (isset($_GET['error_msg'])){
-        $error_msg = get_error($_GET['error_msg']);
-    }
-
-    include use_template('register-backup');
-}
-
 /* Register a user. (POST) */
 elseif (new_route('/DDWT18_final/register/', 'post')) {
     print_r($_POST);
