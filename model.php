@@ -19,7 +19,7 @@ error_reporting(E_ALL);
  * @param string $pass database password
  * @return pdo object
  */
-function connect_db($host, $db, $user, $pass){
+function connect_db($host, $db, $user, $pass) {
     $charset = 'utf8mb4';
 
     $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
@@ -42,7 +42,7 @@ function connect_db($host, $db, $user, $pass){
  * @return bool
  *
  */
-function new_route($route_uri, $request_type){
+function new_route($route_uri, $request_type) {
     $route_uri_expl = array_filter(explode('/', $route_uri));
     $current_path_expl = array_filter(explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)));
     if ($route_uri_expl == $current_path_expl && $_SERVER['REQUEST_METHOD'] == strtoupper($request_type)) {
@@ -54,7 +54,7 @@ function new_route($route_uri, $request_type){
  * Changes the HTTP Header to a given location
  * @param string $location location to be redirected to
  */
-function redirect($location){
+function redirect($location) {
     header(sprintf('Location: %s', $location));
     die();
 }
@@ -65,7 +65,7 @@ function redirect($location){
  * @param bool $active Set the navigation item to active or inactive
  * @return array
  */
-function na($url, $active){
+function na($url, $active) {
     return [$url, $active];
 }
 
@@ -74,7 +74,7 @@ function na($url, $active){
  * @param string $template filename of the template without extension
  * @return string
  */
-function use_template($template){
+function use_template($template) {
     $template_doc = sprintf("views/%s.php", $template);
     return $template_doc;
 }
@@ -84,7 +84,7 @@ function use_template($template){
  * @param array $navigation Array with as Key the page name and as Value the corresponding url
  * @return string html code that represents the navigation
  */
-function get_navigation($template, $active_id, $state){
+function get_navigation($template, $active_id, $state) {
     $navigation_exp = '
     <nav class="navbar fixed-top navbar-expand-lg navbar-light">
     <a class="navbar-brand">
@@ -122,7 +122,7 @@ function get_navigation($template, $active_id, $state){
  * Pritty Print Array
  * @param $input
  */
-function p_print($input){
+function p_print($input) {
     echo '<pre>';
     print_r($input);
     echo '</pre>';
@@ -174,7 +174,7 @@ function get_footer_content() {
  * @param string $message Error/Success message
  * @return string
  */
-function get_error($feedback){
+function get_error($feedback) {
     $feedback = json_decode($feedback, True);
     $error_exp = '
         <div class="alert alert-'.$feedback['type'].'" role="alert">
@@ -194,7 +194,7 @@ function get_error($feedback){
  * Check if a user is logged in
  * @return bool
  */
-function check_login(){
+function check_login() {
     session_start();
     if (isset($_SESSION['user_id'])){
         return True;
@@ -222,7 +222,7 @@ function get_user_id(){
  * @param $form_data
  * @return array
  */
-function login_user($pdo, $form_data){
+function login_user($pdo, $form_data) {
     /* Check if all fields are set */
     if (
         empty($form_data['username']) or
@@ -274,7 +274,7 @@ function login_user($pdo, $form_data){
  * Logout user
  * @return array
  */
-function logout_user(){
+function logout_user() {
     session_start();
     session_unset();
     session_destroy();
