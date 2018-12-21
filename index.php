@@ -111,6 +111,15 @@ elseif (new_route('/DDWT18_final/room/', 'get')) {
 
 elseif (new_route('/DDWT18_final/myaccount/', 'get')) {
     echo 'myaccount';
+    /* Check if logged in */
+    if ( !check_login() ) {
+        redirect('/DDWT18/week2/login/');
+    }
+
+    /* Get error message from POST route */
+    if (isset($_GET['error_msg'])){
+        $error_msg = get_error($_GET['error_msg']);
+    }
 }
 
 
@@ -119,12 +128,23 @@ elseif (new_route('/DDWT18_final/myaccount/', 'get')) {
 /* Register a user. (GET) */
 elseif (new_route('/DDWT18_final/register/', 'get')) {
     $page_title = 'Register';
+
+    /* Get error message from POST route */
+    if (isset($_GET['error_msg'])){
+        $error_msg = get_error($_GET['error_msg']);
+    }
+
     include use_template('register');
 }
 
 /* Register a user. (POST) */
 elseif (new_route('/DDWT18_final/register/', 'post')) {
+    print_r($_POST);
+    /* Register user */
+    $error_msg = register_user($db, $_POST);
 
+    /* Redirect to homepage */
+    redirect(sprintf('/DDWT18_final/myaccount/?error_msg=%s', json_encode($error_msg)));
 }
 
 /* Login a user. (GET) */

@@ -170,6 +170,34 @@ function get_footer_content() {
         </footer>';
 }
 
+/**
+ * Check if a user is logged in
+ * @return bool
+ */
+function check_login(){
+    session_start();
+    if (isset($_SESSION['user_id'])){
+        return True;
+    } else {
+        return False;
+    }
+}
+
+/**
+ * Create HTML alert code with information about the success or failure
+ * @param bool $type True if success, False if failure
+ * @param string $message Error/Success message
+ * @return string
+ */
+function get_error($feedback){
+    $feedback = json_decode($feedback, True);
+    $error_exp = '
+        <div class="alert alert-'.$feedback['type'].'" role="alert">
+            '.$feedback['message'].'
+        </div>';
+    return $error_exp;
+}
+
 
 /*
  * ------------------
@@ -377,8 +405,9 @@ function get_rooms($pdo) {
  */
 function register_user($pdo, $form_data) {
     /* Check if all fields are set */
+    printf($form_data);
     if (
-        empty($form_data['role']) or
+        empty($form_data['radio']) or
         empty($form_data['firstname']) or
         empty($form_data['lastname']) or
         empty($form_data['username']) or
@@ -387,7 +416,8 @@ function register_user($pdo, $form_data) {
         empty($form_data['phone']) or
         empty($form_data['birthdate']) or
         empty($form_data['language']) or
-        empty($form_data['biography'])
+        empty($form_data['biography']) or
+        empty($form_data['occupation'])
     ) {
         return [
             'type' => 'danger',
