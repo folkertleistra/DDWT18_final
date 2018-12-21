@@ -41,14 +41,14 @@
                                     <label for="email"  class="sign-in-register-label" >E-mail</label>
                                     <input type="email" name="email" placeholder="name@mail.com" class="form-input" required>
                                 </div>
-                                <div class="form-section">
+                                <div class="radio-section">
                                     <p>Role</p>
                                     <div class="inputGroup">
-                                        <input id="radio1" name="radio" type="radio"/>
+                                        <input id="radio1" name="radio" type="radio" value="owner"/>
                                         <label for="radio1">Owner</label>
                                     </div>
                                     <div class="inputGroup">
-                                        <input id="radio2" name="radio" type="radio"/>
+                                        <input id="radio2" name="radio" type="radio" value="tenant"/>
                                         <label for="radio2">Tenant</label>
                                     </div>
                                 </div>
