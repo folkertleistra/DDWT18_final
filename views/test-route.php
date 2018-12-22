@@ -20,6 +20,14 @@
     </div>
 </div>
 
+<div>
+    <form action="/DDWT18_final/test-route/" method="POST">
+        Select image to upload:
+        <input type="file" name="image" id="image">
+        <input type="submit" value="Upload Image" name="submit">
+    </form>
+</div>
+
 <div class="container-fluid home-button-section">
     <div class="row justify-content-center">
 

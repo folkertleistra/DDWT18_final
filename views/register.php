@@ -60,7 +60,7 @@
                             <input type="password" name="password" placeholder="Enter password" class="form-input" required>
                         </div>
                         <div class="form-row">
-                            <label for="rt-password"  class="sign-in-register-label">Retype password </label>
+                            <label for="rt-password"  class="sign-in-register-label">Confirm password </label>
                             <input type="password" name="rt-password" placeholder="Enter password" class="form-input" required>
                         </div>
                         <div class="form-row">
@@ -74,7 +74,7 @@
                     <div class="col-lg-6 register-col">
                         <!-- Personal details -->
                         <h3 class="section-heading">Personal Details</h3>
-                         <div class="form-row">
+                        <div class="form-row">
                             <label for="firstname"  class="sign-in-register-label">First Name</label>
                             <input type="text" name="firstname" placeholder="First Name" class="form-input" required>
                         </div>
@@ -88,7 +88,7 @@
                         </div>
                         <div class="form-row">
                             <label for="phone" class="sign-in-register-label">Phone Number</label>
-                            <input type="number" name="phone" placeholder="0612345678" class="form-input" required>
+                            <input type="tel" name="phone" placeholder="0612345678" class="form-input" required>
                         </div>
                         <div class="form-row">
                             <label for="language"  class="sign-in-register-label">Language</label>

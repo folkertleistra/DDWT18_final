@@ -498,7 +498,6 @@ function get_rooms($pdo) {
  */
 function register_user($pdo, $form_data) {
     /* Check if all fields are set */
-    printf($form_data);
     if (
         empty($form_data['radio']) or
         empty($form_data['firstname']) or

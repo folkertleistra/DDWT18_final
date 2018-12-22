@@ -72,6 +72,11 @@ if (new_route('/DDWT18_final/', 'get')) {
     $page_subtitle = 'Living on my own!';
     $page_content = 'Boom Boom Boom Boom, I want you in my room!';
 
+    /* Get error message from POST route */
+    if (isset($_GET['error_msg'])){
+        $error_msg = get_error($_GET['error_msg']);
+    }
+
     include use_template('home');
 }
 
@@ -98,8 +103,14 @@ elseif (new_route('/DDWT18_final/test-route/', 'get')) {
     $page_subtitle = 'Living on my own!';
     $page_content = 'Boom Boom Boom Boom, I want you in my room!';
     echo '<br/><br/><br/><br/>';
-    print_r(get_user_username($db, 1));
-    include use_template('home');
+
+    include use_template('test-route');
+}
+
+elseif (new_route('/DDWT18_final/test-route/', 'post')) {
+
+    $error_msg = upload_image();
+    redirect(sprintf('/DDWT18_final/?error_msg=%s', json_encode($error_msg)));
 }
 
 /* information about a single room. (GET) */
