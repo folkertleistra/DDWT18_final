@@ -14,7 +14,20 @@
 }
 .rr-room-box {
     border-radius: 5px;
+    margin-bottom: 20px;
 }
+/* Make images fit container without changing aspect ratio */
+.rr-img-col img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+@media screen and (min-width: 576px) {
+    .rr-inner-row {
+        height: 155px;
+    }
+}
+
 @media screen and (min-width: 992px) {
     .rr-room-box {
         max-width: 48%;
@@ -28,7 +41,9 @@
 }
 @media screen and (max-width: 575px) {
     .rr-room-box {
-        border-radius: 0;
+        margin-left: 15px;
+        margin-right: 15px;
+        margin-bottom: 15px;
     }
     .rr-room-box img {
         border-top-left-radius: 0;
@@ -36,6 +51,7 @@
     }
     .rr-inner-row {
         background-color: #fff;
+        border-radius: 3px;
     }
     .rr-img-col {
         padding: 20px 20px 0 20px;

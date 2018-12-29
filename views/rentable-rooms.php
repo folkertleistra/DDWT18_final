@@ -45,12 +45,12 @@
                     <a href="#">
                         <div class="row rr-inner-row">
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 rr-img-col">
-                                <img src="/DDWT18_final/resources/rooms/1.jpg">
+                                <img src="/DDWT18_final/resources/rooms/2.jpeg">
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 rr-info-col">
-                                <h3>Straatnaam 404</h3>
-                                <p>4040 XX Groningen</p>
-                                <p>40 m² - Single room</p>
+                                <h3>Straatnaam 303</h3>
+                                <p>3030 XX Groningen</p>
+                                <p>30 m² - Single room</p>
                                 <p><b>€ 404</b></p>
                             </div>
                         </div>
