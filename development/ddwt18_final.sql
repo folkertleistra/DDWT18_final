@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 16, 2018 at 08:18 PM
+-- Generation Time: Jan 02, 2019 at 01:53 PM
 -- Server version: 5.6.34-log
 -- PHP Version: 7.2.1
 
@@ -27,6 +27,17 @@ USE `ddwt18_final`;
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `image`
+--
+
+CREATE TABLE `image` (
+  `room_id` int(11) NOT NULL,
+  `path` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `optin`
 --
 
@@ -41,9 +52,8 @@ CREATE TABLE `optin` (
 --
 
 INSERT INTO `optin` (`tenant_id`, `room_id`, `message`) VALUES
-(3, 1, 'Aanmelding tenant3 voor kamer 1.'),
-(4, 2, 'Aanmelding tenant4 voor kamer 2.'),
-(4, 3, 'Aanmelding tenant4 voor kamer 3.');
+(8, 1, 'Opt-in for room 1 by user 8'),
+(8, 2, 'Opt-in for room 2 by user 8');
 
 -- --------------------------------------------------------
 
@@ -56,15 +66,6 @@ CREATE TABLE `own` (
   `owner_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `own`
---
-
-INSERT INTO `own` (`room_id`, `owner_id`) VALUES
-(1, 1),
-(2, 2),
-(3, 2);
-
 -- --------------------------------------------------------
 
 --
@@ -74,14 +75,6 @@ INSERT INTO `own` (`room_id`, `owner_id`) VALUES
 CREATE TABLE `owner` (
   `owner_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `owner`
---
-
-INSERT INTO `owner` (`owner_id`) VALUES
-(1),
-(2);
 
 -- --------------------------------------------------------
 
@@ -99,18 +92,17 @@ CREATE TABLE `rooms` (
   `size` int(11) NOT NULL,
   `type` varchar(255) NOT NULL,
   `price` int(11) NOT NULL,
-  `description` varchar(255) NOT NULL,
-  `image` varchar(255) DEFAULT NULL
+  `description` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `rooms`
 --
 
-INSERT INTO `rooms` (`id`, `city`, `postal_code`, `street`, `street_number`, `addition`, `size`, `type`, `price`, `description`, `image`) VALUES
-(1, 'Groningen', '1234GR', 'Herestraat', 1, NULL, 25, 'studio', 500, 'Ruime studio in het centrum van Groningen.', NULL),
-(2, 'Klijndijk', '1234KL', 'Melkweg', 2, 'B', 100, 'flatwoning', 600, 'Ruime woning op de 40ste etage in de gloednieuwe flat in klijndijk.', NULL),
-(3, 'Randwijk', '1234RA', 'Bredeweg', 3, NULL, 200, 'stal', 20, 'Ruime woning, landelijk gelegen.', NULL);
+INSERT INTO `rooms` (`id`, `city`, `postal_code`, `street`, `street_number`, `addition`, `size`, `type`, `price`, `description`) VALUES
+(1, 'Groningen', '1234GR', 'Herestraat', 1, NULL, 25, 'studio', 500, 'Ruime studio in het centrum van Groningen.'),
+(2, 'Klijndijk', '1234KL', 'Melkweg', 2, 'B', 100, 'flatwoning', 600, 'Ruime woning op de 40ste etage in de gloednieuwe flat in klijndijk.'),
+(3, 'Randwijk', '1234RA', 'Bredeweg', 3, NULL, 200, 'stal', 20, 'Ruime woning, landelijk gelegen.');
 
 -- --------------------------------------------------------
 
@@ -127,8 +119,7 @@ CREATE TABLE `tenant` (
 --
 
 INSERT INTO `tenant` (`tenant_id`) VALUES
-(3),
-(4);
+(8);
 
 -- --------------------------------------------------------
 
@@ -155,14 +146,17 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `firstname`, `lastname`, `email`, `phone`, `birthdate`, `language`, `occupation`, `biography`) VALUES
-(1, 'testowner1', 'test', 'firstname1', 'lastname1', 'test1@test.com', '1234567890', '2000-01-01', 'English', 'bus driver', 'This is the test1 account for owners.'),
-(2, 'testowner2', 'test', 'firstname2', 'lastname2', 'test2@test.com', '2345678901', '2000-01-02', 'Dutch', 'farmer', 'This is the test2 account for owners.'),
-(3, 'testtenant3', 'test', 'firstname3', 'lastname3', 'test3@test.com', '3456789012', '2000-01-03', 'German', 'student Information Sciences', 'This is the test3 account for tenants.'),
-(4, 'testtenant4', 'test', 'firstname4', 'lastname4', 'test4@test.com', '4567890123', '2000-01-04', 'French', 'student Psychology', 'This is the test4 account for tenants.');
+(8, 'testu', '$2y$10$DzqLKz8FRxpt7jfBwu3m0.mgH6m8xCeqlPv/srJTBvS3AFUlcNg9C', 'First', 'Last', 'test@test.com', '0612345678', '2018-12-01', 'Dutch', 'Student Information Science', 'sumthn bout mself');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `image`
+--
+ALTER TABLE `image`
+  ADD KEY `room_id` (`room_id`);
 
 --
 -- Indexes for table `optin`
@@ -217,10 +211,16 @@ ALTER TABLE `rooms`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `image`
+--
+ALTER TABLE `image`
+  ADD CONSTRAINT `image_ibfk_1` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `optin`
