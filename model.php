@@ -35,6 +35,12 @@ function connect_db($host, $db, $user, $pass) {
     return $pdo;
 }
 
+/*
+ * ----------------------
+ * START: ROUTE FUNCTIONS
+ * ----------------------
+ */
+
 /**
  * Check if the route exist
  * @param string $route_uri URI to be matched
@@ -58,6 +64,19 @@ function redirect($location) {
     header(sprintf('Location: %s', $location));
     die();
 }
+
+/*
+ * --------------------
+ * END: ROUTE FUNCTIONS
+ * --------------------
+ */
+
+
+/*
+ * -------------------
+ * START: PAGE CONTENT
+ * -------------------
+ */
 
 /**
  * Creates a new navigation array item using url and active status
@@ -119,16 +138,6 @@ function get_navigation($template, $active_id, $state) {
 }
 
 /**
- * Pritty Print Array
- * @param $input
- */
-function p_print($input) {
-    echo '<pre>';
-    print_r($input);
-    echo '</pre>';
-}
-
-/**
  * Returns the HTML head upper content in HTML code
  * @return string
  */
@@ -167,20 +176,11 @@ function get_footer_content() {
         </footer>';
 }
 
-/**
- * Create HTML alert code with information about the success or failure
- * @param bool $type True if success, False if failure
- * @param string $message Error/Success message
- * @return string
+/*
+ * -----------------
+ * END: PAGE CONTENT
+ * -----------------
  */
-function get_error($feedback) {
-    $feedback = json_decode($feedback, True);
-    $error_exp = '
-        <div class="alert alert-'.$feedback['type'].'" role="alert">
-            '.$feedback['message'].'
-        </div>';
-    return $error_exp;
-}
 
 
 /*
@@ -290,6 +290,107 @@ function logout_user() {
  * ------------
  * END: SESSION
  * ------------
+ */
+
+
+/*
+ * --------------------
+ * START: HTML GENERATE
+ * --------------------
+ */
+
+/**
+ * Create HTML alert code with information about the success or failure
+ * @param bool $type True if success, False if failure
+ * @param string $message Error/Success message
+ * @return string
+ */
+function get_error($feedback) {
+    $feedback = json_decode($feedback, True);
+    $error_exp = '
+        <div class="alert alert-'.$feedback['type'].'" role="alert">
+            '.$feedback['message'].'
+        </div>';
+    return $error_exp;
+}
+
+/**
+ * Pritty Print Array
+ * @param $input
+ */
+function p_print($input) {
+    echo '<pre>';
+    print_r($input);
+    echo '</pre>';
+}
+
+/**
+ * Returns the right room HTML for an individual room
+ * @param $room
+ * @return string
+ */
+function get_room_html($room) {
+    /* HTML template */
+    $template =
+        '<div class="col-lg-6 rr-room-box">
+            <a href="/DDWT18_final/room/?id=$room_id">
+                <div class="row rr-inner-row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 rr-img-col">
+                        <img src="$image">
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 rr-info-col">
+                        <h3>$street $nr$add</h3>
+                        <p>$postal $city</p>
+                        <p>$size m² - $type</p>
+                        <p><b>€ $price</b></p>
+                    </div>
+                </div>
+            </a>
+         </div>';
+
+    /* Get thumbnail */
+    $thumbnail = get_images($room['id'])[0];
+
+    /* Add correct values to the template */
+    return strtr($template, array('$street' => $room['street'], '$nr' => $room['street_number'],
+        '$add' => $room['addition'], '$postal' => $room['postal_code'], '$city' => $room['city'],
+        '$size' => $room['size'], '$type' => $room['type'], '$price' => $room['price'], '$image' => $thumbnail,
+        '$room_id' => $room['id']));
+}
+
+/**
+ * Returns the right slide HTML per image
+ * @param $image
+ */
+function get_slider_img_html($image) {
+    $template =
+        '<div class="slides slider-fade">
+            <img src="$img" style="width:100%">
+        </div>';
+
+    return strtr($template, array('$img' => $image));
+}
+
+/**
+ * Returns the HTML of the slider dots based on the amount of images
+ * @param $img_amnt
+ */
+function get_slider_dots_html($img_amnt) {
+    $counter = 1;
+    $inner_html = '';
+
+    while ($counter <= $img_amnt) {
+        $inner_html .= sprintf('<span class="dot" onclick="currentSlide(%s)"></span>', $counter);
+        $counter += 1;
+    }
+
+    return '<div class="dot-wrapper">' . $inner_html . '</div>';
+}
+
+/*
+ * ------------------
+ * END: HTML GENERATE
+ * ------------------
  */
 
 
@@ -627,70 +728,6 @@ function register_user($pdo, $form_data) {
         'message' => sprintf('%s, your account was successfully created!', get_user_username($pdo, $_SESSION['user_id']))
     ];
     redirect(sprintf('/DDWT18_final/my-account/?error_msg=%s', json_encode($feedback)));
-}
-
-/**
- * Returns the right room HTML for an individual room
- * @param $room
- * @return string
- */
-function get_room_html($room) {
-    /* HTML template */
-     $template =
-         '<div class="col-lg-6 rr-room-box">
-            <a href="/DDWT18_final/room/?id=$room_id">
-                <div class="row rr-inner-row">
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 rr-img-col">
-                        <img src="$image">
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 rr-info-col">
-                        <h3>$street $nr$add</h3>
-                        <p>$postal $city</p>
-                        <p>$size m² - $type</p>
-                        <p><b>€ $price</b></p>
-                    </div>
-                </div>
-            </a>
-         </div>';
-
-     /* Get thumbnail */
-     $thumbnail = get_images($room['id'])[0];
-
-     /* Add correct values to the template */
-     return strtr($template, array('$street' => $room['street'], '$nr' => $room['street_number'],
-         '$add' => $room['addition'], '$postal' => $room['postal_code'], '$city' => $room['city'],
-         '$size' => $room['size'], '$type' => $room['type'], '$price' => $room['price'], '$image' => $thumbnail,
-         '$room_id' => $room['id']));
-}
-
-/**
- * Returns the right slide HTML per image
- * @param $image
- */
-function get_slider_img_html($image) {
-    $template =
-        '<div class="slides slider-fade">
-            <img src="$img" style="width:100%">
-        </div>';
-
-    return strtr($template, array('$img' => $image));
-
-}
-
-/**
- * Returns the HTML of the slider dots based on the amount of images
- * @param $img_amnt
- */
-function get_slider_dots_html($img_amnt) {
-    $counter = 1;
-    $inner_html = '';
-
-    while ($counter <= $img_amnt) {
-        $inner_html .= sprintf('<span class="dot" onclick="currentSlide(%s)"></span>', $counter);
-        $counter += 1;
-    }
-
-    return '<div class="dot-wrapper">' . $inner_html . '</div>';
 }
 
 /**
