@@ -669,7 +669,7 @@ function get_room_html($room) {
  */
 function get_slider_img_html($image) {
     $template =
-        '<div class="mySlides slider-fade">
+        '<div class="slides slider-fade">
             <img src="$img" style="width:100%">
         </div>';
 
@@ -682,13 +682,15 @@ function get_slider_img_html($image) {
  * @param $img_amnt
  */
 function get_slider_dots_html($img_amnt) {
-    $counter = 0;
-
+    $counter = 1;
     $inner_html = '';
 
-    while ($counter =! $img_amnt) {
-
+    while ($counter <= $img_amnt) {
+        $inner_html .= sprintf('<span class="dot" onclick="currentSlide(%s)"></span>', $counter);
+        $counter += 1;
     }
+
+    return '<div class="dot-wrapper">' . $inner_html . '</div>';
 }
 
 /**

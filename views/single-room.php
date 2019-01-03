@@ -25,16 +25,16 @@
         <div class="container">
             <div class="row sr-row">
 
-                <div class="col-lg-7">
+                <div class="col-lg-7 slider-col">
+
                     <!-- Slideshow container -->
                     <div class="slideshow-container">
-
                         <!-- Dynamic slider -->
                         <?php
 
                             $img_amnt = count($room_images);
 
-                            foreach ($img_amnt as $image) {
+                            foreach ($room_images as $image) {
                                 echo get_slider_img_html($image);
                             }
 
@@ -45,21 +45,14 @@
                                 <a class="next" onclick="plusSlides(1)">&#10095;</a>';
                             }
                         ?>
-
                     </div>
 
-                    <!-- The dots/circles -->
+                    <!-- Dots -->
                     <?php
                         if ($img_amnt > 1) {
                             echo get_slider_dots_html($img_amnt);
                         }
                     ?>
-
-                    <div class="dot-wrapper">
-                      <span class="dot" onclick="currentSlide(1)"></span>
-                      <span class="dot" onclick="currentSlide(2)"></span>
-                      <span class="dot" onclick="currentSlide(3)"></span>
-                    </div>
 
                 </div>
 
