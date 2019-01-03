@@ -481,12 +481,11 @@ function get_rooms($pdo) {
 
 
 function get_images($room_id) {
-    $dir = "/DDWT18_final/resources/rooms/" . strval($room_id);
-    echo $dir;
+    $dir = "../DDWT18_final/resources/rooms/" . strval($room_id);
     $files = scandir($dir);
     print_r($files);
 
-    return;
+    return $files;
 }
 
 /*
