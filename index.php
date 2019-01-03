@@ -134,7 +134,6 @@ elseif (new_route('/DDWT18_final/room/', 'get')) {
     $room_info = get_room_info($db, $room_id);
 
     /* page subtitle */
-    //$page_subtitle = $room_info['street'] . $room_info['street_number'] . $room_info['addition'] .$room_info['city'];
     $page_subtitle = sprintf('%s %d%s, %s',
         $room_info['street'], $room_info['street_number'], $room_info['addition'], $room_info['city']);
 
