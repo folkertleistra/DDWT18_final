@@ -138,6 +138,8 @@ elseif (new_route('/DDWT18_final/room/', 'get')) {
     $page_subtitle = sprintf('%s %d%s, %s',
         $room_info['street'], $room_info['street_number'], $room_info['addition'], $room_info['city']);
 
+    /* Thumbnail */
+    $thumbnail = get_images($room_id)[0];
 
     include use_template('single-room');
 

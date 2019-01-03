@@ -3,7 +3,8 @@
 <html lang="en">
     <head>
         <?= $head_upper_content ?>
-        <link rel="stylesheet" href="/DDWT18_final/css/rentable-rooms.css">
+        <link rel="stylesheet" href="/DDWT18_final/css/single-room.css">
+        <?php include '../DDWT18_final/css/single-room-header.php'; ?>
         <title><?= $page_title ?></title>
     </head>
     <body>
@@ -20,6 +21,8 @@
                 </div>
             </div>
         </div>
+
+        <!--<iframe width="640" height="480" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.it/maps?q=<?php echo ('Visserstraat 3 Klijndijk'); ?>&output=embed"></iframe>-->
 
         <!-- Footer -->
         <?= $footer ?>
