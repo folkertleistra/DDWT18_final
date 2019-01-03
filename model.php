@@ -36,9 +36,9 @@ function connect_db($host, $db, $user, $pass) {
 }
 
 /*
- * ----------------------
- * START: ROUTE FUNCTIONS
- * ----------------------
+ * ------------
+ * START: ROUTE
+ * ------------
  */
 
 /**
@@ -66,9 +66,9 @@ function redirect($location) {
 }
 
 /*
- * --------------------
- * END: ROUTE FUNCTIONS
- * --------------------
+ * ----------
+ * END: ROUTE
+ * ----------
  */
 
 
@@ -805,6 +805,17 @@ function add_room($pdo, $form_data) {
         $stmt->execute([$form_data['city'], $form_data['postal_code'], $form_data['street'], $form_data['street_number'], $form_data['addition'],
             $form_data['size'], $form_data['type'], $form_data['price'], $form_data['description']]);
         $room_id = $pdo->lastInsertId();
+    } catch (PDOException $e) {
+        return [
+            'type' => 'danger',
+            'message' => sprintf('There was an error: %s', $e->getMessage())
+        ];
+    }
+
+    /* Save room to 'own' table */
+    try {
+        $stmt = $pdo->prepare('INSERT INTO own (room_id, owner_id) VALUES (?, ?)');
+        $stmt->execute([$room_id, $_SESSION['user_id']]);
     } catch (PDOException $e) {
         return [
             'type' => 'danger',
