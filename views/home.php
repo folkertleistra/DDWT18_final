@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="home-btn-col">
-                    <a href="/DDWT18_final/myaccount/">
+                    <a href="/DDWT18_final/my-account/">
                         <div class="home-btn hb-2">
                           <img src="/DDWT18_final/resources/icons/my-account-icon.png">
                           <p>My ApartRent</p>
