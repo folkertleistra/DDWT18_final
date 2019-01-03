@@ -133,6 +133,9 @@ elseif (new_route('/DDWT18_final/room/', 'get')) {
     /* get room info */
     $room_info = get_room_info($db, $room_id);
 
+    /* room images */
+    $room_images = get_images($room_id);
+
     /* page subtitle */
     $page_subtitle = sprintf('%s %d%s, %s',
         $room_info['street'], $room_info['street_number'], $room_info['addition'], $room_info['city']);
@@ -176,7 +179,6 @@ elseif (new_route('/DDWT18_final/register/', 'get')) {
 
 /* Register a user. (POST) */
 elseif (new_route('/DDWT18_final/register/', 'post')) {
-    print_r($_POST);
     /* Register user */
     $error_msg = register_user($db, $_POST);
 

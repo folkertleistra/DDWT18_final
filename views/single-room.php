@@ -22,6 +22,20 @@
             </div>
         </div>
 
+        <div class="container">
+            <div class="row sr-row">
+
+                <div class="col-lg-7">
+                    <?php print_r(get_images($room_id)) ?>
+                </div>
+
+                <div class="col-lg-5">
+                    test
+                </div>
+
+            </div>
+        </div>
+
         <!--<iframe width="640" height="480" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.it/maps?q=<?php echo ('Visserstraat 3 Klijndijk'); ?>&output=embed"></iframe>-->
 
         <!-- Footer -->
