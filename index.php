@@ -26,7 +26,7 @@ if (check_login()){
 }
 else {
     $state = 'logout';
-    // kill the current session?
+    // Session killen hier?
 }
 
 /* Navigation template */
@@ -134,11 +134,14 @@ elseif (new_route('/DDWT18_final/myaccount/', 'get')) {
     if ( !check_login() ) {
         redirect('/DDWT18_final/login/');
     }
-
+    $page_title = "My Account";
+    $navigation = get_navigation($nav_template, 3, $state);
     /* Get error message from POST route */
     if (isset($_GET['error_msg'])){
         $error_msg = get_error($_GET['error_msg']);
     }
+
+    include use_template('my_account');
 }
 
 
