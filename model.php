@@ -623,6 +623,38 @@ function register_user($pdo, $form_data) {
 }
 
 /**
+ * Returns the right room HTML for an individual room
+ * @param $room
+ * @return string
+ */
+function get_room_html($room) {
+    /* HTML template */
+     $template =
+         '<div class="col-lg-6 rr-room-box">
+            <a href="#">
+                <div class="row rr-inner-row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 rr-img-col">
+                        <img src="/DDWT18_final/resources/rooms/1.jpg">
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 rr-info-col">
+                        <h3>$street $nr$add</h3>
+                        <p>$postal $city</p>
+                        <p>$size m² - $type</p>
+                        <p><b>€ $price</b></p>
+                    </div>
+                </div>
+            </a>
+         </div>';
+
+     /* Add correct values to the template */
+     return strtr($template, array('$street' => $room['street'], '$nr' => $room['street_number'],
+         '$add' => $room['addition'], '$postal' => $room['postal_code'], '$city' => $room['city'],
+         '$size' => $room['size'], '$type' => $room['type'], '$price' => $room['price']));
+
+
+}
+
+/**
  * Adds a new room to the database
  * @param $pdo
  * @param $form_data

@@ -22,57 +22,30 @@
         </div>
 
         <div class="container rr-container">
-
             <div class="row rr-room-row">
+                <?php
+                    /* All rooms in the database */
+                    $rooms = get_rooms($db);
 
-                <div class="col-lg-6 rr-room-box">
-                    <a href="#">
-                        <div class="row rr-inner-row">
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 rr-img-col">
-                                <img src="/DDWT18_final/resources/rooms/1.jpg">
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 rr-info-col">
-                                <h3>Straatnaam 404</h3>
-                                <p>4040 XX Groningen</p>
-                                <p>40 m² - Single room</p>
-                                <p><b>€ 404</b></p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                    /* Check if rooms were found */
+                    if (count($rooms) == 0) {
+                        $feedback = [
+                            'type' => 'danger',
+                            'message' => sprintf('No available rooms.')
+                        ];
+                        /* Print error message */
+                        echo(get_error(json_encode($feedback)));
+                    }
 
-                <div class="col-lg-6 rr-room-box">
-                    <a href="#">
-                        <div class="row rr-inner-row">
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 rr-img-col">
-                                <img src="/DDWT18_final/resources/rooms/2.jpeg">
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 rr-info-col">
-                                <h3>Straatnaam 303</h3>
-                                <p>3030 XX Groningen</p>
-                                <p>30 m² - Single room</p>
-                                <p><b>€ 404</b></p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-
+                    /* Get individual rooms from database */
+                    foreach ($rooms as $room) {
+                        /* Print room HTML */
+                        echo(get_room_html($room));
+                    }
+                ?>
             </div>
-
         </div>
 
-        <?php
-
-        /* All rooms in the database */
-        $rooms = get_rooms($db);
-
-        /* Get individual rooms from database */
-        foreach ($room as $value) {
-            print($room);
-        }
-
-        ?>
 
         <!-- Footer -->
         <?= $footer ?>
