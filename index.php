@@ -275,9 +275,56 @@ elseif (new_route('/DDWT18_final/add/', 'post')) {
     redirect(sprintf('/DDWT18_final/add/?error_msg=%s', json_encode($error_msg)));
 }
 
-/* Edit room (GET) */
+/* edit room for. (GET) */
 elseif (new_route('/DDWT18_final/edit/', 'get')) {
+    /* Check if logged in */
+    if ( !check_login() ) {
+        redirect('/DDWT18/week2/login/');
+    }
 
+    /* check the role of the current user */
+
+
+    /* Get room info from db */
+    print_r($_GET);
+    $room_id = $_GET['room_id'];
+    $serie_info = get_room_info($db, $room_id);
+    /* Page info */
+    $page_title = 'Edit Series';
+    $breadcrumbs = get_breadcrumbs([
+        'DDWT18' => na('/DDWT18/', False),
+        'Week 2' => na('/DDWT18/week2/', False),
+        sprintf("Edit Series %s", $serie_info['name']) => na('/DDWT18/week2/new/', True)
+    ]);
+    /* Page content */
+    $page_subtitle = sprintf("Edit %s", $serie_info['name']);
+    $page_content = 'Edit the series below.';
+    $submit_btn = "Edit Series";
+    $form_action = '/DDWT18/week2/edit/';
+    $navigation = get_navigation($template, 2);
+    /* Get error msg from POST route */
+    if ( isset($_GET['error_msg']) ) {
+        $error_msg = get_error($_GET['error_msg']);
+    }
+    /* Choose Template */
+    //include use_template('new');
+}
+
+/* edit room for. (POST) */
+elseif (new_route('/DDWT18_final/edit/', 'post')) {
+    /* Check if logged in */
+    if (!check_login()) {
+        redirect('/DDWT18/week2/login/');
+    }
+
+    /* check the role of the current user */
+    /* edit room in database */
+
+    //$feedback = update_series($db, $_POST);
+
+    /* Redirect to serie GET route */
+    //redirect(sprintf('/DDWT18/week2/overview/?error_msg=%s',
+    // json_encode($feedback)));
 }
 
 /* Edit room (POST) */

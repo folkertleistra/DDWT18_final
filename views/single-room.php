@@ -58,6 +58,7 @@
 
                 <div class="col-lg-5">
                     test
+                    <button>edit</button>
                 </div>
 
             </div>
