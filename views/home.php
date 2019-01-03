@@ -24,7 +24,7 @@
             <div class="row justify-content-center">
 
                 <div class="home-btn-col">
-                    <a href="#">
+                    <a href="/DDWT18_final/rentable-rooms/">
                         <div class="home-btn hb-1">
                             <img src="/DDWT18_final/resources/icons/appartments-icon.png">
                             <p>All available rooms</p>
@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="home-btn-col">
-                    <a href="#">
+                    <a href="/DDWT18_final/myaccount/">
                         <div class="home-btn hb-2">
                           <img src="/DDWT18_final/resources/icons/my-account-icon.png">
                           <p>My ApartRent</p>

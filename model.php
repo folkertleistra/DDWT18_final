@@ -268,7 +268,7 @@ function login_user($pdo, $form_data) {
             'type' => 'success',
             'message' => sprintf('%s, you were logged in successfully.', get_user_username($pdo, $_SESSION['user_id']))
         ];
-        redirect(sprintf('/DDWT18_final/myaccount/?error_msg=%s', json_encode($feedback)));
+        redirect(sprintf('/DDWT18_final/my-account/?error_msg=%s', json_encode($feedback)));
     }
 }
 
@@ -627,7 +627,7 @@ function register_user($pdo, $form_data) {
         'type' => 'success',
         'message' => sprintf('%s, your account was successfully created!', get_user_username($pdo, $_SESSION['user_id']))
     ];
-    redirect(sprintf('/DDWT18_final/myaccount/?error_msg=%s', json_encode($feedback)));
+    redirect(sprintf('/DDWT18_final/my-account/?error_msg=%s', json_encode($feedback)));
 }
 
 /**

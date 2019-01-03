@@ -46,7 +46,7 @@ $nav_template =
         ),
         3 => Array(
             'name' => 'My account',
-            'url' => '/DDWT18_final/myaccount/',
+            'url' => '/DDWT18_final/my-account/',
             'state' => 'login',
             'role' => 'all'
         ),
@@ -145,8 +145,7 @@ elseif (new_route('/DDWT18_final/room/', 'get')) {
 
 }
 
-elseif (new_route('/DDWT18_final/myaccount/', 'get')) {
-    echo 'myaccount';
+elseif (new_route('/DDWT18_final/my-account/', 'get')) {
     /* Check if logged in */
     if ( !check_login() ) {
         redirect('/DDWT18_final/login/');
@@ -183,7 +182,7 @@ elseif (new_route('/DDWT18_final/register/', 'post')) {
     $error_msg = register_user($db, $_POST);
 
     /* Redirect to homepage */
-    redirect(sprintf('/DDWT18_final/myaccount/?error_msg=%s', json_encode($error_msg)));
+    redirect(sprintf('/DDWT18_final/my-account/?error_msg=%s', json_encode($error_msg)));
 }
 
 /* Login a user. (GET) */
@@ -205,7 +204,7 @@ elseif (new_route('/DDWT18_final/login/', 'post')) {
     $error_msg = login_user($db, $_POST);
 
     /* Redirect to homepage */
-    redirect(sprintf('/DDWT18_final/myaccount/?id=%s', $_POST['id']));
+    redirect(sprintf('/DDWT18_final/my-account/?id=%s', $_POST['id']));
 }
 
 /* Logout a user. (GET) */
