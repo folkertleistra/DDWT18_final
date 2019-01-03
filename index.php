@@ -20,8 +20,15 @@ $imported_scripts = get_imported_scripts();
 /* Footer HTML content */
 $footer = get_footer_content();
 
+/* global login check to determine the state of a user */
+if (check_login()){
+    $state = 'login';
+}
+else {
+    $state = 'logout';
+}
+
 /* Navigation template */
-$state = 'logout';
 $nav_template =
     Array(
         1 => Array(
