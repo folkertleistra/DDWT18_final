@@ -479,13 +479,21 @@ function get_rooms($pdo) {
     return $rooms_exp;
 }
 
-
+/**
+ * Returns array with all image urls for given room id
+ * @param $room_id
+ * @return array|false
+ */
 function get_images($room_id) {
+    /* Get all image urls */
     $dir = "../DDWT18_final/resources/rooms/" . strval($room_id);
-    $files = scandir($dir);
-    print_r($files);
-
-    return $files;
+    $files = glob($dir . "/*.jpg");
+    $images = Array();
+    foreach ($files as $key => $value){
+        $trimmed = str_replace('../', '/', $value);
+        $images[$key] = $trimmed;
+    }
+    return $images;
 }
 
 /*

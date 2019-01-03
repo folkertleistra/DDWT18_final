@@ -111,7 +111,6 @@ elseif (new_route('/DDWT18_final/test-route/', 'get')) {
     $page_subtitle = 'Living on my own!';
     $page_content = 'Boom Boom Boom Boom, I want you in my room!';
     echo '<br/><br/><br/><br/>';
-    get_images(1);
 
     include use_template('test-route');
 }
