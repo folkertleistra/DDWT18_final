@@ -121,11 +121,26 @@ elseif (new_route('/DDWT18_final/test-route/', 'post')) {
     redirect(sprintf('/DDWT18_final/?error_msg=%s', json_encode($error_msg)));
 }
 
-/* information about a single room. (GET) */
+/* single room. (GET) */
 elseif (new_route('/DDWT18_final/room/', 'get')) {
+    /* META */
+    $page_title = "Single room";
+    $navigation = get_navigation($nav_template, 0, $state);
+
     /* get ID of the room */
-    //$room_id = $_GET['room_id']
-    include use_template('');
+    $room_id = $_GET['id'];
+
+    /* get room info */
+    $room_info = get_room_info($db, $room_id);
+
+    /* page subtitle */
+    //$page_subtitle = $room_info['street'] . $room_info['street_number'] . $room_info['addition'] .$room_info['city'];
+    $page_subtitle = sprintf('%s %d%s, %s',
+        $room_info['street'], $room_info['street_number'], $room_info['addition'], $room_info['city']);
+
+
+    include use_template('single-room');
+
 }
 
 elseif (new_route('/DDWT18_final/myaccount/', 'get')) {

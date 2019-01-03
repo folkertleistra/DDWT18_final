@@ -639,7 +639,7 @@ function get_room_html($room) {
     /* HTML template */
      $template =
          '<div class="col-lg-6 rr-room-box">
-            <a href="#">
+            <a href="/DDWT18_final/room/?id=$room_id">
                 <div class="row rr-inner-row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 rr-img-col">
                         <img src="$image">
@@ -660,7 +660,8 @@ function get_room_html($room) {
      /* Add correct values to the template */
      return strtr($template, array('$street' => $room['street'], '$nr' => $room['street_number'],
          '$add' => $room['addition'], '$postal' => $room['postal_code'], '$city' => $room['city'],
-         '$size' => $room['size'], '$type' => $room['type'], '$price' => $room['price'], '$image' => $thumbnail));
+         '$size' => $room['size'], '$type' => $room['type'], '$price' => $room['price'], '$image' => $thumbnail,
+         '$room_id' => $room['id']));
 
 
 }
