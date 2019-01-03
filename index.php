@@ -98,6 +98,11 @@ elseif (new_route('/DDWT18_final/rentable-rooms/', 'get')) {
     $page_subtitle = 'Living on my own!';
     $page_content = 'Boom Boom Boom Boom, I want you in my room!';
 
+    /* Get error message from POST route */
+    if (isset($_GET['error_msg'])){
+        $error_msg = get_error($_GET['error_msg']);
+    }
+
     include use_template('rentable-rooms');
 }
 
@@ -221,15 +226,23 @@ elseif (new_route('/DDWT18_final/logout/', 'get')) {
 
 /* THE FOLLOWING ROUTES ARE ONLY AVAILABLE FOR OWNERS */
 
-/* add a room for. (GET) */
+/* Add room (GET) */
 elseif (new_route('/DDWT18_final/add/', 'get')) {
+    $page_title = 'Add room';
+
+    /* Get error message from POST route */
+    if (isset($_GET['error_msg'])){
+        $error_msg = get_error($_GET['error_msg']);
+    }
 
     include use_template('add-room');
 }
 
-/* add room for. (POST) */
+/* Add room (POST) */
 elseif (new_route('/DDWT18_final/add/', 'post')) {
 
+    $error_msg = add_room($db, $_POST);
+    redirect(sprintf('/DDWT18_final/add/?error_msg=%s', json_encode($error_msg)));
 }
 
 /* edit room for. (GET) */

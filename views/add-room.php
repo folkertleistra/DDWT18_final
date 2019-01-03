@@ -5,7 +5,7 @@
         <title><?= $page_title ?></title>
     </head>
     <body>
-        <form>
+        <form action="/DDWT18_final/add/" method="POST">
             <label for="city">city</label>
             <input type="text" name="city">
             <label for="postal_code">postal code</label>
