@@ -11,9 +11,9 @@
 
 
 <!-- Footer -->
-<?= $error_msg ?>
-<?= $footer ?>
 
+<?= $footer ?>
+<?= $error_msg ?>
 <?= $imported_scripts ?>
 </body>
 </html>
