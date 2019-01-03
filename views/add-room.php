@@ -23,6 +23,8 @@
             <label for="price">price</label>
             <input type="text" name="price">
             <textarea name="description" placeholder="description"></textarea>
+            <label for="image">image</label>
+            <input type="file" name="files[]" multiple="multiple">
             <button type="submit">Add room</button>
         </form>
     </body>
