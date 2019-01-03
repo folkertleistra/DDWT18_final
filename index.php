@@ -26,6 +26,7 @@ if (check_login()){
 }
 else {
     $state = 'logout';
+    // kill the current session?
 }
 
 /* Navigation template */

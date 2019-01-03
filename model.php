@@ -195,7 +195,9 @@ function get_error($feedback) {
  * @return bool
  */
 function check_login() {
-    session_start();
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
     if (isset($_SESSION['user_id'])){
         return True;
     } else {
