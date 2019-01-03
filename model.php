@@ -477,6 +477,16 @@ function get_rooms($pdo) {
     return $rooms_exp;
 }
 
+
+function get_images($room_id) {
+    $dir = "/DDWT18_final/resources/rooms/" . strval($room_id);
+    echo $dir;
+    $files = scandir($dir);
+    print_r($files);
+
+    return;
+}
+
 /*
  * --------------------
  * END: DATABASE SELECT
