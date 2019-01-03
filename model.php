@@ -737,9 +737,9 @@ function add_room($pdo, $form_data) {
     /* Save room to the database */
     try {
         $stmt = $pdo->prepare('INSERT INTO rooms (city, postal_code, street, street_number, addition, size, type, price, 
-                               description, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+                               description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)');
         $stmt->execute([$form_data['city'], $form_data['postal_code'], $form_data['street'], $form_data['street_number'], $form_data['addition'],
-            $form_data['size'], $form_data['type'], $form_data['price'], $form_data['description'], $form_data['image']]);
+            $form_data['size'], $form_data['type'], $form_data['price'], $form_data['description']]);
         $room_id = $pdo->lastInsertId();
     } catch (PDOException $e) {
         return [
