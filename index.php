@@ -219,6 +219,17 @@ elseif (new_route('/DDWT18_final/logout/', 'get')) {
 
 /* THE FOLLOWING ROUTES ARE ONLY AVAILABLE FOR OWNERS */
 
+/* add a room for. (GET) */
+elseif (new_route('/DDWT18_final/add/', 'get')) {
+
+    include use_template('add-room');
+}
+
+/* add room for. (POST) */
+elseif (new_route('/DDWT18_final/add/', 'post')) {
+
+}
+
 /* edit room for. (GET) */
 elseif (new_route('/DDWT18_final/edit/', 'get')) {
 
@@ -226,16 +237,6 @@ elseif (new_route('/DDWT18_final/edit/', 'get')) {
 
 /* edit room for. (POST) */
 elseif (new_route('/DDWT18_final/edit/', 'post')) {
-
-}
-
-/* add a room for. (GET) */
-elseif (new_route('/DDWT18_final/add/', 'get')) {
-
-}
-
-/* add room for. (POST) */
-elseif (new_route('/DDWT18_final/add/', 'post')) {
 
 }
 
