@@ -144,3 +144,35 @@ footer {
     font-family: 'Vidaloka', serif;
 }
 /* END: FULLWIDTH HEADER IMAGE */
+
+/* START: fade-in error message on top of screen */
+.error-fade {
+    position: absolute;
+    z-index: 9999999999;
+    top: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    height: 71px;
+    overflow: hidden;
+    margin-top: -22px;
+
+    -webkit-transform: translateY(-50px);
+    -webkit-animation: slideDown 2.5s 1.0s 1 ease forwards;
+    -moz-transform:    translateY(-50px);
+    -moz-animation:    slideDown 2.5s 1.0s 1 ease forwards;
+}
+.error-fade .alert {
+    height: 100%!important;
+}
+
+@-webkit-keyframes slideDown {
+    0%, 100% { -webkit-transform: translateY(-50px); }
+    10%, 90% { -webkit-transform: translateY(22px); }
+}
+@-moz-keyframes slideDown {
+    0%, 100% { -moz-transform: translateY(-50px); }
+    10%, 90% { -moz-transform: translateY(22px); }
+}
+
+/* END: fade-in error message on top of screen*/
