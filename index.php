@@ -20,13 +20,12 @@ $imported_scripts = get_imported_scripts();
 /* Footer HTML content */
 $footer = get_footer_content();
 
-/* global login check to determine the state of a user */
+/* Global login check */
 if (check_login()){
     $state = 'login';
 }
 else {
     $state = 'logout';
-    // Session killen hier?
 }
 
 /* Navigation template */
@@ -70,15 +69,17 @@ $nav_template =
         )
     );
 
-/* This section contains all routes */
-/* Landing page for ApartRent. (GET) */
+/*
+ * -------------
+ * START: ROUTES
+ * -------------
+ */
+
+/* Landing page (GET) */
 if (new_route('/DDWT18_final/', 'get')) {
-    /* page info */
+    /* Page content */
     $page_title = 'Home';
     $navigation = get_navigation($nav_template, 1, $state);
-    /*page content */
-    $page_subtitle = 'Living on my own!';
-    $page_content = 'Boom Boom Boom Boom, I want you in my room!';
 
     /* Get error message from POST route */
     if (isset($_GET['error_msg'])){
@@ -88,15 +89,11 @@ if (new_route('/DDWT18_final/', 'get')) {
     include use_template('home');
 }
 
-/* rooms for rent page. (GET) */
+/* Room overview (GET) */
 elseif (new_route('/DDWT18_final/rentable-rooms/', 'get')) {
-    /* page info */
+    /* Page content */
     $page_title = 'Rooms for rent';
-
     $navigation = get_navigation($nav_template, 2, $state);
-    /*page content */
-    $page_subtitle = 'Living on my own!';
-    $page_content = 'Boom Boom Boom Boom, I want you in my room!';
 
     /* Get error message from POST route */
     if (isset($_GET['error_msg'])){
@@ -106,7 +103,9 @@ elseif (new_route('/DDWT18_final/rentable-rooms/', 'get')) {
     include use_template('rentable-rooms');
 }
 
-/* test route (GET) */
+/* test route (GET)
+TODO: remove before handing in
+*/
 elseif (new_route('/DDWT18_final/test-route/', 'get')) {
     /* page info */
     $page_title = 'Rooms for rent';
@@ -120,19 +119,26 @@ elseif (new_route('/DDWT18_final/test-route/', 'get')) {
     include use_template('test-route');
 }
 
+/* test route (POST)
+TODO: remove before handing in
+*/
 elseif (new_route('/DDWT18_final/test-route/', 'post')) {
 
     $error_msg = upload_image();
     redirect(sprintf('/DDWT18_final/?error_msg=%s', json_encode($error_msg)));
 }
 
-/* single room. (GET) */
+/* Single room (GET) */
 elseif (new_route('/DDWT18_final/room/', 'get')) {
-    /* META */
+    /* Check if logged in */
+    if ( !check_login() ) {
+        redirect('/DDWT18_final/login/');
+    }
+    /* Page content */
     $page_title = "Single room";
     $navigation = get_navigation($nav_template, 0, $state);
 
-    /* get ID of the room */
+    /* get room id */
     $room_id = $_GET['id'];
 
     /* get room info */
@@ -157,8 +163,11 @@ elseif (new_route('/DDWT18_final/my-account/', 'get')) {
     if ( !check_login() ) {
         redirect('/DDWT18_final/login/');
     }
+
+    /* Page content */
     $page_title = "My Account";
     $navigation = get_navigation($nav_template, 3, $state);
+
     /* Get error message from POST route */
     if (isset($_GET['error_msg'])){
         $error_msg = get_error($_GET['error_msg']);
@@ -168,10 +177,15 @@ elseif (new_route('/DDWT18_final/my-account/', 'get')) {
 }
 
 
-/* THE FOLLOWING SECTION DEALS WITH USER AUTHENTICATION */
+/*
+ * --------------------------
+ * START: USER AUTHENTICATION
+ * --------------------------
+ */
 
-/* Register a user. (GET) */
+/* Register user (GET) */
 elseif (new_route('/DDWT18_final/register/', 'get')) {
+    /* Page content */
     $page_title = 'Register';
 
     /* Get error message from POST route */
@@ -182,7 +196,7 @@ elseif (new_route('/DDWT18_final/register/', 'get')) {
     include use_template('register');
 }
 
-/* Register a user. (POST) */
+/* Register user (POST) */
 elseif (new_route('/DDWT18_final/register/', 'post')) {
     /* Register user */
     $error_msg = register_user($db, $_POST);
@@ -191,8 +205,9 @@ elseif (new_route('/DDWT18_final/register/', 'post')) {
     redirect(sprintf('/DDWT18_final/my-account/?error_msg=%s', json_encode($error_msg)));
 }
 
-/* Login a user. (GET) */
+/* Login user (GET) */
 elseif (new_route('/DDWT18_final/login/', 'get')) {
+    /* Page content */
     $navigation = get_navigation($nav_template, 5, $state);
     $page_title = 'Login';
 
@@ -204,7 +219,7 @@ elseif (new_route('/DDWT18_final/login/', 'get')) {
     include use_template('login');
 }
 
-/* Login a user. (POST) */
+/* Login user (POST) */
 elseif (new_route('/DDWT18_final/login/', 'post')) {
     /* Login user */
     $error_msg = login_user($db, $_POST);
@@ -213,21 +228,34 @@ elseif (new_route('/DDWT18_final/login/', 'post')) {
     redirect(sprintf('/DDWT18_final/my-account/?id=%s', $_POST['id']));
 }
 
-/* Logout a user. (GET) */
+/* Logout user (GET) */
 elseif (new_route('/DDWT18_final/logout/', 'get')) {
+    /* Logout user */
     $error_msg = logout_user();
 
     /* Redirect to homepage */
     redirect(sprintf('/DDWT18_final/?error_msg=%s', json_encode($error_msg)));
 }
 
-/* END SECTION OF USER AUTHENTICATION */
+/*
+ * ------------------------
+ * END: USER AUTHENTICATION
+ * ------------------------
+ */
 
 
-/* THE FOLLOWING ROUTES ARE ONLY AVAILABLE FOR OWNERS */
+/*
+ * -----------------
+ * START: OWNER ONLY
+ * -----------------
+ */
 
 /* Add room (GET) */
 elseif (new_route('/DDWT18_final/add/', 'get')) {
+    /* Check if logged in */
+    if ( !check_login() ) {
+        redirect('/DDWT18_final/login/');
+    }
     $page_title = 'Add room';
 
     /* Get error message from POST route */
@@ -240,39 +268,59 @@ elseif (new_route('/DDWT18_final/add/', 'get')) {
 
 /* Add room (POST) */
 elseif (new_route('/DDWT18_final/add/', 'post')) {
-
+    /* Add room */
     $error_msg = add_room($db, $_POST);
+
+    /* Redirect to add (GET) page */
     redirect(sprintf('/DDWT18_final/add/?error_msg=%s', json_encode($error_msg)));
 }
 
-/* edit room for. (GET) */
+/* Edit room (GET) */
 elseif (new_route('/DDWT18_final/edit/', 'get')) {
 
 }
 
-/* edit room for. (POST) */
+/* Edit room (POST) */
 elseif (new_route('/DDWT18_final/edit/', 'post')) {
 
 }
 
-/* Remove a room. (POST) */
-/* edit room for an Owner. (GET) */
+/* Remove room (POST) */
 elseif (new_route('/DDWT18_final/remove/', 'post')) {
 
 }
 
-/* END SECTION CONTAINING ROUTES ONLY AVAILABLE FOR OWNERS */
+/*
+ * ---------------
+ * END: OWNER ONLY
+ * ---------------
+ */
 
-/* THE FOLLOWING ROUTES ARE ONLY AVAILABLE FOR TENANTS */
 
-/* opt-in to a room. (POST) */
+/*
+ * ------------------
+ * START: TENANT ONLY
+ * ------------------
+ */
+
+/* Opt-in to a room (POST) */
 elseif (new_route('/DDWT18_final/optin/', 'post')) {
 
 }
 
-/* END SECTION CONTAINING ROUTES ONLY AVAILABLE FOR TENANTS */
+/*
+ * ----------------
+ * END: TENANT ONLY
+ * ----------------
+ */
 
-/* ERROR HANDLING WHEN THE ROUTE IS NOT FOUND */
+/* Exception */
 else {
     http_response_code(404);
 }
+
+/*
+ * -----------
+ * END: ROUTES
+ * -----------
+ */
