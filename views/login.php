@@ -34,7 +34,7 @@
                                     <label for="username"  class="sign-in-register-label" >Username</label>
                                     <input type="text" name="username" placeholder="Enter Username" class="form-input" required>
                                 </div>
-                                <div class="form-row-sign-in">
+                                <div class="form-row">
                                     <label for="password" class="sign-in-register-label" >Password</label>
                                     <input type="password" name="password" placeholder="Enter Password" class="form-input" required>
                                 </div>

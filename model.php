@@ -642,7 +642,7 @@ function get_room_html($room) {
             <a href="#">
                 <div class="row rr-inner-row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 rr-img-col">
-                        <img src="/DDWT18_final/resources/rooms/1.jpg">
+                        <img src="$image">
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 rr-info-col">
                         <h3>$street $nr$add</h3>
@@ -654,10 +654,13 @@ function get_room_html($room) {
             </a>
          </div>';
 
+     /* Get thumbnail */
+     $thumbnail = get_images($room['id'])[0];
+
      /* Add correct values to the template */
      return strtr($template, array('$street' => $room['street'], '$nr' => $room['street_number'],
          '$add' => $room['addition'], '$postal' => $room['postal_code'], '$city' => $room['city'],
-         '$size' => $room['size'], '$type' => $room['type'], '$price' => $room['price']));
+         '$size' => $room['size'], '$type' => $room['type'], '$price' => $room['price'], '$image' => $thumbnail));
 
 
 }
