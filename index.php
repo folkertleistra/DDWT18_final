@@ -20,8 +20,16 @@ $imported_scripts = get_imported_scripts();
 /* Footer HTML content */
 $footer = get_footer_content();
 
+/* global login check to determine the state of a user */
+if (check_login()){
+    $state = 'login';
+}
+else {
+    $state = 'logout';
+    // Session killen hier?
+}
+
 /* Navigation template */
-$state = 'logout';
 $nav_template =
     Array(
         1 => Array(
@@ -127,11 +135,14 @@ elseif (new_route('/DDWT18_final/myaccount/', 'get')) {
     if ( !check_login() ) {
         redirect('/DDWT18_final/login/');
     }
-
+    $page_title = "My Account";
+    $navigation = get_navigation($nav_template, 3, $state);
     /* Get error message from POST route */
     if (isset($_GET['error_msg'])){
         $error_msg = get_error($_GET['error_msg']);
     }
+
+    include use_template('my_account');
 }
 
 

@@ -57,9 +57,22 @@
                     </a>
                 </div>
 
+
             </div>
 
         </div>
+
+        <?php
+
+        /* All rooms in the database */
+        $rooms = get_rooms($db);
+
+        /* Get individual rooms from database */
+        foreach ($room as $value) {
+            print($room);
+        }
+
+        ?>
 
         <!-- Footer -->
         <?= $footer ?>
