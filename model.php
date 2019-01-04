@@ -493,13 +493,38 @@ function get_user_username($pdo, $user_id) {
     return $username;
 }
 
-
+/**
+ * Check if a user id belongs to an owner
+ * @param $pdo
+ * @param $user_id
+ * @return bool
+ */
 function is_owner($pdo, $user_id) {
     /* Create and execute SQL statement */
-    $stmt = $pdo->prepare('SELECT * FROM owner WHERE id = ?');
+    $stmt = $pdo->prepare('SELECT * FROM owner WHERE owner_id = ?');
     $stmt->execute([$user_id]);
     $users = $stmt->fetchAll();
-    return $users;
+    if (count($users) == 0) {
+        return false;
+    }
+    return true;
+}
+
+/**
+ * Check if a user id belongs to a tenant
+ * @param $pdo
+ * @param $user_id
+ * @return bool
+ */
+function is_tenant($pdo, $user_id) {
+    /* Create and execute SQL statement */
+    $stmt = $pdo->prepare('SELECT * FROM tenant WHERE tenant_id = ?');
+    $stmt->execute([$user_id]);
+    $users = $stmt->fetchAll();
+    if (count($users) == 0) {
+        return false;
+    }
+    return true;
 }
 
 /**
