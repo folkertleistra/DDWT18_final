@@ -5,26 +5,26 @@
         <title><?= $page_title ?></title>
     </head>
     <body>
-        <form action="/DDWT18_final/add/" method="POST">
+        <form action="/DDWT18_final/add/" method="POST" enctype="multipart/form-data">
             <label for="city">city</label>
-            <input type="text" name="city">
+            <input type="text" name="city" value="teststad">
             <label for="postal_code">postal code</label>
-            <input type="text" name="postal_code">
+            <input type="text" name="postal_code" value="postcodetest">
             <label for="street">street</label>
-            <input type="text" name="street">
+            <input type="text" name="street" value="streettest">
             <label for="street_number">street number</label>
-            <input type="text" name="street_number">
+            <input type="text" name="street_number" value=12>
             <label for="addition">addition</label>
-            <input type="text" name="addition">
+            <input type="text" name="addition" value="testaddition">
             <label for="size">size</label>
-            <input type="text" name="size">
+            <input type="text" name="size" value=12>
             <label for="type">type</label>
-            <input type="text" name="type">
+            <input type="text" name="type" value="testtype">
             <label for="price">price</label>
-            <input type="text" name="price">
+            <input type="text" name="price" value=12>
             <textarea name="description" placeholder="description"></textarea>
             <label for="image">image</label>
-            <input type="file" name="files[]" multiple="multiple">
+            <input type="file" name="fileToUpload[]" id="fileToUpload" multiple>
             <button type="submit">Add room</button>
         </form>
     </body>
