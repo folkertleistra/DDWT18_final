@@ -27,8 +27,33 @@
 
                 <!--- Right Content --->
                 <div class="col-md-8 right-column">
-                    <h3>Personal Information</h3>
-                    <p></p>
+                    <table>
+                        <tr>
+                            <td><?= $user_info['firstname'] ?></td>
+                        </tr>
+                        <tr>
+                            <td><?= $user_info['lastname'] ?></td>
+                        </tr>
+                        <tr>
+                            <td><?= $user_info['email']  ?></td>
+                        </tr>
+                        <tr>
+                            <td><?= $user_info['birthdate'] ?></td>
+                        </tr>
+                        <tr>
+                            <td><?= $user_info['phone'] ?></td>
+                        </tr>
+                        <tr>
+                            <td><?= $user_info['language'] ?></td>
+                        </tr>
+                        <tr>
+                            <td><?= $user_info['occupation'] ?></td>
+                        </tr>
+                    </table>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <a href="/DDWT18/week2/edit/?serie_id=<?= $serie_id ?>" role="button" class="btn btn-warning">Edit</a>
+                        </div>
                 </div>
             </div>
         </div>
