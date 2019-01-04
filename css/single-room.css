@@ -11,7 +11,7 @@
 @media screen and (min-width: 576px) {
     .sr-row {
         border-radius: 3px;
-        padding: 15px 0 0 0;
+        padding: 20px 20px 0 20px;
     }
     .sr-row img {
         border-radius: 3px;
@@ -22,8 +22,8 @@
 
 /* slider col */
 .slider-col {
-    padding: 0 15px 0 15px;
-    height: 470px;
+    padding: 0px 15px 0 15px;
+    height: 475px;
 }
 
 /* Slideshow container */
@@ -135,3 +135,27 @@ a.next, a.prev {
     to {opacity: 1}
 }
 /* END: Slider */
+
+/* START: room information */
+p.room-info {
+    font-size: 17px;
+    line-height: 26px;
+}
+.room-info {
+}
+.price {
+    color: #f26b3a;
+    font-weight: 600;
+    font-size: 19px;
+}
+strong {
+    font-weight: 600;
+    margin-right: 10px;
+}
+.room-info span:first-of-type {
+    margin-right: 20px;
+}
+.room-info span:nth-of-type(3) {
+    float: right;
+}
+/* END: room information */
