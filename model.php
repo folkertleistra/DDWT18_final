@@ -176,6 +176,8 @@ function get_footer_content() {
         </footer>';
 }
 
+
+
 /*
  * -----------------
  * END: PAGE CONTENT
