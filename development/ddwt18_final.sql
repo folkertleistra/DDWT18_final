@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jan 02, 2019 at 01:53 PM
+-- Generation Time: Jan 04, 2019 at 12:56 PM
 -- Server version: 5.6.34-log
 -- PHP Version: 7.2.1
 
@@ -58,23 +58,19 @@ INSERT INTO `optin` (`tenant_id`, `room_id`, `message`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `own`
---
-
-CREATE TABLE `own` (
-  `room_id` int(11) NOT NULL,
-  `owner_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `owner`
 --
 
 CREATE TABLE `owner` (
   `owner_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `owner`
+--
+
+INSERT INTO `owner` (`owner_id`) VALUES
+(9);
 
 -- --------------------------------------------------------
 
@@ -84,6 +80,7 @@ CREATE TABLE `owner` (
 
 CREATE TABLE `rooms` (
   `id` int(11) NOT NULL,
+  `owner_id` int(11) NOT NULL,
   `city` varchar(255) NOT NULL,
   `postal_code` varchar(255) NOT NULL,
   `street` varchar(255) NOT NULL,
@@ -99,10 +96,10 @@ CREATE TABLE `rooms` (
 -- Dumping data for table `rooms`
 --
 
-INSERT INTO `rooms` (`id`, `city`, `postal_code`, `street`, `street_number`, `addition`, `size`, `type`, `price`, `description`) VALUES
-(1, 'Groningen', '1234GR', 'Herestraat', 1, NULL, 25, 'studio', 500, 'Ruime studio in het centrum van Groningen.'),
-(2, 'Klijndijk', '1234KL', 'Melkweg', 2, 'B', 100, 'flatwoning', 600, 'Ruime woning op de 40ste etage in de gloednieuwe flat in klijndijk.'),
-(3, 'Randwijk', '1234RA', 'Bredeweg', 3, NULL, 200, 'stal', 20, 'Ruime woning, landelijk gelegen.');
+INSERT INTO `rooms` (`id`, `owner_id`, `city`, `postal_code`, `street`, `street_number`, `addition`, `size`, `type`, `price`, `description`) VALUES
+(1, 9, 'Groningen', '1234GR', 'Herestraat', 1, NULL, 25, 'studio', 500, 'Ruime studio in het centrum van Groningen.'),
+(2, 9, 'Klijndijk', '1234KL', 'Melkweg', 2, 'B', 100, 'flatwoning', 600, 'Ruime woning op de 40ste etage in de gloednieuwe flat in klijndijk.'),
+(3, 9, 'Randwijk', '1234RA', 'Bredeweg', 3, NULL, 200, 'stal', 20, 'Ruime woning, landelijk gelegen.');
 
 -- --------------------------------------------------------
 
@@ -146,7 +143,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `firstname`, `lastname`, `email`, `phone`, `birthdate`, `language`, `occupation`, `biography`) VALUES
-(8, 'testu', '$2y$10$DzqLKz8FRxpt7jfBwu3m0.mgH6m8xCeqlPv/srJTBvS3AFUlcNg9C', 'First', 'Last', 'test@test.com', '0612345678', '2018-12-01', 'Dutch', 'Student Information Science', 'sumthn bout mself');
+(8, 'testu', '$2y$10$DzqLKz8FRxpt7jfBwu3m0.mgH6m8xCeqlPv/srJTBvS3AFUlcNg9C', 'First', 'Last', 'test@test.com', '0612345678', '2018-12-01', 'Dutch', 'Student Information Science', 'sumthn bout mself'),
+(9, 'testo', '$2y$10$0GclR4tLEEwiaO0AqHlej.382.7WbAjqJogNcRwl5bzZiQTHgvOVu', 'First', 'Last', 'testo@test.nl', '0623456789', '2019-01-10', 'Italian', 'house owner', 'hahahaha');
 
 --
 -- Indexes for dumped tables
@@ -164,13 +162,6 @@ ALTER TABLE `image`
 ALTER TABLE `optin`
   ADD PRIMARY KEY (`tenant_id`,`room_id`),
   ADD KEY `room_id` (`room_id`);
-
---
--- Indexes for table `own`
---
-ALTER TABLE `own`
-  ADD PRIMARY KEY (`room_id`),
-  ADD KEY `owner_id` (`owner_id`);
 
 --
 -- Indexes for table `owner`
@@ -206,12 +197,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- Constraints for dumped tables
 --
@@ -228,13 +219,6 @@ ALTER TABLE `image`
 ALTER TABLE `optin`
   ADD CONSTRAINT `optin_ibfk_1` FOREIGN KEY (`tenant_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `optin_ibfk_2` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`id`);
-
---
--- Constraints for table `own`
---
-ALTER TABLE `own`
-  ADD CONSTRAINT `own_ibfk_1` FOREIGN KEY (`owner_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `own_ibfk_2` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`id`);
 
 --
 -- Constraints for table `owner`

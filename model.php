@@ -620,17 +620,37 @@ function get_rooms($pdo) {
 }
 
 /**
+ * @param $pdo
+ * @param $owner_id
+ * @return array
+ */
+function get_owned_rooms($pdo, $owner_id) {
+    /* Create and execute SQL statement */
+    $stmt = $pdo->prepare('SELECT * FROM rooms WHERE owner_id = ?');
+    $stmt->execute([$owner_id]);
+    $rooms = $stmt->fetchAll();
+    $rooms_exp = Array();
+
+    /* Create array with htmlspecialchars */
+    foreach ($rooms as $key => $value){
+        foreach ($value as $user_key => $user_input) {
+            $rooms_exp[$key][$user_key] = htmlspecialchars($user_input);
+        }
+    }
+    return $rooms_exp;
+}
+/**
  * Returns array with all image urls for given room id
  * @param $room_id
  * @return array|false
  */
 function get_images($room_id) {
     /* Get all image urls */
-    $dir = "../DDWT18_final/resources/rooms/" . strval($room_id);
+    $dir = "resources/rooms/" . strval($room_id);
     $files = glob($dir . "/*.jpg");
     $images = Array();
     foreach ($files as $key => $value){
-        $trimmed = str_replace('../', '/', $value);
+        $trimmed = '/DDWT18_final/' . $value;
         $images[$key] = $trimmed;
     }
     return $images;
@@ -841,9 +861,9 @@ function add_room($pdo, $form_data) {
     /* Save room to the database */
     /*
     try {
-        $stmt = $pdo->prepare('INSERT INTO rooms (city, postal_code, street, street_number, addition, size, type, price, 
-                               description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)');
-        $stmt->execute([$form_data['city'], $form_data['postal_code'], $form_data['street'], $form_data['street_number'], $form_data['addition'],
+        $stmt = $pdo->prepare('INSERT INTO rooms (owner_id, city, postal_code, street, street_number, addition, size, type, price, 
+                               description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        $stmt->execute([$_SESSION['user_id'], $form_data['city'], $form_data['postal_code'], $form_data['street'], $form_data['street_number'], $form_data['addition'],
             $form_data['size'], $form_data['type'], $form_data['price'], $form_data['description']]);
         $room_id = $pdo->lastInsertId();
     } catch (PDOException $e) {
@@ -853,8 +873,6 @@ function add_room($pdo, $form_data) {
         ];
     }*/
 
-    print_r("hoi");
-    save_images('resources/rooms/4/', $_FILES);
     /* Save room to 'own' table
     try {
         $stmt = $pdo->prepare('INSERT INTO own (room_id, owner_id) VALUES (?, ?)');

@@ -50,8 +50,20 @@
                 </div>
 
                 <div class="col-lg-5">
-                    test
-                    <button>edit</button>
+                    <h2>Straat 404A</h2>
+                    <hr>
+                    <div class="room-info-wrapper">
+                        <p class="room-info">
+                            <span><strong>Type:</strong>Studio</span>
+                            <span><strong>Size:</strong>404 m²</span>
+                            <span class="price">€ 202</span></span>
+                            <br>
+                            <span><strong>Street:</strong>Straatnaam 404</span><br>
+                            <span><strong>Address:</strong>1010AB Groningen</span>
+                        </p>
+                        <hr>
+                    </div>
+
                 </div>
 
             </div>

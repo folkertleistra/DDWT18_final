@@ -19,6 +19,18 @@
             </div>
         </div>
 
+        <?php if (is_owner($db, $_SESSION['user_id'])){echo '
+            
+            
+        ';} elseif (is_tenant($db, $_SESSION['user_id'])){echo '
+            
+            
+        ';} else {echo '
+            <div class="alert alert-'.'danger'.'" role="alert">
+                '.'Your account information was not found.'.'
+            </div>
+            ';}?>
+
         <!-- Footer -->
         <?= $footer ?>
 
