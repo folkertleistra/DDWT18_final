@@ -173,7 +173,7 @@ elseif (new_route('/DDWT18_final/my-account/', 'get')) {
         $error_msg = get_error($_GET['error_msg']);
     }
 
-    include use_template('my_account');
+    include use_template('my-account');
 }
 
 
