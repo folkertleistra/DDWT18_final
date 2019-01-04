@@ -878,10 +878,46 @@ function add_room($pdo, $form_data, $files) {
         ];
     }
 
-    /* TODO: Perform file checks */
-    $feedback = check_images($files);
-    if ($feedback != true) {
-        return $feedback;
+    /* Perform file checks */
+    foreach ($files['files']['name'] as $key => $value) {
+        $filetype = strtolower(pathinfo($files['files']['name'][$key],PATHINFO_EXTENSION));
+        /* Check if file is a real or fake image */
+        if (getimagesize($files['files']['tmp_name'][$key]) == false) {
+            return [
+                'type' => 'danger',
+                'message' => sprintf('File %s is not an image.', $files['files']['name'][$key])
+            ];
+        }
+        /* Check file size */
+        if ($files['files']['size'][$key] > 1000000) {
+            return [
+                'type' => 'danger',
+                'message' => sprintf('File %s is too large.', $files['files']['name'][$key]),
+            ];
+        }
+        /* Limit file type */
+        if ($filetype != "jpg" && $filetype != "png" && $filetype != "jpeg") {
+            return [
+                'type' => 'danger',
+                'message' => sprintf('File %s is not an image.', $files['files']['name'][$key])
+            ];
+        }
+
+        /* TODO: Change file type from png & jpeg to jpg */
+        if ($filetype == "png") {
+            $image = imagecreatefrompng($files['files']['name'][$key]);
+            $bg = imagecreatetruecolor(imagesx($image), imagesy($image));
+            imagefill($bg, 0, 0, imagecolorallocate($bg, 255, 255, 255));
+            imagealphablending($bg, TRUE);
+            imagecopy($bg, $image, 0, 0, 0, 0, imagesx($image), imagesy($image));
+            imagedestroy($image);
+            $quality = 50; // 0 = worst / smaller file, 100 = better / bigger file
+            imagejpeg($bg, $files['files']['name'][$key] . ".jpg", $quality);
+            imagedestroy($bg);
+        } elseif ($filetype == "jpeg") {
+            str_replace('.jpeg', '.jpg', $files['files']['name'][$key]);
+        }
+
     }
 
     /* Save room to the database */
@@ -897,6 +933,9 @@ function add_room($pdo, $form_data, $files) {
             'message' => sprintf('There was an error: %s', $e->getMessage())
         ];
     }
+
+    /* Save images to folder */
+    save_images(create_image_folder($room_id), $files);
 
     /* Redirect to room page */
     $feedback = [
@@ -972,23 +1011,6 @@ function opt_in($pdo, $form_data) {
  * -------------------
  */
 
-
-function check_images($files) {
-    foreach ($files['files']['name'] as $key => $value) {
-        /* Check if file is an image */
-
-        /* Limit file type */
-
-        /* Convert to jpg */
-
-        /* Check if file already exists */
-
-        /* Limit file size */
-
-
-    }
-    return true;
-}
 /**
  * Creates a new folder that will store the images uploaded to a new room
  * @param int $room_id
@@ -1007,7 +1029,9 @@ function create_image_folder($room_id) {
 function save_images($uploaddir, $files) {
 
     foreach ($files['files']['name'] as $key => $value) {
-        $uploadfile = $uploaddir . basename($files['files']['name'][$key]);
+        $file = $uploaddir . basename($files['files']['name'][$key]);
+        $imagefiletype = strtolower(pathinfo($file,PATHINFO_EXTENSION));
+        $uploadfile = $uploaddir . $key . '.' . $imagefiletype;
 
         move_uploaded_file($files['files']['tmp_name'][$key], $uploadfile);
     }

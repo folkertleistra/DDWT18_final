@@ -266,7 +266,7 @@ elseif (new_route('/DDWT18_final/add/', 'get')) {
 /* Add room (POST) */
 elseif (new_route('/DDWT18_final/add/', 'post')) {
     /* Add room */
-    $error_msg = add_room($db, $_POST);
+    $error_msg = add_room($db, $_POST, $_FILES);
 
     /* Redirect to add (GET) page */
     redirect(sprintf('/DDWT18_final/add/?error_msg=%s', json_encode($error_msg)));
