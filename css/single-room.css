@@ -4,6 +4,11 @@
 /* Single room row */
 .sr-row {
     background-color: #fff;
+}
+.r1, .r2 {
+    margin-bottom: 35px;
+}
+.r3 {
     margin-bottom: 50px;
 }
 
@@ -14,6 +19,9 @@
         padding: 20px 20px 0 20px;
     }
     .sr-row img {
+        border-radius: 3px;
+    }
+    .map-row {
         border-radius: 3px;
     }
 }
@@ -158,4 +166,134 @@ strong {
 .room-info span:nth-of-type(3) {
     float: right;
 }
+.description p {
+    font-style: italic;
+}
 /* END: room information */
+
+/* START: opt-in section */
+.opt-in-col textarea {
+    width: 100%;
+    min-height: 120px;
+    border-color: #d0d0d0;
+}
+.opt-in-col textarea:focus {
+    outline: 0;
+    border: 1px solid #f26b3a;
+}
+h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.opt-btn-wrapper {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+#opt-in-btn {
+    width: 200px;
+    color: white;
+    height: 40px;
+    background-color: #f26b3a;
+    border-radius: 4px;
+    margin: 20px 0 15px 0;
+    border: none;
+}
+button#opt-in-btn:focus {
+    outline: 0;
+}
+/* End: opt-in section */
+
+/* Map section */
+.map-row {
+    background-color: #fff;
+    padding: 0;
+    height: 400px;
+}
+.map-col {
+    padding: 15px;
+}
+
+/* Responsive */
+@media screen and (max-width: 575px) {
+    .slider-col {
+        padding-top: 25px;
+    }
+    .slides, .slideshow-container {
+        height: 200px;
+        max-height: 200px;
+    }
+    .slider-col {
+        height: 300px;
+    }
+    .room-info-col h2 {
+        margin-top: 20px;
+    }
+    h3 {
+        margin-top: 20px;
+    }
+    .opt-btn-wrapper {
+        margin-bottom: 5px;
+    }
+    .r1, .r2 {
+        margin-bottom: 0;
+    }
+    .r2 {
+        background-color: #f2f2f2;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    .room-info-col {
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+    .jumbotron {
+        margin-bottom: 0!important;
+    }
+}
+@media screen and (min-width: 576px) and (max-width: 767px) {
+    .slides, .slideshow-container {
+        height: 300px;
+        max-height: 300px;
+    }
+    .slider-col {
+        height: 380px;
+    }
+}
+@media screen and (max-width: 991px) {
+    .room-info-col {
+        margin-bottom: 25px;
+    }
+    .slider-col {
+        padding-top: 0;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

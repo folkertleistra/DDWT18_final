@@ -23,9 +23,9 @@
         </div>
 
         <div class="container">
-            <div class="row sr-row">
+            <div class="row sr-row r1">
 
-                <div class="col-lg-7 slider-col">
+                <div class="col-lg-7 slider-col order-lg-1 order-2">
 
                     <!-- Slideshow container -->
                     <div class="slideshow-container">
@@ -49,34 +49,55 @@
 
                 </div>
 
-                <div class="col-lg-5">
-                    <h2>Straat 404A</h2>
+                <div class="room-info-col col-lg-5 order-lg-2 order-1">
+                    <h2><?php echo($room_info['street'] . ' ' . $room_info['street_number'] . $room_info['addition']) ?></h2>
                     <hr>
                     <div class="room-info-wrapper">
                         <p class="room-info">
-                            <span><strong>Type:</strong>Studio</span>
-                            <span><strong>Size:</strong>404 m²</span>
-                            <span class="price">€ 202</span></span>
+                            <span><strong>Type:</strong><?php echo($room_info['type']) ?></span>
+                            <span><strong>Size:</strong><?php echo($room_info['size']) ?> m²</span>
+                            <span class="price">€ <?php echo($room_info['price']) ?></span></span>
                             <br>
-                            <span><strong>Street:</strong>Straatnaam 404</span><br>
-                            <span><strong>Address:</strong>1010AB Groningen</span>
+                            <span><strong>Street:</strong><?php echo($room_info['street'] . ' ' . $room_info['street_number'] . $room_info['addition']) ?></span><br>
+                            <span><strong>Address:</strong><?php echo($room_info['postal_code'] . ' ' . $room_info['city'])?></span>
                         </p>
                         <hr>
                     </div>
-
+                    <div class="description">
+                        <p><?php echo($room_info['description']) ?></p>
+                    </div>
                 </div>
+            </div>
 
+            <div class="row sr-row r2">
+                <div class="col-12 opt-in-col">
+                    <h3>Interested? <strong>Leave a message!</strong></h3>
+                    <form action="/DDWT18_final/optin/" method="POST">
+                        <input type='hidden' name='room_id' value='<?php echo '$room_id'?>'/>
+                        <textarea name="message"></textarea>
+                        <div class="opt-btn-wrapper">
+                            <button name="opt-in" type="submit" id="opt-in-btn">Request room</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row map-row r3">
+                <div class="col-12 map-col">
+                    <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.it/maps?q=<?php echo ($address); ?>&output=embed"></iframe>
+                </div>
             </div>
         </div>
 
-        <!--<iframe width="640" height="480" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.it/maps?q=<?php echo ('Visserstraat 3 Klijndijk'); ?>&output=embed"></iframe>-->
-
         <!-- Footer -->
         <?= $footer ?>
+
+        <?php echo $room_info ?>
 
         <?= $imported_scripts ?>
 
         <!-- Slider script -->
         <script type="text/javascript" src="/DDWT18_final/js/single-room.js"></script>
+
     </body>
 </html>

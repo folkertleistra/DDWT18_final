@@ -151,6 +151,9 @@ elseif (new_route('/DDWT18_final/room/', 'get')) {
     /* Thumbnail */
     $thumbnail = get_images($room_id)[0];
 
+    /* Address string */
+    $address = get_room_address($db, $room_id);
+
     include use_template('single-room');
 
 }
