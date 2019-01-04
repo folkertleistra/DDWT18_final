@@ -37,17 +37,10 @@
                             foreach ($room_images as $image) {
                                 echo get_slider_img_html($image);
                             }
-
-                            /* Do not display controls when only 1 image is uploaded */
-                            if ($img_amnt > 1) {
-                                echo '<!-- Next and previous buttons -->
-                                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                                <a class="next" onclick="plusSlides(1)">&#10095;</a>';
-                            }
                         ?>
                     </div>
 
-                    <!-- Dots -->
+                    <!-- Do not display slider controls when only 1 image is uploaded -->
                     <?php
                         if ($img_amnt > 1) {
                             echo get_slider_dots_html($img_amnt);

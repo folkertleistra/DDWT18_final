@@ -384,7 +384,13 @@ function get_slider_dots_html($img_amnt) {
         $counter += 1;
     }
 
-    return '<div class="dot-wrapper">' . $inner_html . '</div>';
+    return '<div class="slider-controls">
+                <div class="dot-wrapper">
+                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>'
+                    . $inner_html .
+                    '<a class="next" onclick="plusSlides(1)">&#10095;</a>
+                </div>
+            </div>';
 }
 
 /*

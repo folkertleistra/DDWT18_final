@@ -11,14 +11,10 @@
 @media screen and (min-width: 576px) {
     .sr-row {
         border-radius: 3px;
+        padding: 15px 0 0 0;
     }
-    .slides img {
-        border-top-left-radius: 3px;
-    }
-}
-@media screen and (min-width: 576px) and (max-width: 991px) {
-    .slides img {
-        border-top-right-radius: 3px;
+    .sr-row img {
+        border-radius: 3px;
     }
 }
 
@@ -26,7 +22,8 @@
 
 /* slider col */
 .slider-col {
-    padding: 0;
+    padding: 0 15px 0 15px;
+    height: 470px;
 }
 
 /* Slideshow container */
@@ -34,7 +31,8 @@
     max-width: 1000px;
     position: relative;
     margin: auto;
-    margin-bottom: 20px;
+    height: 400px;
+    max-height: 400px;
 }
 
 /* Hide the images by default */
@@ -45,6 +43,7 @@
 /* dots */
 .dot-wrapper {
     text-align: center;
+    position: relative;
 }
 span.dot {
     margin-left: 4px;
@@ -52,19 +51,19 @@ span.dot {
 }
 
 /* Next & previous buttons */
-    .prev, .next {
+.prev, .next {
     cursor: pointer;
     position: absolute;
-    top: 50%;
+    top: -6px;
     width: auto;
-    margin-top: -22px;
-    padding: 16px;
+    padding: 2px 23px 2px 23px;
     color: white;
     font-weight: bold;
     font-size: 18px;
     transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
     user-select: none;
+    border-radius: 3px;
+
 }
 a.next:hover, a.prev:hover {
     color: #f26b3a!important;
@@ -75,10 +74,18 @@ a.next, a.prev {
     opacity: 0.8;
 }
 
-/* Position the "next button" to the right */
+/* Slider control wrapper */
+.slider-controls {
+    max-width: 265px;
+    margin: 25px auto 0 auto;
+}
+
+/* Prev next button positions */
 .next {
     right: 0;
-    border-radius: 3px 0 0 3px;
+}
+.prev {
+    left: 0;
 }
 
 /* The dots/bullets/indicators */
@@ -88,13 +95,15 @@ a.next, a.prev {
     width: 15px;
     margin: 0 2px;
     background-color: #bbb;
+    opacity: 0.8;
     border-radius: 50%;
     display: inline-block;
     transition: background-color 0.6s ease;
 }
 
 .active, .dot:hover {
-    background-color: #717171;
+    background-color: #f26b3a;
+    opacity: 0.8;
 }
 
 /* Fading animation */
@@ -103,6 +112,17 @@ a.next, a.prev {
     -webkit-animation-duration: 1.5s;
     animation-name: slider-fade;
     animation-duration: 1.5s;
+}
+
+.slides {
+    height: 400px;
+    max-height: 400px;
+}
+
+.slides img {
+    object-fit: contain;
+    width: 100%;
+    max-height: 400px;
 }
 
 @-webkit-keyframes slider-fade {
