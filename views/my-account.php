@@ -19,17 +19,28 @@
             </div>
         </div>
 
-        <?php if (is_owner($db, $_SESSION['user_id'])){echo '
-            
-            
-        ';} elseif (is_tenant($db, $_SESSION['user_id'])){echo '
-            
-            
-        ';} else {echo '
-            <div class="alert alert-'.'danger'.'" role="alert">
-                '.'Your account information was not found.'.'
+        <div class="container">
+            <div class="row justify-content-between main-row">
+                <!--- Left Content --->
+                <div class="col-md-3 left-column">
+                </div>
+
+                <!--- Right Content --->
+                <div class="col-md-8 right-column">
+
+                    <div class="col-12 top-right-box">
+                        test
+                    </div>
+
+                    <div class="col-12 bottom-right-box">
+                        test
+                    </div>
+
+                </div>
             </div>
-            ';}?>
+        </div>
+
+
 
         <!-- Footer -->
         <?= $footer ?>
