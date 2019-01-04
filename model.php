@@ -930,6 +930,46 @@ function opt_in($pdo, $form_data) {
  * --------------------
  */
 
+/*
+ * --------------------
+ * START: CREATE MAP
+ * --------------------
+ */
+
+/**
+ * This function creates a new folder that will store the images uploaded to a new room
+ * @param int $room_id
+ * @return string $path
+ */
+function create_image_folder($room_id) {
+    $path = 'resources/rooms/'.$room_id;
+    mkdir($path, 0777, true);
+
+    return $path;
+}
+
+/*
+ * --------------------
+ * END: CREATE MAP
+ * --------------------
+ */
+
+/*
+ * ----------------------
+ * START: SAVE IMAGES
+ * ----------------------
+ */
+
+function save_images($path, $files) {
+
+
+}
+
+/*
+ * ----------------------
+ * END: SAVE IMAGES
+ * ----------------------
+ */
 
 /*
  * ----------------------

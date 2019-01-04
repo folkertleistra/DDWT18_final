@@ -5,7 +5,7 @@
         <title><?= $page_title ?></title>
     </head>
     <body>
-        <form action="/DDWT18_final/add/" method="POST">
+        <form action="/DDWT18_final/add/" method="POST" enctype="multipart/form-data">
             <label for="city">city</label>
             <input type="text" name="city">
             <label for="postal_code">postal code</label>
@@ -24,7 +24,7 @@
             <input type="text" name="price">
             <textarea name="description" placeholder="description"></textarea>
             <label for="image">image</label>
-            <input type="file" name="files[]" multiple="multiple">
+            <input type="file" name="fileToUpload[]" id="fileToUpload" multiple>
             <button type="submit">Add room</button>
         </form>
     </body>
