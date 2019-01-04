@@ -92,8 +92,6 @@
         <!-- Footer -->
         <?= $footer ?>
 
-        <?php echo $room_info ?>
-
         <?= $imported_scripts ?>
 
         <!-- Slider script -->
