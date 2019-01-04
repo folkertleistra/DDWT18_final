@@ -131,10 +131,7 @@ elseif (new_route('/DDWT18_final/test-route/', 'post')) {
 
 /* Single room (GET) */
 elseif (new_route('/DDWT18_final/room/', 'get')) {
-    /* Check if logged in */
-    if ( !check_login() ) {
-        redirect('/DDWT18_final/login/');
-    }
+
     /* Page content */
     $page_title = "Single room";
     $navigation = get_navigation($nav_template, 0, $state);
