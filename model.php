@@ -620,17 +620,37 @@ function get_rooms($pdo) {
 }
 
 /**
+ * @param $pdo
+ * @param $owner_id
+ * @return array
+ */
+function get_owned_rooms($pdo, $owner_id) {
+    /* Create and execute SQL statement */
+    $stmt = $pdo->prepare('SELECT * FROM rooms WHERE owner_id = ?');
+    $stmt->execute([$owner_id]);
+    $rooms = $stmt->fetchAll();
+    $rooms_exp = Array();
+
+    /* Create array with htmlspecialchars */
+    foreach ($rooms as $key => $value){
+        foreach ($value as $user_key => $user_input) {
+            $rooms_exp[$key][$user_key] = htmlspecialchars($user_input);
+        }
+    }
+    return $rooms_exp;
+}
+/**
  * Returns array with all image urls for given room id
  * @param $room_id
  * @return array|false
  */
 function get_images($room_id) {
     /* Get all image urls */
-    $dir = "../DDWT18_final/resources/rooms/" . strval($room_id);
+    $dir = "resources/rooms/" . strval($room_id);
     $files = glob($dir . "/*.jpg");
     $images = Array();
     foreach ($files as $key => $value){
-        $trimmed = str_replace('../', '/', $value);
+        $trimmed = '/DDWT18_final/' . $value;
         $images[$key] = $trimmed;
     }
     return $images;
