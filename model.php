@@ -839,6 +839,7 @@ function add_room($pdo, $form_data) {
     }
 
     /* Save room to the database */
+    /*
     try {
         $stmt = $pdo->prepare('INSERT INTO rooms (city, postal_code, street, street_number, addition, size, type, price, 
                                description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)');
@@ -850,8 +851,10 @@ function add_room($pdo, $form_data) {
             'type' => 'danger',
             'message' => sprintf('There was an error: %s', $e->getMessage())
         ];
-    }
+    }*/
 
+    print_r("hoi");
+    save_images('resources/rooms/4/', $_FILES);
     /* Save room to 'own' table
     try {
         $stmt = $pdo->prepare('INSERT INTO own (room_id, owner_id) VALUES (?, ?)');
@@ -868,7 +871,7 @@ function add_room($pdo, $form_data) {
         'type' => 'success',
         'message' => sprintf('The room was successfully created!')
     ];
-    redirect(sprintf('/DDWT18_final/room/?id=%s&error_msg=%s', $room_id, json_encode($feedback)));
+    //redirect(sprintf('/DDWT18_final/room/?id=%s&error_msg=%s', $room_id, json_encode($feedback)));
 }
 
 
@@ -961,7 +964,7 @@ function create_image_folder($room_id) {
  */
 
 function save_images($path, $files) {
-
+    move_uploaded_file($files['files']['name'][0], 'resources/rooms/4');
 
 }
 
