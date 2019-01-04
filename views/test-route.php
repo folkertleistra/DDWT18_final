@@ -28,6 +28,12 @@
     </form>
 </div>
 
+<form action="/DDWT18_final/test-route/" method="POST" enctype="multipart/form-data">
+    <label for="image">image</label>
+    <input type="file" name="files[]" id="fileToUpload" multiple>
+    <button type="submit">Add room</button>
+</form>
+
 <div class="container-fluid home-button-section">
     <div class="row justify-content-center">
 

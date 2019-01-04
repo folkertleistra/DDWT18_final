@@ -124,9 +124,8 @@ elseif (new_route('/DDWT18_final/test-route/', 'get')) {
 TODO: remove before handing in
 */
 elseif (new_route('/DDWT18_final/test-route/', 'post')) {
+    save_images(create_image_folder(4), $_FILES);
 
-    $error_msg = opt_in($db, $_POST, 2);
-    redirect(sprintf('/DDWT18_final/?error_msg=%s', json_encode($error_msg)));
 }
 
 /* Single room (GET) */

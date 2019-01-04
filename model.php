@@ -599,6 +599,26 @@ function get_room_info($pdo, $room_id) {
 }
 
 /**
+ * @param $pdo
+ * @param $room_id
+ * @return string
+ */
+function get_room_address($pdo, $room_id) {
+    /* Create and execute SQL statement */
+    $stmt = $pdo->prepare('SELECT street, street_number, addition, postal_code, city FROM rooms WHERE id = ?');
+    $stmt->execute([$room_id]);
+    $rooms = $stmt->fetchAll();
+    $room = $rooms[0];
+    $room_exp = "";
+
+    /* Create array with htmlspecialchars */
+    foreach ($room as $key => $value){
+        $room_exp .= ' ' . $value;
+    }
+    return $room_exp;
+}
+
+/**
  * Returns the information of all available rooms
  * @param $pdo
  * @return array
@@ -791,12 +811,12 @@ function register_user($pdo, $form_data) {
 }
 
 /**
- * Adds a new room to the database
  * @param $pdo
  * @param $form_data
- * @return array
+ * @param $files
+ * @return array|bool
  */
-function add_room($pdo, $form_data) {
+function add_room($pdo, $form_data, $files) {
     /* Check if all fields are set */
     if (
         empty($form_data['city']) or
@@ -858,8 +878,13 @@ function add_room($pdo, $form_data) {
         ];
     }
 
+    /* TODO: Perform file checks */
+    $feedback = check_images($files);
+    if ($feedback != true) {
+        return $feedback;
+    }
+
     /* Save room to the database */
-    /*
     try {
         $stmt = $pdo->prepare('INSERT INTO rooms (owner_id, city, postal_code, street, street_number, addition, size, type, price, 
                                description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
@@ -871,25 +896,14 @@ function add_room($pdo, $form_data) {
             'type' => 'danger',
             'message' => sprintf('There was an error: %s', $e->getMessage())
         ];
-    }*/
-
-    /* Save room to 'own' table
-    try {
-        $stmt = $pdo->prepare('INSERT INTO own (room_id, owner_id) VALUES (?, ?)');
-        $stmt->execute([$room_id, $_SESSION['user_id']]);
-    } catch (PDOException $e) {
-        return [
-            'type' => 'danger',
-            'message' => sprintf('There was an error: %s', $e->getMessage())
-        ];
-    }*/
+    }
 
     /* Redirect to room page */
     $feedback = [
         'type' => 'success',
         'message' => sprintf('The room was successfully created!')
     ];
-    //redirect(sprintf('/DDWT18_final/room/?id=%s&error_msg=%s', $room_id, json_encode($feedback)));
+    redirect(sprintf('/DDWT18_final/room/?id=%s&error_msg=%s', $room_id, json_encode($feedback)));
 }
 
 
@@ -951,46 +965,60 @@ function opt_in($pdo, $form_data) {
  * --------------------
  */
 
+
 /*
- * --------------------
- * START: CREATE MAP
- * --------------------
+ * -------------------
+ * START: IMAGE UPLOAD
+ * -------------------
  */
 
+
+function check_images($files) {
+    foreach ($files['files']['name'] as $key => $value) {
+        /* Check if file is an image */
+
+        /* Limit file type */
+
+        /* Convert to jpg */
+
+        /* Check if file already exists */
+
+        /* Limit file size */
+
+
+    }
+    return true;
+}
 /**
- * This function creates a new folder that will store the images uploaded to a new room
+ * Creates a new folder that will store the images uploaded to a new room
  * @param int $room_id
  * @return string $path
  */
 function create_image_folder($room_id) {
-    $path = 'resources/rooms/'.$room_id;
+    $path = 'resources/rooms/' . $room_id . '/';
     mkdir($path, 0777, true);
-
     return $path;
 }
 
-/*
- * --------------------
- * END: CREATE MAP
- * --------------------
+/**
+ * @param $uploaddir
+ * @param $files
  */
+function save_images($uploaddir, $files) {
 
-/*
- * ----------------------
- * START: SAVE IMAGES
- * ----------------------
- */
+    foreach ($files['files']['name'] as $key => $value) {
+        $uploadfile = $uploaddir . basename($files['files']['name'][$key]);
 
-function save_images($path, $files) {
-    move_uploaded_file($files['files']['name'][0], 'resources/rooms/4');
-
+        move_uploaded_file($files['files']['tmp_name'][$key], $uploadfile);
+    }
 }
 
 /*
- * ----------------------
- * END: SAVE IMAGES
- * ----------------------
+ * -----------------
+ * END: IMAGE UPLOAD
+ * -----------------
  */
+
 
 /*
  * ----------------------
