@@ -493,6 +493,15 @@ function get_user_username($pdo, $user_id) {
     return $username;
 }
 
+
+function is_owner($pdo, $user_id) {
+    /* Create and execute SQL statement */
+    $stmt = $pdo->prepare('SELECT * FROM owner WHERE id = ?');
+    $stmt->execute([$user_id]);
+    $users = $stmt->fetchAll();
+    return $users;
+}
+
 /**
  * Returns all applications for a single room
  * @param $pdo
@@ -812,7 +821,7 @@ function add_room($pdo, $form_data) {
         ];
     }
 
-    /* Save room to 'own' table */
+    /* Save room to 'own' table
     try {
         $stmt = $pdo->prepare('INSERT INTO own (room_id, owner_id) VALUES (?, ?)');
         $stmt->execute([$room_id, $_SESSION['user_id']]);
@@ -821,7 +830,7 @@ function add_room($pdo, $form_data) {
             'type' => 'danger',
             'message' => sprintf('There was an error: %s', $e->getMessage())
         ];
-    }
+    }*/
 
     /* Redirect to room page */
     $feedback = [
