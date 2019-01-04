@@ -164,6 +164,7 @@ elseif (new_route('/DDWT18_final/my-account/', 'get')) {
         redirect('/DDWT18_final/login/');
     }
 
+
     /* Page content */
     $page_title = "My Account";
     $navigation = get_navigation($nav_template, 3, $state);
@@ -176,6 +177,28 @@ elseif (new_route('/DDWT18_final/my-account/', 'get')) {
     include use_template('my-account');
 }
 
+/* edit personal-information for (GET) */
+elseif (new_route('/DDWT18_final/edit-personal/', 'get')) {
+
+    $page_title = 'Edit personal information';
+    $navigation = get_navigation($nav_template, 3, $state);
+
+    /* Get the ID of the user from the session */
+    $user_id = $_SESSION['user_id'];
+
+    /* Retrieve the information about the user from the database */
+    $user_info = get_user_info($db, $user_id);
+    /* choose template */
+    include use_template('edit-personal-info');
+}
+
+/* edit user-information for (POST) */
+elseif (new_route('/DDWT18_final/edit-personal/', 'post')) {
+
+    $navigation = get_navigation($nav_template, 3, $state);
+    /* choose template */
+    include use_template('edit-personal-info');
+}
 
 /*
  * --------------------------
@@ -327,10 +350,6 @@ elseif (new_route('/DDWT18_final/edit/', 'post')) {
     // json_encode($feedback)));
 }
 
-/* Edit room (POST) */
-elseif (new_route('/DDWT18_final/edit/', 'post')) {
-
-}
 
 /* Remove room (POST) */
 elseif (new_route('/DDWT18_final/remove/', 'post')) {

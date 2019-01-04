@@ -27,15 +27,8 @@
 
                 <!--- Right Content --->
                 <div class="col-md-8 right-column">
-
-                    <div class="col-12 top-right-box">
-                        test
-                    </div>
-
-                    <div class="col-12 bottom-right-box">
-                        test
-                    </div>
-
+                    <h3>Personal Information</h3>
+                    <p></p>
                 </div>
             </div>
         </div>

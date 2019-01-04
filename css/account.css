@@ -22,13 +22,13 @@
 
 }
 
-.top-right-box {
+.right-column {
     background-color: white;
-    height: 200px;
 }
 
-.bottom-right-box {
-    background-color: white;
-    height: 300px;
+h3 {
+    color: #353558;
+    text-align: center;
+    margin: 10px;
 }
 /* END: STYLING FOR THE COLUMNS */
