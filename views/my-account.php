@@ -52,7 +52,7 @@
                     </table>
                     <div class="row">
                         <div class="col-sm-2">
-                            <a href="/DDWT18/week2/edit/?serie_id=<?= $serie_id ?>" role="button" class="btn btn-warning">Edit</a>
+                            <a href="/DDWT18_final/edit-personal/" role="button" class="btn btn-warning">Edit</a>
                         </div>
                 </div>
             </div>

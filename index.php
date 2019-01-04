@@ -189,7 +189,7 @@ elseif (new_route('/DDWT18_final/edit-personal/', 'get')) {
 
     /* Get the ID of the user from the session */
     $user_id = $_SESSION['user_id'];
-
+    $submit_button = "Save";
     /* Retrieve the information about the user from the database */
     $user_info = get_user_info($db, $user_id);
     /* choose template */

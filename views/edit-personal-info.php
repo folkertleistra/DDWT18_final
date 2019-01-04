@@ -59,7 +59,7 @@
                                 </div>
                                 <!-- Register / return to home -->
                                 <div class="form-row">
-                                    <button type="submit" id="form-btn"><? $submit_button ?></button>
+                                    <button type="submit" id="form-btn"><?php $submit_button ?></button>
                                 </div>
                             </div>
                         </form>
