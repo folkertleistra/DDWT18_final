@@ -21,10 +21,10 @@
 </div>
 
 <div>
-    <form action="/DDWT18_final/test-route/" method="POST">
-        Select image to upload:
-        <input type="file" name="image" id="image">
-        <input type="submit" value="Upload Image" name="submit">
+    <form action="/DDWT18_final/optin/" method="POST">
+        <input type='hidden' name='room_id' value='<?php echo '$room_id'?>'/>
+        <textarea name="message"></textarea>
+        <button name="opt-in" type="submit">Opt-in</button>
     </form>
 </div>
 

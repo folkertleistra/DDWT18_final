@@ -865,6 +865,59 @@ function add_room($pdo, $form_data) {
     redirect(sprintf('/DDWT18_final/room/?id=%s&error_msg=%s', $room_id, json_encode($feedback)));
 }
 
+
+function opt_in($pdo, $form_data) {
+    /* Check if all fields are set */
+    if (empty($form_data['message'])){
+        return [
+            'type' => 'danger',
+            'message' => 'Please enter a message.'
+        ];
+    }
+
+    /* Get room information */
+    $room_info = get_room_info($pdo, $form_data['room_id']);
+
+    /* Check if user has already applied for this room */
+    try {
+        $stmt = $pdo->prepare('SELECT * FROM optin WHERE tenant_id = ? AND room_id = ?');
+        $stmt->execute([$_SESSION['user_id'], $form_data['room_id']]);
+        $msg_exists = $stmt->rowCount();
+    } catch (PDOException $e) {
+        return [
+            'type' => 'danger',
+            'message' => sprintf('There was an error: %s', $e->getMessage())
+        ];
+    }
+
+    /* Return error message for existing application */
+    if (!empty($msg_exists)){
+        return [
+            'type' => 'danger',
+            'message' => 'You have already applied for this room.'
+        ];
+    }
+
+    /* Save application to the database */
+    try {
+        $stmt = $pdo->prepare('INSERT INTO optin (tenant_id, room_id, message) VALUES (?, ?, ?)');
+        $stmt->execute([$_SESSION['user_id'], $form_data['room_id'], $form_data['message']]);
+    } catch (PDOException $e) {
+        return [
+            'type' => 'danger',
+            'message' => sprintf('There was an error: %s', $e->getMessage())
+        ];
+    }
+
+    /* Redirect to room page */
+    $feedback = [
+        'type' => 'success',
+        'message' => sprintf('You applied successfully for %s %d%s %s', $room_info['street'],
+            $room_info['street_number'], $room_info['addition'], $room_info['city'])
+    ];
+    redirect(sprintf('/DDWT18_final/room/?id=%s&error_msg=%s', $form_data['room_id'], json_encode($feedback)));
+}
+
 /*
  * --------------------
  * END: DATABASE INSERT

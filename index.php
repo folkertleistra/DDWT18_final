@@ -107,9 +107,10 @@ elseif (new_route('/DDWT18_final/rentable-rooms/', 'get')) {
 TODO: remove before handing in
 */
 elseif (new_route('/DDWT18_final/test-route/', 'get')) {
+    $room_id = 2;
+
     /* page info */
     $page_title = 'Rooms for rent';
-
     $navigation = get_navigation($nav_template, 2, $state);
     /*page content */
     $page_subtitle = 'Living on my own!';
@@ -124,7 +125,7 @@ TODO: remove before handing in
 */
 elseif (new_route('/DDWT18_final/test-route/', 'post')) {
 
-    $error_msg = upload_image();
+    $error_msg = opt_in($db, $_POST, 2);
     redirect(sprintf('/DDWT18_final/?error_msg=%s', json_encode($error_msg)));
 }
 
@@ -349,7 +350,12 @@ elseif (new_route('/DDWT18_final/remove/', 'post')) {
 
 /* Opt-in to a room (POST) */
 elseif (new_route('/DDWT18_final/optin/', 'post')) {
+    /* Check if logged in */
+    if (!check_login()) {
+        redirect('/DDWT18/week2/login/');
+    }
 
+    $error_msg = opt_in($db, $_POST);
 }
 
 /*
