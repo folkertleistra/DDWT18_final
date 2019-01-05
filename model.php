@@ -675,7 +675,7 @@ function get_owned_rooms($pdo, $owner_id) {
 function get_images($room_id) {
     /* Get all image urls */
     $dir = "resources/rooms/" . strval($room_id);
-    $files = glob($dir . "/*.jpg");
+    $files = glob($dir . "/*.{jpg,png}", GLOB_BRACE);
     $images = Array();
     foreach ($files as $key => $value){
         $trimmed = '/DDWT18_final/' . $value;

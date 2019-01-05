@@ -66,6 +66,8 @@
                 </div>
 
                 <!--- Right Content --->
+
+                <!-- If role is tenant -->
                 <div class="col-lg-8 col-md-12 info-column">
                     Content
                 </div>
