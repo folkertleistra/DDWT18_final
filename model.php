@@ -883,6 +883,7 @@ function add_room($pdo, $form_data, $files) {
     /* Perform file checks */
     foreach ($files['files']['name'] as $key => $value) {
         $filetype = strtolower(pathinfo($files['files']['name'][$key],PATHINFO_EXTENSION));
+        echo $filetype;
         /* Check if file is a real or fake image */
         if (getimagesize($files['files']['tmp_name'][$key]) == false) {
             return [
@@ -904,25 +905,9 @@ function add_room($pdo, $form_data, $files) {
                 'message' => sprintf('File %s is not an image.', $files['files']['name'][$key])
             ];
         }
-
-        /* TODO: Change file type from png & jpeg to jpg */
-        if ($filetype == "png") {
-            $image = imagecreatefrompng($files['files']['name'][$key]);
-            $bg = imagecreatetruecolor(imagesx($image), imagesy($image));
-            imagefill($bg, 0, 0, imagecolorallocate($bg, 255, 255, 255));
-            imagealphablending($bg, TRUE);
-            imagecopy($bg, $image, 0, 0, 0, 0, imagesx($image), imagesy($image));
-            imagedestroy($image);
-            $quality = 50; // 0 = worst / smaller file, 100 = better / bigger file
-            imagejpeg($bg, $files['files']['name'][$key] . ".jpg", $quality);
-            imagedestroy($bg);
-        } elseif ($filetype == "jpeg") {
-            str_replace('.jpeg', '.jpg', $files['files']['name'][$key]);
-        }
-
     }
 
-    /* Save room to the database */
+    /* Save room to the database*/
     try {
         $stmt = $pdo->prepare('INSERT INTO rooms (owner_id, city, postal_code, street, street_number, addition, size, type, price, 
                                description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
@@ -935,7 +920,6 @@ function add_room($pdo, $form_data, $files) {
             'message' => sprintf('There was an error: %s', $e->getMessage())
         ];
     }
-
     /* Save images to folder */
     save_images(create_image_folder($room_id), $files);
 
@@ -1025,16 +1009,21 @@ function create_image_folder($room_id) {
 }
 
 /**
+ * Renames and uploads all images to the correct location
  * @param $uploaddir
  * @param $files
  */
 function save_images($uploaddir, $files) {
-
+    /* Loop through all uploaded images */
     foreach ($files['files']['name'] as $key => $value) {
         $file = $uploaddir . basename($files['files']['name'][$key]);
         $imagefiletype = strtolower(pathinfo($file,PATHINFO_EXTENSION));
+        /* Rename jpeg to jpg*/
+        if ($imagefiletype == "jpeg"){
+            $imagefiletype = "jpg";
+        }
+        /* Upload image */
         $uploadfile = $uploaddir . $key . '.' . $imagefiletype;
-
         move_uploaded_file($files['files']['tmp_name'][$key], $uploadfile);
     }
 }
