@@ -95,4 +95,29 @@ p.personal-text {
     font-weight: 700;
     color: #f26b3a;
 }
+h5.message {
+    font-size: 17px;
+    font-weight: 600;
+    margin-top: 15px;
+    margin-bottom: 3px;
+}
+a.view-room {
+    color: #fff!important;
+    background-color: #f26b3a;
+    border-radius: 4px;
+    border: none;
+    margin-top: 15px;
+    padding: 6px 10px 6px 10px;
+    text-decoration: none;
+}
+a.view-room:focus {
+    outline: 0;
+}
+p.message {
+    margin-bottom: 20px;
+}
+hr.bottom-hr {
+    margin-top: 25px;
+    margin-bottom: 20px;
+}
 /* END: optin sections */
