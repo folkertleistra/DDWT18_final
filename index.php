@@ -189,9 +189,14 @@ elseif (new_route('/DDWT18_final/edit-personal/', 'get')) {
 
     /* Get the ID of the user from the session */
     $user_id = $_SESSION['user_id'];
-    $submit_button = "Save";
+
+    $form_action = '/DDWT18_final/edit-personal/';
     /* Retrieve the information about the user from the database */
     $user_info = get_user_info($db, $user_id);
+
+    if ( isset($_GET['error_msg']) ) {
+        $error_msg = get_error($_GET['error_msg']);
+    }
     /* choose template */
     include use_template('edit-personal-info');
 }
@@ -200,6 +205,12 @@ elseif (new_route('/DDWT18_final/edit-personal/', 'get')) {
 elseif (new_route('/DDWT18_final/edit-personal/', 'post')) {
 
     $navigation = get_navigation($nav_template, 3, $state);
+
+    $feedback = update_user($db, $_POST);
+
+    /* Redirect to serie GET route */
+    redirect(sprintf('/DDWT18_final/my-account/?error_msg=%s',
+        json_encode($feedback)));
     /* choose template */
     include use_template('edit-personal-info');
 }
