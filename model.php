@@ -1104,12 +1104,15 @@ function update_user($pdo, $user_info){
             'message' => sprintf("The passwords are not the same")
         ];
     }
+    /* Hash password */
+    $password = password_hash($user_info['new-password'], PASSWORD_DEFAULT);;
+
 
     /* Update Account information */
     $stmt1 = $pdo->prepare("UPDATE users SET username = ?, password = ? WHERE id = ?");
     $stmt1->execute([
         $user_info['username'],
-        $user_info['new-password'],
+        $password,
         $user_id
     ]);
     $updated1 = $stmt1->rowCount();

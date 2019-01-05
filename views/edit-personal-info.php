@@ -38,8 +38,6 @@
                                 <h3>Account Details</h3>
                                 <label for="username">Username</label>
                                 <input type="text" name="username"  class="form-input" value="<?php if (isset($user_info)){echo $user_info['username'];} ?>" required>
-                                <label for="password">Password</label>
-                                <input type="password" name="password" value="********">
                                 <label for="new-password" >New Password</label>
                                 <input type="password" name="new-password" placeholder="Enter New Password">
                                 <label for="check-password" >Re-Enter New Password</label>
