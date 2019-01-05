@@ -731,6 +731,17 @@ function register_user($pdo, $form_data) {
             'message' => 'Please only enter numbers in the \'Phone Number\' field.'
         ];
     }
+    /* check if phone number consists of 10 digits. */
+    $amount = strlen($form_data['phone']);
+    $max = 10;
+    if (!$amount === $max) {
+        return [
+            'type' => 'danger',
+            'message' => 'Please only enter a phone number that consits of 10 digits.'
+        ];
+    }
+
+
 
     /* Check if user already exists */
     try {
