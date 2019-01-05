@@ -447,14 +447,18 @@ function get_tenant_optin_html($db, $user_id) {
                         <p>$postal_code $city</p>
                         <p>$size m² - $type</p>
                         <p class="price">€ $price</p>
+                        <h5 class="message">Message:</h5>
+                        <p class="message"><i>$message</i></p>
+                        <a href="$href" class="view-room">View room</a>
                     </div>
                 </div>
-                <hr>
+                <hr class="bottom-hr">
             ';
 
             echo strtr($template, array('$city' => $city, '$thumbnail' => $thumbnail, '$street' => $street,
                 '$nr' => $nr, '$add' => $add, '$postal_code' => $pc, '$size' => $size, $thumbnail, '$type' => $type,
-                '$price' => $price));
+                '$price' => $price, '$message' => $room_optin['message'],
+                '$href' => '/DDWT18_final/room/?id=' . $room_optin['room_id']));
 
 
         }
