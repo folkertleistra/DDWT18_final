@@ -13,8 +13,8 @@
         <div class="jumbotron jumbotron-fluid myaccount-jumbo">
             <div class="container hero-container">
                 <div class="hero-text">
-                    <h1 class="display-4">My Account</h1>
-                    <h2 class="display-6">Lorem ipsum di amor</h2>
+                    <h1 class="display-4">ApartRent</h1>
+                    <h2 class="display-6">My Account</h2>
                 </div>
             </div>
         </div>
@@ -67,9 +67,13 @@
 
                 <!--- Right Content --->
 
-                <!-- If role is tenant -->
                 <div class="col-lg-8 col-md-12 info-column">
-                    Content
+                    <!-- If role is tenant -->
+                    <?php
+                    if (is_tenant($db, $user_id)) {
+                        echo get_tenant_optins();
+                    }
+                    ?>
                 </div>
             </div>
         </div>

@@ -73,7 +73,7 @@
                 <div class="col-12 opt-in-col">
                     <h3>Interested? <strong>Leave a message!</strong></h3>
                     <form action="/DDWT18_final/optin/" method="POST">
-                        <input type='hidden' name='room_id' value='<?php echo '$room_id'?>'/>
+                        <input type='hidden' name='room_id' value='<?php echo "$room_id"?>'/>
                         <textarea name="message"></textarea>
                         <div class="opt-btn-wrapper">
                             <button name="opt-in" type="submit" id="opt-in-btn">Request room</button>

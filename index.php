@@ -170,7 +170,7 @@ elseif (new_route('/DDWT18_final/my-account/', 'get')) {
     $user_info = get_user_info($db, $user_id);
 
     /* Page content */
-    $page_title = "My Account";
+    $page_subtitle = "My Account";
     $navigation = get_navigation($nav_template, 3, $state);
 
     /* Get error message from POST route */
