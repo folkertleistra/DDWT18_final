@@ -711,6 +711,7 @@ function register_user($pdo, $form_data) {
         empty($form_data['lastname']) or
         empty($form_data['username']) or
         empty($form_data['password']) or
+        empty($form_data['rt-password']) or
         empty($form_data['email']) or
         empty($form_data['phone']) or
         empty($form_data['birthdate']) or
@@ -741,7 +742,12 @@ function register_user($pdo, $form_data) {
         ];
     }
 
-
+    if ($form_data['password'] !== $form_data['rt-password']) {
+        return [
+            'type' => 'danger',
+            'message' => 'The entered passwords do not match.'
+        ];
+    }
 
     /* Check if user already exists */
     try {
