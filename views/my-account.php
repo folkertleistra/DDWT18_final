@@ -71,12 +71,20 @@
 
                 <div class="col-lg-8 col-md-12 info-column">
                     <!-- If role is tenant -->
-                    <h3 class="optin">Requested rooms</h3>
-                    <hr>
                     <?php
                     if (is_tenant($db, $user_id)) {
+                        echo '
+                              <h3 class="optin">Requested rooms</h3>
+                              <hr>';
                         /* Print HTML */
-                        get_tenant_optin_html($db, $user_id);
+                        get_optin_html($db, $user_id);
+                    }
+                    else {
+                        echo '
+                          <h3 class="optin">My rooms</h3>
+                          <hr>';
+                        /* Print HTML */
+                        get_optin_html($db, $user_id);
                     }
                     ?>
                 </div>
