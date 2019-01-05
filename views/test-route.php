@@ -20,18 +20,10 @@
     </div>
 </div>
 
-<div>
-    <form action="/DDWT18_final/optin/" method="POST">
-        <input type='hidden' name='room_id' value='<?php echo '$room_id'?>'/>
-        <textarea name="message"></textarea>
-        <button name="opt-in" type="submit">Opt-in</button>
-    </form>
-</div>
-
-<form action="/DDWT18_final/test-route/" method="POST" enctype="multipart/form-data">
-    <label for="image">image</label>
-    <input type="file" name="files[]" id="fileToUpload" multiple>
-    <button type="submit">Add room</button>
+<form action="/DDWT18_final/remove/"
+      method="POST">
+    <input type="hidden" value='<?php echo "$room_id"?>' name="room_id">
+    <button type="submit" class="btn btn-danger">Remove</button>
 </form>
 
 <div class="container-fluid home-button-section">

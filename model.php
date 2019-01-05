@@ -1332,7 +1332,67 @@ function update_room($pdo, $user_info){
  * ----------------------
  */
 
+/**
+ * @param $pdo
+ * @param $room_id
+ * @return array
+ */
+function remove_room($pdo, $room_id) {
+    /* Get room information */
+    $room_info = get_room_info($pdo, $room_id);
 
+    /* Check authorization
+    if (!(check_login() && $room_info['owner_id'] == $_SESSION['user_id'])){
+        return [
+            'type' => 'danger',
+            'message' => 'You are not authorized to remove this room.'
+        ];
+    }*/
+
+    /* Remove the room images */
+    $target = 'resources/rooms/' . $room_id . '/';
+    return [
+        'type' => 'danger',
+        'message' => sprintf('%s', $target)
+    ];
+    delete_files($target);
+
+    /* Delete room */
+    $stmt = $pdo->prepare("DELETE FROM rooms WHERE id = ?");
+    $stmt->execute([$room_id]);
+    $deleted = $stmt->rowCount();
+    if ($deleted ==  1) {
+        return [
+            'type' => 'success',
+            'message' => sprintf("%s %d%s %s was successfully removed.", $room_info['street'],
+                $room_info['street_number'], $room_info['addition'], $room_info['city'])
+        ];
+    }
+    else {
+        return [
+            'type' => 'danger',
+            'message' => 'An error occurred. The room was not removed.'
+        ];
+    }
+}
+
+/**
+ * Recursively delete a directory
+ * Source: https://paulund.co.uk/php-delete-directory-and-files-in-directory
+ * @param $target
+ */
+function delete_files($target) {
+    if(is_dir($target)){
+        $files = glob($target . '*', GLOB_MARK); //GLOB_MARK adds a slash to directories returned
+        foreach($files as $file){
+            delete_files($file);
+        }
+        rmdir($target);
+
+    } elseif(is_file($target)) {
+        unlink($target);
+    }
+}
 
 /*
  * --------------------

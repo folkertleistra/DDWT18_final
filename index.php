@@ -373,7 +373,15 @@ elseif (new_route('/DDWT18_final/edit/', 'post')) {
 
 /* Remove room (POST) */
 elseif (new_route('/DDWT18_final/remove/', 'post')) {
+    /* Check if logged in */
+    if ( !check_login() ) {
+        redirect('/DDWT18_final/login/');
+    }
 
+    $feedback = remove_room($db, $_POST['room_id']);
+
+    /* Redirect to add (GET) page */
+    redirect(sprintf('/DDWT18_final/rentable-rooms/?error_msg=%s', json_encode($feedback)));
 }
 
 /*
