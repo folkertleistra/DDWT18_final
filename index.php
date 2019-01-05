@@ -107,7 +107,7 @@ elseif (new_route('/DDWT18_final/rentable-rooms/', 'get')) {
 TODO: remove before handing in
 */
 elseif (new_route('/DDWT18_final/test-route/', 'get')) {
-    $room_id = 2;
+    $room_id = 23;
 
     /* page info */
     $page_title = 'Rooms for rent';

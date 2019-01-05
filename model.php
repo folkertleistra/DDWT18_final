@@ -1351,10 +1351,6 @@ function remove_room($pdo, $room_id) {
 
     /* Remove the room images */
     $target = 'resources/rooms/' . $room_id . '/';
-    return [
-        'type' => 'danger',
-        'message' => sprintf('%s', $target)
-    ];
     delete_files($target);
 
     /* Delete room */
