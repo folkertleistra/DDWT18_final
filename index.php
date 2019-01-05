@@ -144,6 +144,11 @@ elseif (new_route('/DDWT18_final/room/', 'get')) {
     /* room images */
     $room_images = get_images($room_id);
 
+    /* check if the current user is the owner of the room */
+    $user_id = get_user_id();
+    owns_room($db, $user_id, $room_id);
+
+
     /* page subtitle */
     $page_subtitle = sprintf('%s %d%s, %s',
         $room_info['street'], $room_info['street_number'], $room_info['addition'], $room_info['city']);
