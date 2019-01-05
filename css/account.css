@@ -20,13 +20,16 @@
     padding: 20px;
     border-radius: 3px;
 }
+.personal-col-wrapper {
+    padding: 0;
+}
 /* END: STYLING FOR THE COLUMNS */
 
 /* START: typography */
 .capitalize {
     text-transform: capitalize;
 }
-h3.name {
+h3.name, h3.optin {
     color: #353558;
     text-align: center;
     margin-bottom: 15px;
@@ -70,3 +73,26 @@ p.personal-text {
     justify-content: center;
     padding-top: 4px;
 }
+
+/* START: optin sections */
+.optin-thumb-wrapper {
+    height: 170px;
+}
+.optin-row img {
+    object-fit: cover;
+    border-radius: 3px;
+    height: 100%;
+    width: 100%;
+}
+.optin-row h4 {
+    font-size: 18px;
+    font-weight: 600;
+}
+.optin-info-col p {
+    margin-bottom: 5px;
+}
+.optin-info-col p.price {
+    font-weight: 700;
+    color: #f26b3a;
+}
+/* END: optin sections */

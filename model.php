@@ -407,6 +407,61 @@ function get_slider_dots_html($img_amnt) {
  * ------------------
  */
 
+function get_tenant_optin_html($db, $user_id) {
+
+    $optins = get_tenant_optin($db, $user_id);
+
+    /* No optins */
+    if (count($optins) === 0) {
+        return '<p class="no-optin">You have not yet requested any rooms.</p>';
+    }
+
+    /* Optins */
+    else {
+        foreach ($optins as $key => $room_optin) {
+            $room_info = get_room_info($db, $room_optin['room_id']);
+            /* Info */
+            $street = $room_info['street'];
+            $nr = $room_info['street_number'];
+            $add = $room_info['addition'];
+            $pc = $room_info['postal_code'];
+            $city = $room_info['city'];
+            $size = $room_info['size'];
+            $type = $room_info['type'];
+            $price = $room_info['price'];
+            $thumbnail = get_images($room_info['id'])[0];
+
+            $template = '
+                
+                <div class="row optin-row">
+                    <!-- image col -->
+                    <div class="col-lg-5">
+                        <div class="optin-thumb-wrapper">
+                            <img src="$thumbnail" class="optin-thumb">
+                        </div>               
+                    </div>
+                
+                    <!-- optin info col -->
+                    <div class="col-lg-7 optin-info-col">
+                        <h4>$street $nr$add</h4>
+                        <p>$postal_code $city</p>
+                        <p>$size m² - $type</p>
+                        <p class="price">€ $price</p>
+                    </div>
+                </div>
+                <hr>
+            ';
+
+            echo strtr($template, array('$city' => $city, '$thumbnail' => $thumbnail, '$street' => $street,
+                '$nr' => $nr, '$add' => $add, '$postal_code' => $pc, '$size' => $size, $thumbnail, '$type' => $type,
+                '$price' => $price));
+
+
+        }
+
+    }
+
+}
 
 /*
  * ------------------
