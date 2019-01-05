@@ -24,12 +24,12 @@
         <div class="container">
             <div class="row justify-content-between main-row">
                 <!--- Left Content --->
-                <div class="col-md-3 left-column">
+                <div class="col-md-3 personal-column">
                     Hier moet nog wat komen te staan
                 </div>
 
                 <!--- Right Content --->
-                <div class="col-md-8 right-column">
+                <div class="col-md-8 info-column">
                     <!-- Right column lg/md, bottom column sm/xs -->
                     <div class="col-lg-6 register-col">
                         <form action="<?= $form_action ?>" method="POST">

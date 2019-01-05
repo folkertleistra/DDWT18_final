@@ -147,7 +147,7 @@ footer {
 
 /* START: fade-in error message on top of screen */
 .error-fade {
-    position: absolute;
+    position: fixed;
     z-index: 9999999999;
     top: 0;
     left: 0;

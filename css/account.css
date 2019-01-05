@@ -15,20 +15,58 @@
 
 
 /* BEGIN: STYLING FOR THE COLUMNS */
-
-.left-column {
-    background-color: white;
-    height: 500px;
-
-}
-
-.right-column {
-    background-color: white;
-}
-
-h3 {
-    color: #353558;
-    text-align: center;
-    margin: 10px;
+.personal-column, .info-column {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 3px;
 }
 /* END: STYLING FOR THE COLUMNS */
+
+/* START: typography */
+.capitalize {
+    text-transform: capitalize;
+}
+h3.name {
+    color: #353558;
+    text-align: center;
+    margin-bottom: 15px;
+}
+h4.bio {
+    color: #353558;
+    font-size: 20px;
+}
+p.bio {
+    font-style: italic;
+}
+p.personal-text {
+    color: #353558;
+    display: block;
+    overflow: hidden;
+}
+.fas {
+    color: #f26b3a;
+    margin-right: 10px;
+    float: left;
+    margin-top: 5px;
+}
+/* END: typography */
+
+/* Button styling */
+.edit-btn {
+    color: white;
+    background-color: #f26b3a;
+    border-radius: 4px;
+    border: 1px solid #f26b3a;
+}
+.edit-btn:hover {
+    color: #f26b3a;
+    background-color: #fff;
+}
+.edit-btn:focus {
+    outline: 0;
+}
+.edit-btn-wrapper {
+    display: flex;
+    justify-content: center;
+    padding-top: 4px;
+}
