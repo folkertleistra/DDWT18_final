@@ -207,7 +207,7 @@ elseif (new_route('/DDWT18_final/edit-personal/', 'get')) {
         $error_msg = get_error($_GET['error_msg']);
     }
     /* choose template */
-    include use_template('edit-personal-info');
+    include use_template('edit-account');
 }
 
 /* edit user-information for (POST) */
@@ -222,7 +222,7 @@ elseif (new_route('/DDWT18_final/edit-personal/', 'post')) {
         json_encode($feedback)));
 
     /* choose template */
-    include use_template('edit-personal-info');
+    include use_template('edit-account');
 }
 
 elseif (new_route('/DDWT18_final/remove-account/', 'post')) {
@@ -308,7 +308,7 @@ elseif (new_route('/DDWT18_final/logout/', 'get')) {
  */
 
 /* Add room (GET) */
-elseif (new_route('/DDWT18_final/add/', 'get')) {
+elseif (new_route('/DDWT18_final/add-room/', 'get')) {
     /* Check if logged in */
     if ( !check_login() ) {
         redirect('/DDWT18_final/login/');
@@ -316,7 +316,7 @@ elseif (new_route('/DDWT18_final/add/', 'get')) {
     $page_title = 'Add room';
     $header_title = 'Add a room';
 
-    $form_action = '/DDWT18_final/add/';
+    $form_action = '/DDWT18_final/add-room/';
     $submit_btn = "Add";
 
     $navigation = get_navigation($nav_template, 2, $state);
@@ -329,7 +329,7 @@ elseif (new_route('/DDWT18_final/add/', 'get')) {
 }
 
 /* Add room (POST) */
-elseif (new_route('/DDWT18_final/add/', 'post')) {
+elseif (new_route('/DDWT18_final/add-room/', 'post')) {
     /* Add room */
     $error_msg = add_room($db, $_POST, $_FILES);
 
@@ -338,7 +338,7 @@ elseif (new_route('/DDWT18_final/add/', 'post')) {
 }
 
 /* edit room for. (GET) */
-elseif (new_route('/DDWT18_final/edit/', 'get')) {
+elseif (new_route('/DDWT18_final/edit-room/', 'get')) {
     /* Check if logged in */
     if ( !check_login() ) {
         redirect('/DDWT18_final/login/');
@@ -350,7 +350,7 @@ elseif (new_route('/DDWT18_final/edit/', 'get')) {
     /* Page content */
     $page_title = 'Edit Room';
     $header_title = 'Edit your room';
-    $form_action = '/DDWT18_final/edit/';
+    $form_action = '/DDWT18_final/edit-room/';
     $submit_btn = 'Edit';
     $navigation = get_navigation($nav_template, 2, $state);
 
@@ -363,11 +363,11 @@ elseif (new_route('/DDWT18_final/edit/', 'get')) {
     include use_template('add-edit-room');
 }
 
-/* edit room for. (POST) */
-elseif (new_route('/DDWT18_final/edit/', 'post')) {
+/* edit room (POST) */
+elseif (new_route('/DDWT18_final/edit-room/', 'post')) {
     /* Check if logged in */
     if (!check_login()) {
-        redirect('/DDWT18/week2/login/');
+        redirect('/DDWT18_final/login/');
     }
 
     $navigation = get_navigation($nav_template, 2, $state);
@@ -388,7 +388,7 @@ elseif (new_route('/DDWT18_final/edit/', 'post')) {
 
 
 /* Remove room (POST) */
-elseif (new_route('/DDWT18_final/remove/', 'post')) {
+elseif (new_route('/DDWT18_final/remove-room/', 'post')) {
     /* Check if logged in */
     if ( !check_login() ) {
         redirect('/DDWT18_final/login/');

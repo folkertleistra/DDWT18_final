@@ -20,7 +20,7 @@
     </div>
 </div>
 
-<form action="/DDWT18_final/remove/"
+<form action="/DDWT18_final/remove-room/"
       method="POST">
     <input type="hidden" value='<?php echo "$room_id"?>' name="room_id">
     <button type="submit" class="btn btn-danger">Remove</button>
