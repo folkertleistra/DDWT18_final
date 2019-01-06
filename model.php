@@ -1426,6 +1426,13 @@ function update_room($pdo, $form_data) {
         ];
     }
 
+    /* Get current room address */
+    $stmt = $pdo->prepare('SELECT city, postal_code, street, street_number, addition FROM rooms WHERE id = ?');
+    $stmt->execute([$form_data['room_id']]);
+    $address= $stmt->fetch();
+
+    print_r($address);
+
     /* Check if room address already exists */
     try {
         $stmt = $pdo->prepare('SELECT * FROM rooms WHERE city = ? AND postal_code = ? AND street = ? AND street_number = ? AND addition = ?');
@@ -1446,9 +1453,36 @@ function update_room($pdo, $form_data) {
         ];
     }
 
-
-
-    return;
+    /* Update room information and save to the database */
+    /*
+    $stmt = $pdo->prepare("UPDATE rooms SET city = ?, postal_code = ?, street = ?, 
+                            street_number = ?, addition = ?, size = ?, type = ?, price = ?, description = ? WHERE id = ?");
+    $stmt->execute([
+        $form_data['city'],
+        $form_data['postal_code'],
+        $form_data['street'],
+        $form_data['street_number'],
+        $form_data['addition'],
+        $form_data['size'],
+        $form_data['type'],
+        $form_data['price'],
+        $form_data['description'],
+        $form_data['room_id']
+    ]);
+    $updated = $stmt->rowCount();
+    if ($updated ==  1) {
+        return [
+            'type' => 'success',
+            'message' =>  ("the room was successfully updated.")
+        ];
+    }
+    else {
+        return [
+            'type' => 'warning',
+            'message' => 'The room was not edited. No changes were detected'
+        ];
+    }
+*/
 }
 
 

@@ -371,16 +371,14 @@ elseif (new_route('/DDWT18_final/edit-room/', 'post')) {
     }
 
     $navigation = get_navigation($nav_template, 2, $state);
-    print_r($_POST);
-    /* check the role of the current user */
 
     /* edit room in database */
 
-    //$feedback = update_room($db, $_POST);
-
+    $feedback = update_room($db, $_POST);
     /* Redirect to serie GET route */
-    //redirect(sprintf('/DDWT18_final/rentable-rooms/?error_msg=%s',
-     //json_encode($feedback)));
+    redirect(sprintf('/DDWT18_final/rentable-rooms/?error_msg=%s',
+        json_encode($feedback)));
+
 
     /*choose template */
     include use_template('add-edit-room');
