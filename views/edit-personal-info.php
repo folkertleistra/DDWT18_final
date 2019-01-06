@@ -32,7 +32,7 @@
                 <div class="col-md-8 info-column">
                     <!-- Right column lg/md, bottom column sm/xs -->
                     <div class="col-lg-6 register-col">
-                        <form action="<?= $form_action ?>" method="POST">
+                        <form action='/DDWT18_final/edit-personal' method="POST">
                             <div class="col-12">
                                 <!-- Account Details -->
                                 <h3>Account Details</h3>
@@ -63,6 +63,7 @@
                                 <input type="text" name="occupation" value="<?php if (isset($user_info)){echo $user_info['occupation'];} ?>" required>
                                 <label for="biography"></label>
                                 <textarea class="form-input"  name="biography" required><?php if (isset($user_info)){echo $user_info['biography'];} ?></textarea>
+                                <input type="hidden" name="user_id" value="<?= $user_id ?>">
                                 <!-- Save changes button -->
                                 <button type="submit" id="form-btn">Save</button>
 

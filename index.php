@@ -200,7 +200,6 @@ elseif (new_route('/DDWT18_final/edit-personal/', 'get')) {
     /* Get the ID of the user from the session */
     $user_id = $_SESSION['user_id'];
 
-    $form_action = '/DDWT18_final/edit-personal/';
     /* Retrieve the information about the user from the database */
     $user_info = get_user_info($db, $user_id);
 
@@ -224,6 +223,15 @@ elseif (new_route('/DDWT18_final/edit-personal/', 'post')) {
 
     /* choose template */
     include use_template('edit-personal-info');
+}
+
+elseif (new_route('/DDWT18_final/remove-account/', 'post')) {
+    /* Check if logged in */
+    if ( !check_login() ) {
+        redirect('/DDWT18_final/login/');
+    }
+    $feedback = remove_account($db, $_POST['user_id']);
+    redirect(sprintf('/DDWT18_final/?error_msg=%s', json_encode($feedback)));
 }
 
 /*
@@ -333,7 +341,7 @@ elseif (new_route('/DDWT18_final/add/', 'post')) {
 elseif (new_route('/DDWT18_final/edit/', 'get')) {
     /* Check if logged in */
     if ( !check_login() ) {
-        redirect('/DDWT18/week2/login/');
+        redirect('/DDWT18_final/login/');
     }
 
 

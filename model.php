@@ -1397,6 +1397,7 @@ function update_room($pdo, $form_data) {
  */
 
 /**
+ * Removes a room from the database
  * @param $pdo
  * @param $room_id
  * @return array
@@ -1451,6 +1452,42 @@ function delete_files($target) {
 
     } elseif(is_file($target)) {
         unlink($target);
+    }
+}
+
+/**
+ * Removes a user's account from the database
+ * @param $pdo
+ * @param $user_id
+ * @return array
+ */
+function remove_account($pdo, $user_id) {
+    /* Get user information */
+    $user_info = get_user_info($pdo, $user_id);
+
+    /* Check authorization
+    if (!(check_login() && $user_id == $_SESSION['user_id'])){
+        return [
+            'type' => 'danger',
+            'message' => 'You are not authorized to remove this account.'
+        ];
+    }*/
+
+    /* Delete room */
+    $stmt = $pdo->prepare("DELETE FROM users WHERE id = ?");
+    $stmt->execute([$user_id]);
+    $deleted = $stmt->rowCount();
+    if ($deleted ==  1) {
+        return [
+            'type' => 'success',
+            'message' => sprintf("%s, your account was successfully removed.", $user_info['firstname'])
+        ];
+    }
+    else {
+        return [
+            'type' => 'danger',
+            'message' => 'An error occurred. Your account was not removed.'
+        ];
     }
 }
 
