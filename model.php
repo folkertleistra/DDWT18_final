@@ -1558,7 +1558,7 @@ function delete_files($target) {
 }
 
 /**
- * Removes a user's account from the database
+ * Removes a users account from the database
  * @param $pdo
  * @param $user_id
  * @return array
@@ -1589,6 +1589,44 @@ function remove_account($pdo, $user_id) {
         return [
             'type' => 'danger',
             'message' => 'An error occurred. Your account was not removed.'
+        ];
+    }
+}
+
+/**
+ * Removes opt-in for given user and room
+ * @param $pdo
+ * @param $user_id
+ * @param $room_id
+ * @return array
+ */
+function opt_out($pdo, $form_data) {
+    /* Check authorization
+    if (!(check_login() && $user_id == $_SESSION['user_id'])){
+        return [
+            'type' => 'danger',
+            'message' => 'You are not authorized to remove this account.'
+        ];
+    }*/
+
+    /* Get room information */
+    $room_info = get_room_info($pdo, $form_data['room_id']);
+
+    /* Delete application */
+    $stmt = $pdo->prepare("DELETE FROM optin WHERE tenant_id = ? AND room_id = ?");
+    $stmt->execute([$form_data['tenant_id'], $form_data['room_id']]);
+    $deleted = $stmt->rowCount();
+    if ($deleted ==  1) {
+        return [
+            'type' => 'success',
+            'message' => sprintf("Your application for %s %s%d %s was successfully removed.",
+                $room_info['street'], $room_info['street_number'], $room_info['addition'], $room_info['city'])
+        ];
+    }
+    else {
+        return [
+            'type' => 'danger',
+            'message' => 'An error occurred. Your application was not removed.'
         ];
     }
 }

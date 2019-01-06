@@ -83,6 +83,7 @@
                     </div>
                 </div>
             </div>
+            <?php if($display_optin) { ?>
             <div class="row sr-row r2">
                 <div class="col-12 opt-in-col">
                     <h3>Interested? <strong>Leave a message!</strong></h3>
@@ -95,6 +96,7 @@
                     </form>
                 </div>
             </div>
+            <?php } ?>
 
             <div class="row map-row r3">
                 <div class="col-12 map-col">
