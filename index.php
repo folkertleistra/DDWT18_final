@@ -164,6 +164,11 @@ elseif (new_route('/DDWT18_final/room/', 'get')) {
     /* Address string */
     $address = get_room_address($db, $room_id);
 
+    /* Get error message from POST route */
+    if (isset($_GET['error_msg'])){
+        $error_msg = get_error($_GET['error_msg']);
+    }
+
     include use_template('single-room');
 
 }
@@ -376,8 +381,7 @@ elseif (new_route('/DDWT18_final/edit-room/', 'post')) {
 
     $feedback = update_room($db, $_POST);
     /* Redirect to serie GET route */
-    redirect(sprintf('/DDWT18_final/rentable-rooms/?error_msg=%s',
-        json_encode($feedback)));
+    redirect(sprintf('/DDWT18_final/room/?id=%s&error_msg=%s', $_POST['room_id'], json_encode($feedback)));
 
 
     /*choose template */

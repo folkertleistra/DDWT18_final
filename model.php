@@ -1384,6 +1384,7 @@ function update_user($pdo, $form_data){
  * @param $form_data
  */
 function update_room($pdo, $form_data) {
+
     /* Check if all fields are filled in */
     if (
         empty($form_data['city']) or
@@ -1431,8 +1432,6 @@ function update_room($pdo, $form_data) {
     $stmt->execute([$form_data['room_id']]);
     $address= $stmt->fetch();
 
-    print_r($address);
-
     /* Check if room address already exists */
     try {
         $stmt = $pdo->prepare('SELECT * FROM rooms WHERE city = ? AND postal_code = ? AND street = ? AND street_number = ? AND addition = ?');
@@ -1454,7 +1453,7 @@ function update_room($pdo, $form_data) {
     }
 
     /* Update room information and save to the database */
-    /*
+
     $stmt = $pdo->prepare("UPDATE rooms SET city = ?, postal_code = ?, street = ?, 
                             street_number = ?, addition = ?, size = ?, type = ?, price = ?, description = ? WHERE id = ?");
     $stmt->execute([
@@ -1471,10 +1470,11 @@ function update_room($pdo, $form_data) {
     ]);
     $updated = $stmt->rowCount();
     if ($updated ==  1) {
-        return [
+        $feedback = [
             'type' => 'success',
             'message' =>  ("the room was successfully updated.")
         ];
+        redirect(sprintf('/DDWT18_final/rentable-rooms/?error_msg=%s', json_encode($feedback)));
     }
     else {
         return [
@@ -1482,7 +1482,6 @@ function update_room($pdo, $form_data) {
             'message' => 'The room was not edited. No changes were detected'
         ];
     }
-*/
 }
 
 
