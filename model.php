@@ -938,7 +938,7 @@ function register_user($pdo, $form_data) {
     if (!$amount === $max) {
         return [
             'type' => 'danger',
-            'message' => 'Please only enter a phone number that consits of 10 digits.'
+            'message' => 'Please enter a phone number that consists of 10 digits.'
         ];
     }
 
@@ -1154,7 +1154,11 @@ function add_room($pdo, $form_data, $files) {
     redirect(sprintf('/DDWT18_final/room/?id=%s&error_msg=%s', $room_id, json_encode($feedback)));
 }
 
-
+/**
+ * @param $pdo
+ * @param $form_data
+ * @return array
+ */
 function opt_in($pdo, $form_data) {
     /* Check if all fields are set */
     if (empty($form_data['message'])){
@@ -1265,35 +1269,43 @@ function save_images($uploaddir, $files) {
  */
 
 /**
- * Updates a serie in the database using post array
+ * Updates a user in the database
  * @param object $pdo db object
- * @param array $user_info post array
+ * @param array $form_data post array
  * @return array
  */
-function update_user($pdo, $user_info){
+function update_user($pdo, $form_data){
+    /* Check authorization
+    if (!(check_login() && $form_data['user_id'] == $_SESSION['user_id'])){
+        return [
+            'type' => 'danger',
+            'message' => 'You are not authorized to perform this action.'
+        ];
+    }*/
+
     /* Check if all fields are set */
     $user_id = get_user_id();
     if (
-        empty($user_info['username']) or
-        empty($user_info['firstname']) or
-        empty($user_info['lastname']) or
-        empty($user_info['email']) or
-        empty($user_info['birthdate']) or
-        empty($user_info['phone']) or
-        empty($user_info['language']) or
-        empty($user_info['occupation']) or
-        empty($user_info['biography'])
+        empty($form_data['username']) or
+        empty($form_data['firstname']) or
+        empty($form_data['lastname']) or
+        empty($form_data['email']) or
+        empty($form_data['birthdate']) or
+        empty($form_data['phone']) or
+        empty($form_data['language']) or
+        empty($form_data['occupation']) or
+        empty($form_data['biography'])
     ) {
         return [
             'type' => 'danger',
             'message' => 'There was an error. Not all fields were filled in.'
         ];
     }
-    /* Check data type */
-    if (!is_numeric($user_info['phone'])) {
+    /* Check phone number data type */
+    if (!is_numeric($form_data['phone'])) {
         return [
             'type' => 'danger',
-            'message' => 'There was an error. You should enter a number in the field phone number.'
+            'message' => 'Please only enter numbers in the \'Phone Number\' field.'
         ];
     }
     /* Get current user name */
@@ -1303,164 +1315,68 @@ function update_user($pdo, $user_info){
     $current_name = $user['username'];
 
     /* Check if username already exists */
-
     $stmt = $pdo->prepare('SELECT * FROM users WHERE username = ?');
-    $stmt->execute([$user_info['username']]);
+    $stmt->execute([$form_data['username']]);
     $user = $stmt->fetch();
-    if ($user_info['username'] == $user['username'] and $user['username'] != $current_name){
+    if ($form_data['username'] == $user['username'] and $user['username'] != $current_name){
         return [
             'type' => 'danger',
-            'message' => sprintf("The name of the series cannot be changed. %s already exists.", $user_info['username'])
+            'message' => sprintf("Your username cannot be changed. %s already exists.", $form_data['username'])
         ];
     }
 
     /* password security checks */
-    if ($user_info['new-password'] != $user_info['check-password']) {
+    if ($form_data['new-password'] != $form_data['check-password']) {
         return [
             'type' => 'danger',
-            'message' => sprintf("The passwords are not the same")
+            'message' => 'The entered passwords do not match.'
         ];
     }
     /* Hash password */
-    $password = password_hash($user_info['new-password'], PASSWORD_DEFAULT);;
+    $password = password_hash($form_data['new-password'], PASSWORD_DEFAULT);;
 
 
     /* Update Account information */
     $stmt1 = $pdo->prepare("UPDATE users SET username = ?, password = ? WHERE id = ?");
     $stmt1->execute([
-        $user_info['username'],
+        $form_data['username'],
         $password,
         $user_id
     ]);
     $updated1 = $stmt1->rowCount();
 
-    /* Update personal-infoormationn*/
+    /* Update personal information*/
     $stmt2 = $pdo->prepare("UPDATE users SET firstname = ?, lastname = ?, email = ?, 
                             phone = ?, birthdate = ?, language = ?, occupation = ?, biography = ? WHERE id = ?");
     $stmt2->execute([
-        $user_info['firstname'],
-        $user_info['lastname'],
-        $user_info['email'],
-        $user_info['phone'],
-        $user_info['birthdate'],
-        $user_info['language'],
-        $user_info['occupation'],
-        $user_info['biography'],
+        $form_data['firstname'],
+        $form_data['lastname'],
+        $form_data['email'],
+        $form_data['phone'],
+        $form_data['birthdate'],
+        $form_data['language'],
+        $form_data['occupation'],
+        $form_data['biography'],
         $user_id
     ]);
     $updated2 = $stmt2->rowCount();
     if ($updated1 ==  1 or $updated2 == 1) {
         return [
             'type' => 'success',
-            'message' => sprintf("%s, your profile was successfully updated!", $user_info['firstname'])
+            'message' => sprintf("%s, your profile was successfully updated.", $form_data['firstname'])
         ];
     }
     else {
         return [
             'type' => 'warning',
-            'message' => 'The series was not edited. No changes were detected'
+            'message' => 'Your profile was not edited. No changes were detected'
         ];
     }
 }
 
 
-/**
- * Updates a room in the database using post array
- * @param object $pdo db object
- * @param array $user_info post array
- * @return array
- */
-function update_room($pdo, $user_info){
-    /* Check if all fields are set */
-    $user_id = get_user_id();
-    if (
-        empty($user_info['username']) or
-        empty($user_info['firstname']) or
-        empty($user_info['lastname']) or
-        empty($user_info['email']) or
-        empty($user_info['birthdate']) or
-        empty($user_info['phone']) or
-        empty($user_info['language']) or
-        empty($user_info['occupation']) or
-        empty($user_info['biography'])
-    ) {
-        return [
-            'type' => 'danger',
-            'message' => 'There was an error. Not all fields were filled in.'
-        ];
-    }
-    /* Check data type */
-    if (!is_numeric($user_info['phone'])) {
-        return [
-            'type' => 'danger',
-            'message' => 'There was an error. You should enter a number in the field phone number.'
-        ];
-    }
-    /* Get current user name */
-    $stmt = $pdo->prepare('SELECT * FROM users WHERE id = ?');
-    $stmt->execute([$user_id]);
-    $user = $stmt->fetch();
-    $current_name = $user['username'];
-
-    /* Check if username already exists */
-
-    $stmt = $pdo->prepare('SELECT * FROM users WHERE username = ?');
-    $stmt->execute([$user_info['username']]);
-    $user = $stmt->fetch();
-    if ($user_info['username'] == $user['username'] and $user['username'] != $current_name){
-        return [
-            'type' => 'danger',
-            'message' => sprintf("The name of the series cannot be changed. %s already exists.", $user_info['username'])
-        ];
-    }
-
-    /* password security checks */
-    if ($user_info['new-password'] != $user_info['check-password']) {
-        return [
-            'type' => 'danger',
-            'message' => sprintf("The passwords are not the same")
-        ];
-    }
-    /* Hash password */
-    $password = password_hash($user_info['new-password'], PASSWORD_DEFAULT);;
-
-
-    /* Update Account information */
-    $stmt1 = $pdo->prepare("UPDATE users SET username = ?, password = ? WHERE id = ?");
-    $stmt1->execute([
-        $user_info['username'],
-        $password,
-        $user_id
-    ]);
-    $updated1 = $stmt1->rowCount();
-
-    /* Update personal-infoormationn*/
-    $stmt2 = $pdo->prepare("UPDATE users SET firstname = ?, lastname = ?, email = ?, 
-                            phone = ?, birthdate = ?, language = ?, occupation = ?, biography = ? WHERE id = ?");
-    $stmt2->execute([
-        $user_info['firstname'],
-        $user_info['lastname'],
-        $user_info['email'],
-        $user_info['phone'],
-        $user_info['birthdate'],
-        $user_info['language'],
-        $user_info['occupation'],
-        $user_info['biography'],
-        $user_id
-    ]);
-    $updated2 = $stmt2->rowCount();
-    if ($updated1 ==  1 or $updated2 == 1) {
-        return [
-            'type' => 'success',
-            'message' => sprintf("%s, your profile was successfully updated!", $user_info['firstname'])
-        ];
-    }
-    else {
-        return [
-            'type' => 'warning',
-            'message' => 'The series was not edited. No changes were detected'
-        ];
-    }
+function update_room($pdo, $form_data) {
+    return;
 }
 
 

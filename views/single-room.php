@@ -76,7 +76,7 @@
                         <input type='hidden' name='room_id' value='<?php echo "$room_id"?>'/>
                         <textarea name="message"></textarea>
                         <div class="opt-btn-wrapper">
-                            <button name="opt-in" type="submit" id="opt-in-btn">Request room</button>
+                            <button name="opt-in" type="submit" id="opt-in-btn">Apply</button>
                         </div>
                     </form>
                 </div>
