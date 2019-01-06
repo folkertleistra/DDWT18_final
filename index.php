@@ -344,13 +344,9 @@ elseif (new_route('/DDWT18_final/edit/', 'get')) {
         redirect('/DDWT18_final/login/');
     }
 
-
-    /* check the role of the current user */
-
-
     /* Get room info from db */
-    $room_id = $_GET['room_id'];
-    $serie_info = get_room_info($db, $room_id);
+    $room_id = $_GET['id'];
+    $room_info = get_room_info($db, $room_id);
     /* Page content */
     $page_title = 'Edit Room';
     $header_title = 'Edit your room';
