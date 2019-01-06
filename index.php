@@ -349,9 +349,10 @@ elseif (new_route('/DDWT18_final/edit/', 'get')) {
 
 
     /* Get room info from db */
-    //$room_id = $_GET['room_id'];
-    //$serie_info = get_room_info($db, $room_id);
+    $room_id = $_GET['room_id'];
+    $serie_info = get_room_info($db, $room_id);
     /* Page content */
+    $page_title = 'Edit Room';
     $header_title = 'Edit your room';
     $form_action = '/DDWT18_final/edit/';
     $submit_btn = 'Edit';

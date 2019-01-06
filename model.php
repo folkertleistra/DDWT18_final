@@ -1378,7 +1378,76 @@ function update_user($pdo, $form_data){
 }
 
 
+/**
+ * updates a room from the database
+ * @param $pdo
+ * @param $form_data
+ */
 function update_room($pdo, $form_data) {
+    /* Check if all fields are filled in */
+    if (
+        empty($form_data['city']) or
+        empty($form_data['postal_code']) or
+        empty($form_data['street']) or
+        empty($form_data['street_number']) or
+        empty($form_data['size']) or
+        empty($form_data['type']) or
+        empty($form_data['price']) or
+        empty($form_data['description'])
+    ) {
+        return [
+            'type' => 'danger',
+            'message' => 'There was an error. Not all fields were filled in.'
+        ];
+    }
+    /* Check if fields that have to be numeric are numeric */
+
+    /* Check data type for the phone field */
+    if (!is_numeric($form_data['street_number'])) {
+        return [
+            'type' => 'danger',
+            'message' => 'Please only enter numbers in the \'Street number\' field.'
+        ];
+    }
+
+    /* Check data type for the size field */
+    if (!is_numeric($form_data['size'])) {
+        return [
+            'type' => 'danger',
+            'message' => 'Please only enter numbers in the \'Size\' field.'
+        ];
+    }
+
+    /* Check data type for the price field */
+    if (!is_numeric($form_data['price'])) {
+        return [
+            'type' => 'danger',
+            'message' => 'Please only enter numbers in the \'Price\' field.'
+        ];
+    }
+
+    /* Check if room address already exists */
+    try {
+        $stmt = $pdo->prepare('SELECT * FROM rooms WHERE city = ? AND postal_code = ? AND street = ? AND street_number = ? AND addition = ?');
+        $stmt->execute([$form_data['city'], $form_data['postal_code'], $form_data['street'], $form_data['street_number'], $form_data['addition']]);
+        $room_exists = $stmt->rowCount();
+    } catch (\PDOException $e) {
+        return [
+            'type' => 'danger',
+            'message' => sprintf('There was an error: %s', $e->getMessage())
+        ];
+    }
+
+    /* Return error message for existing address */
+    if ( !empty($room_exists) ) {
+        return [
+            'type' => 'danger',
+            'message' => 'The address you entered already exists.'
+        ];
+    }
+
+
+
     return;
 }
 

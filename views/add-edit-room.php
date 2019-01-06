@@ -18,22 +18,22 @@
         </div>
         <form action=<?=$form_action?> method="POST" enctype="multipart/form-data">
             <label for="city">city</label>
-            <input type="text" name="city" value="<?php if (isset($user_info)){echo $user_info['username'];} ?>" required>
+            <input type="text" name="city" value="<?php if (isset($room_info)){echo $room_info['city'];} ?>" required>
             <label for="postal_code">postal code</label>
-            <input type="text" name="postal_code" value="<?php if (isset($user_info)){echo $user_info['username'];} ?>" required>
+            <input type="text" name="postal_code" value="<?php if (isset($room_info)){echo $room_info['postal_code'];} ?>" required>
             <label for="street">street</label>
-            <input type="text" name="street" value="<?php if (isset($user_info)){echo $user_info['username'];} ?>" required>
+            <input type="text" name="street" value="<?php if (isset($room_info)){echo $room_info['street'];} ?>" required>
             <label for="street_number">street number</label>
-            <input type="text" name="street_number" value="<?php if (isset($user_info)){echo $user_info['username'];} ?>" required>
+            <input type="text" name="street_number" value="<?php if (isset($room_info)){echo $room_info['street_number'];} ?>" required>
             <label for="addition">addition</label>
-            <input type="text" name="addition" value="<?php if (isset($user_info)){echo $user_info['username'];} ?>" required>
+            <input type="text" name="addition" value="<?php if (isset($room_info)){echo $room_info['addition'];} ?>">
             <label for="size">size</label>
-            <input type="text" name="size" value="<?php if (isset($user_info)){echo $user_info['username'];} ?>">
+            <input type="text" name="size" value="<?php if (isset($room_info)){echo $room_info['size'];} ?>">
             <label for="type">type</label>
-            <input type="text" name="type" value="<?php if (isset($user_info)){echo $user_info['username'];} ?>">
+            <input type="text" name="type" value="<?php if (isset($room_info)){echo $room_info['type'];} ?>">
             <label for="price">price</label>
-            <input type="text" name="price" value="<?php if (isset($user_info)){echo $user_info['username'];} ?>">
-            <textarea name="description" placeholder="description"><?php if (isset($user_info)){echo $user_info['username'];}?></textarea>
+            <input type="text" name="price" value="<?php if (isset($room_info)){echo $room_info['price'];} ?>">
+            <textarea name="description" placeholder="description"><?php if (isset($room_info)){echo $room_info['price'];}?></textarea>
 
             <?php if(isset($room_id)){ ?><input type="hidden" name="room_id" value="<?php echo $room_id ?>"><?php } ?>
 
