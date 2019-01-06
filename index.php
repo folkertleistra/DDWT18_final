@@ -146,7 +146,7 @@ elseif (new_route('/DDWT18_final/room/', 'get')) {
 
     /* check if the current user is the owner of the room */
     $user_id = get_user_id();
-    owns_room($db, $user_id, $room_id);
+    //owns_room($db, $user_id, $room_id);
 
 
     /* page subtitle */
