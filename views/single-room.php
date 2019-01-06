@@ -71,10 +71,10 @@
                     <div>
                         <?php if($display_buttons) { ?>
                         <div>
-                            <a href="/DDWT18_final/edit/?id=<?= $room_id ?>" role="button" class="btn btn-warning">Edit</a>
+                            <a href="/DDWT18_final/edit-room/?id=<?= $room_id ?>" role="button" class="btn btn-warning">Edit</a>
                         </div>
                         <div>
-                        <form action="/DDWT18_final/remove/" method="POST">
+                        <form action="/DDWT18_final/remove-room/" method="POST">
                             <input type="hidden" value="<?= $room_id ?>" name="room_id">
                             <button type="submit" class="btn btn-danger">Remove</button>
                         </form>
@@ -83,6 +83,7 @@
                     </div>
                 </div>
             </div>
+            <?php if($display_optin) { ?>
             <div class="row sr-row r2">
                 <div class="col-12 opt-in-col">
                     <h3>Interested? <strong>Leave a message!</strong></h3>
@@ -95,6 +96,7 @@
                     </form>
                 </div>
             </div>
+            <?php } ?>
 
             <div class="row map-row r3">
                 <div class="col-12 map-col">

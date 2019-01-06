@@ -132,7 +132,7 @@ elseif (new_route('/DDWT18_final/test-route/', 'post')) {
 elseif (new_route('/DDWT18_final/room/', 'get')) {
 
     /* Page content */
-    $page_title = "Single room";
+    $page_title = "Single room"; // TODO: adres weergeven als dynamische titel (zie subtitle)
     $navigation = get_navigation($nav_template, 0, $state);
 
     /* get room id */
@@ -148,11 +148,16 @@ elseif (new_route('/DDWT18_final/room/', 'get')) {
     $user_id = get_user_id();
 
     if (owns_room($db, $room_id, $user_id)) {
-        $display_buttons = True;
+        $display_buttons = true;
     } else {
-        $display_buttons = False;
+        $display_buttons = false;
     }
 
+    if (is_tenant($db, $user_id)) {
+        $display_optin = true;
+    } else {
+        $display_optin = false;
+    }
 
     /* page subtitle */
     $page_subtitle = sprintf('%s %d%s, %s',
@@ -180,6 +185,7 @@ elseif (new_route('/DDWT18_final/my-account/', 'get')) {
     $user_info = get_user_info($db, $user_id);
 
     /* Page content */
+    $page_title = "My Account";
     $page_subtitle = "My Account";
     $navigation = get_navigation($nav_template, 3, $state);
 
@@ -415,10 +421,22 @@ elseif (new_route('/DDWT18_final/remove-room/', 'post')) {
 elseif (new_route('/DDWT18_final/optin/', 'post')) {
     /* Check if logged in */
     if (!check_login()) {
-        redirect('/DDWT18/week2/login/');
+        redirect('/DDWT18_final/login/');
     }
 
-    $error_msg = opt_in($db, $_POST);
+    $feedback = opt_in($db, $_POST);
+    redirect(sprintf('/DDWT18_final/room/?id=%s&error_msg=%s', $_POST['room_id'], json_encode($feedback)));
+}
+
+/* Opt-out to a room (POST) */
+elseif (new_route('/DDWT18_final/optout/', 'post')) {
+    /* Check if logged in */
+    if (!check_login()) {
+        redirect('/DDWT18_final/login/');
+    }
+
+    $feedback = opt_out($db, $_POST);
+    redirect(sprintf('/DDWT18_final/room/?id=%s&error_msg=%s', $_POST['room_id'], json_encode($feedback)));
 }
 
 /*
