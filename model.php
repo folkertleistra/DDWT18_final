@@ -872,15 +872,15 @@ function get_images($room_id) {
  * @return bool
  */
 function owns_room($pdo, $user_id, $room_id) {
-    $stmt = $pdo->prepare('SELECT owner_id FROM own WHERE room_id = ?');
+    $stmt = $pdo->prepare('SELECT owner_id FROM rooms WHERE id = ?');
     $stmt->execute([$room_id]);
     $room_owner_array = $stmt->fetchAll();
     $room_owner_id = $room_owner_array[0]['owner_id'];
     if ($room_owner_id === $user_id) {
-        return True;
+        return true;
     }
     else {
-        return False;
+        return false;
     }
 }
 
