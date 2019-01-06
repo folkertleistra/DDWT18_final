@@ -771,7 +771,7 @@ function get_room_info($pdo, $room_id) {
  */
 function get_room_address($pdo, $room_id) {
     /* Create and execute SQL statement */
-    $stmt = $pdo->prepare('SELECT street, street_number, addition, postal_code, city FROM rooms WHERE id = ?');
+    $stmt = $pdo->prepare('SELECT street, street_number, addition, city FROM rooms WHERE id = ?');
     $stmt->execute([$room_id]);
     $rooms = $stmt->fetchAll();
     $room = $rooms[0];
@@ -1384,6 +1384,14 @@ function update_user($pdo, $form_data){
  * @param $form_data
  */
 function update_room($pdo, $form_data) {
+    /* Get current room address */
+    $stmt = $pdo->prepare('SELECT owner_id, street, street_number, addition, city FROM rooms WHERE id = ?');
+    $stmt->execute([$form_data['room_id']]);
+    $data = $stmt->fetch();
+    $current_address = sprintf('%s %d%s %s', $data['street'], $data['street_number'], $data['addition'], $data['city']);
+    $form_address = sprintf('%s %d%s %s', $form_data['street'], $form_data['street_number'], $form_data['addition'], $form_data['city']);
+
+    /* TODO: user authorization */
 
     /* Check if all fields are filled in */
     if (
@@ -1427,33 +1435,21 @@ function update_room($pdo, $form_data) {
         ];
     }
 
-    /* Get current room address */
-    $stmt = $pdo->prepare('SELECT city, postal_code, street, street_number, addition FROM rooms WHERE id = ?');
-    $stmt->execute([$form_data['room_id']]);
-    $address= $stmt->fetch();
 
-    /* Check if room address already exists */
-    try {
-        $stmt = $pdo->prepare('SELECT * FROM rooms WHERE city = ? AND postal_code = ? AND street = ? AND street_number = ? AND addition = ?');
-        $stmt->execute([$form_data['city'], $form_data['postal_code'], $form_data['street'], $form_data['street_number'], $form_data['addition']]);
-        $room_exists = $stmt->rowCount();
-    } catch (\PDOException $e) {
+
+    /* TODO: Check if room address already exists */
+    $stmt = $pdo->prepare('SELECT * FROM rooms WHERE street = ? AND street_number = ? AND addition = ? AND city = ?');
+    $stmt->execute([$current_address['street'], $current_address['street_number'], $current_address['addition'], $current_address['city']]);
+    $data = $stmt->fetch();
+    $room = sprintf('%s %d%s %s', $data['street'], $data['street_number'], $data['addition'], $data['city']);
+    if ($form_address == $room and $room != $current_address) {
         return [
             'type' => 'danger',
-            'message' => sprintf('There was an error: %s', $e->getMessage())
-        ];
-    }
-
-    /* Return error message for existing address */
-    if ( !empty($room_exists) ) {
-        return [
-            'type' => 'danger',
-            'message' => 'The address you entered already exists.'
+            'message' => sprintf("The room cannot be changed. The address already exists.")
         ];
     }
 
     /* Update room information and save to the database */
-
     $stmt = $pdo->prepare("UPDATE rooms SET city = ?, postal_code = ?, street = ?, 
                             street_number = ?, addition = ?, size = ?, type = ?, price = ?, description = ? WHERE id = ?");
     $stmt->execute([
