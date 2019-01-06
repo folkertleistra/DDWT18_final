@@ -113,11 +113,12 @@ a.view-room {
 a.view-room:focus {
     outline: 0;
 }
-p.message {
-    margin-bottom: 20px;
-}
+
 hr.bottom-hr {
     margin-top: 25px;
     margin-bottom: 20px;
+}
+.viewroom-btn-wrapper {
+    margin-top: 20px;
 }
 /* END: optin sections */
