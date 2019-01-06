@@ -37,7 +37,7 @@
 
             <?php if(isset($room_id)){ ?><input type="hidden" name="room_id" value="<?php echo $room_id ?>"><?php } ?>
 
-            <?php if($form_action == 'DDWT18_final/add/') { echo
+            <?php if($form_action == '/DDWT18_final/add/') { echo
             '<label for="image">image</label> <input type="file" name="files[]" id="fileToUpload" multiple>';}?>
 
             <button type="submit"><?= $submit_btn ?></button>

@@ -146,7 +146,12 @@ elseif (new_route('/DDWT18_final/room/', 'get')) {
 
     /* check if the current user is the owner of the room */
     $user_id = get_user_id();
-    //owns_room($db, $user_id, $room_id);
+
+    if (owns_room($db, $room_id, $user_id)) {
+        $display_buttons = True;
+    } else {
+        $display_buttons = False;
+    }
 
 
     /* page subtitle */
@@ -302,7 +307,8 @@ elseif (new_route('/DDWT18_final/add/', 'get')) {
     }
     $page_title = 'Add room';
     $header_title = 'Add a room';
-    $form_action = 'DDWT18_final/add/';
+
+    $form_action = '/DDWT18_final/add/';
     $submit_btn = "Add";
 
     $navigation = get_navigation($nav_template, 2, $state);

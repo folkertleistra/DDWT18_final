@@ -864,6 +864,28 @@ function get_images($room_id) {
     return $images;
 }
 
+/**
+ * This function checks if the currently logged in user is also the owner of the current room
+ * @param $pdo
+ * @param $room_id int
+ * @param $user_id int
+ * @return bool
+ */
+function owns_room($pdo, $room_id, $user_id) {
+    /* Select the id of the owner of the room from the database */
+    $stmt = $pdo->prepare('SELECT owner_id FROM rooms WHERE id = ?');
+    $stmt->execute([$room_id]);
+    $original_owner_array = $stmt->fetchAll();
+    $original_owner = $original_owner_array[0]['owner_id'];
+
+    if ($user_id === $original_owner) {
+        return True;
+    }
+    else {
+        return False;
+    }
+}
+
 
 /*
  * --------------------

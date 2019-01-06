@@ -66,9 +66,23 @@
                     <div class="description">
                         <p><?php echo($room_info['description']) ?></p>
                     </div>
+
+                    <!-- The following section is only displayed when you are the owner of the room -->
+                    <div>
+                        <?php if($display_buttons) { ?>
+                        <div>
+                            <a href="/DDWT18_final/edit/?id=<?= $room_id ?>" role="button" class="btn btn-warning">Edit</a>
+                        </div>
+                        <div>
+                        <form action="/DDWT18_final/remove/" method="POST">
+                            <input type="hidden" value="<?= $room_id ?>" name="room_id">
+                            <button type="submit" class="btn btn-danger">Remove</button>
+                        </form>
+                        </div>
+                        <?php } ?>
+                    </div>
                 </div>
             </div>
-
             <div class="row sr-row r2">
                 <div class="col-12 opt-in-col">
                     <h3>Interested? <strong>Leave a message!</strong></h3>
