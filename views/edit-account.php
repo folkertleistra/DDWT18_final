@@ -32,7 +32,7 @@
                 <div class="col-md-8 info-column">
                     <!-- Right column lg/md, bottom column sm/xs -->
                     <div class="col-lg-6 register-col">
-                        <form action='/DDWT18_final/edit-personal' method="POST">
+                        <form action='/DDWT18_final/edit-account' method="POST">
                             <div class="col-12">
                                 <!-- Account Details -->
                                 <h3>Account Details</h3>

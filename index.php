@@ -192,7 +192,7 @@ elseif (new_route('/DDWT18_final/my-account/', 'get')) {
 }
 
 /* edit personal-information for (GET) */
-elseif (new_route('/DDWT18_final/edit-personal/', 'get')) {
+elseif (new_route('/DDWT18_final/edit-account/', 'get')) {
 
     $page_title = 'Edit personal information';
     $navigation = get_navigation($nav_template, 3, $state);
@@ -211,7 +211,7 @@ elseif (new_route('/DDWT18_final/edit-personal/', 'get')) {
 }
 
 /* edit user-information for (POST) */
-elseif (new_route('/DDWT18_final/edit-personal/', 'post')) {
+elseif (new_route('/DDWT18_final/edit-account/', 'post')) {
 
     $navigation = get_navigation($nav_template, 3, $state);
 
