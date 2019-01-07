@@ -1,0 +1,25 @@
+/* START: FULLWIDTH HEADER IMAGE */
+.jumbotron.add-edit-jumbo {
+    background-image: url("/DDWT18_final/resources/headers/add-edit-header.jpeg");
+}
+/* END: FULLWIDTH HEADER IMAGE */
+
+/* file upload */
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+    justify-content: center;
+}
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+.upload-btn-wrapper button {
+    background-color: #5c5cdc;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
