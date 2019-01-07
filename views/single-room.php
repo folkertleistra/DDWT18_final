@@ -140,6 +140,8 @@
         <!-- Error message -->
         <?php if (isset($error_msg)){echo $error_msg;} ?>
 
+        <?= $imported_scripts ?>
+
         <!-- Slider script -->
         <script type="text/javascript" src="/DDWT18_final/js/single-room.js"></script>
 
