@@ -367,8 +367,10 @@ function get_personal_info_html($user_info) {
 function get_error($feedback) {
     $feedback = json_decode($feedback, True);
     $error_exp = '
-        <div class="alert alert-'.$feedback['type'].'" role="alert">
-            '.$feedback['message'].'
+        <div class="error-fade">
+            <div class="alert alert-'.$feedback['type'].'" role="alert">
+                '.$feedback['message'].'
+            </div>
         </div>';
     return $error_exp;
 }
