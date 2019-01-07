@@ -81,8 +81,17 @@
                         </div>
                         <?php } ?>
                     </div>
+
+                    <!-- Message that will be displayed when not logged in -->
+                    <?php if(!$login) { ?>
+                        <div>
+                            <p>Login when you want to apply for this room.</p>
+                        </div>
+                    <?php } ?>
                 </div>
             </div>
+
+            <!-- Print opt-in box if user is a tenant -->
             <?php if($display_optin) { ?>
             <div class="row sr-row r2">
                 <div class="col-12 opt-in-col">
@@ -96,7 +105,25 @@
                     </form>
                 </div>
             </div>
-            <?php } ?>
+            <?php }?>
+
+            <!-- print opt-out box if user is a tenant -->
+            <?php if($display_optout) { ?>
+                <div class="row sr-row r2">
+                    <div class="col-12 opt-in-col">
+                        <h3>You have already opted in for this room</h3>
+                        <form action="/DDWT18_final/optout/" method="POST">
+                            <input type='hidden' name='room_id' value='<?php echo "$room_id"?>'/>
+                            <input type='hidden' name='tenant_id' value='<?php echo "$user_id"?>'/>
+                            <div class="opt-btn-wrapper">
+                                <button name="opt-in" type="submit" id="opt-in-btn">Remove room request</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            <?php }?>
+
 
             <div class="row map-row r3">
                 <div class="col-12 map-col">

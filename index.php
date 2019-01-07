@@ -130,7 +130,12 @@ elseif (new_route('/DDWT18_final/test-route/', 'post')) {
 
 /* Single room (GET) */
 elseif (new_route('/DDWT18_final/room/', 'get')) {
-
+    /* check login */
+    if (!check_login()){
+        $login = false;
+    } else {
+        $login = true;
+    }
     /* Page content */
     $page_title = "Single room"; // TODO: adres weergeven als dynamische titel (zie subtitle)
     $navigation = get_navigation($nav_template, 0, $state);
@@ -146,18 +151,33 @@ elseif (new_route('/DDWT18_final/room/', 'get')) {
 
     /* check if the current user is the owner of the room */
     $user_id = get_user_id();
-
     if (owns_room($db, $room_id, $user_id)) {
         $display_buttons = true;
     } else {
         $display_buttons = false;
     }
 
+    /* check if the current user is a tenant */
     if (is_tenant($db, $user_id)) {
         $display_optin = true;
+        /* check if the tenant has already opted in */
+        if (opted_in($db, $room_id, $user_id)) {
+            $display_optout = true;
+            $display_optin = false;
+        } else {
+            $display_optout = false;
+        }
     } else {
         $display_optin = false;
+        $display_optout= false;
     }
+
+    /* Get error message from POST route */
+    if (isset($_GET['error_msg'])){
+
+        $error_msg = get_error($_GET['error_msg']);
+    }
+
 
     /* page subtitle */
     $page_subtitle = sprintf('%s %d%s, %s',
