@@ -8,6 +8,12 @@
 
 include 'model.php';
 
+/*
+ * -------------------
+ * START: PAGE CONTENT
+ * -------------------
+ */
+
 /* Connect to DB */
 $db = connect_db('localhost','ddwt18_final','ddwt18','ddwt18');
 
@@ -20,7 +26,7 @@ $imported_scripts = get_imported_scripts();
 /* Footer HTML content */
 $footer = get_footer_content();
 
-/* Global login check */
+/* Global login check for navigation bar */
 if (check_login()){
     $state = 'login';
 }
@@ -68,6 +74,13 @@ $nav_template =
             'role' => 'all'
         )
     );
+
+/*
+ * -----------------
+ * END: PAGE CONTENT
+ * -----------------
+ */
+
 
 /*
  * -------------
@@ -130,22 +143,32 @@ elseif (new_route('/DDWT18_final/test-route/', 'post')) {
 
 /* Single room (GET) */
 elseif (new_route('/DDWT18_final/room/', 'get')) {
-
-    /* Page content */
-    $page_title = "Single room"; // TODO: adres weergeven als dynamische titel (zie subtitle)
-    $navigation = get_navigation($nav_template, 0, $state);
-
     /* get room id */
     $room_id = $_GET['id'];
 
     /* get room info */
     $room_info = get_room_info($db, $room_id);
 
+    /* Page content */
+    $page_title = sprintf('%s %d%s, %s',
+        $room_info['street'], $room_info['street_number'], $room_info['addition'], $room_info['city']);
+    $navigation = get_navigation($nav_template, 0, $state);
+
     /* room images */
     $room_images = get_images($room_id);
 
     /* check if the current user is the owner of the room */
     $user_id = get_user_id();
+
+    /* page subtitle */
+    $page_subtitle = sprintf('%s %d%s, %s',
+        $room_info['street'], $room_info['street_number'], $room_info['addition'], $room_info['city']);
+
+    /* Thumbnail */
+    $thumbnail = get_images($room_id)[0];
+
+    /* Address string */
+    $address = get_room_address($db, $room_id);
 
     if (owns_room($db, $room_id, $user_id)) {
         $display_buttons = true;
@@ -158,16 +181,6 @@ elseif (new_route('/DDWT18_final/room/', 'get')) {
     } else {
         $display_optin = false;
     }
-
-    /* page subtitle */
-    $page_subtitle = sprintf('%s %d%s, %s',
-        $room_info['street'], $room_info['street_number'], $room_info['addition'], $room_info['city']);
-
-    /* Thumbnail */
-    $thumbnail = get_images($room_id)[0];
-
-    /* Address string */
-    $address = get_room_address($db, $room_id);
 
     /* Get error message from POST route */
     if (isset($_GET['error_msg'])){
