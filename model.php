@@ -831,6 +831,18 @@ function get_role($pdo, $id) {
 }
 
 /**
+ * Returns a random id from rooms table
+ * @param $pdo
+ * @return mixed
+ */
+function get_random_room_id($pdo) {
+    $stmt = $pdo->prepare('SELECT id FROM rooms ORDER BY RAND() LIMIT 1;');
+    $stmt->execute();
+    $result = $stmt->fetchAll();
+    return $result[0];
+}
+
+/**
  * Returns all applications for a single room
  * @param $pdo
  * @param $room_id
@@ -1101,7 +1113,7 @@ function register_user($pdo, $form_data) {
     ) {
         return [
             'type' => 'danger',
-            'message' => 'Please fill in all fields marked with an \'*\' (asterisk).'
+            'message' => 'Please fill in all required fields.'
         ];
     }
 
@@ -1244,7 +1256,7 @@ function add_room($pdo, $form_data, $files) {
     ) {
         return [
             'type' => 'danger',
-            'message' => 'Please fill in all fields marked with an \'*\' (asterisk).'
+            'message' => 'Please fill in all required fields.'
         ];
     }
 
@@ -1288,7 +1300,7 @@ function add_room($pdo, $form_data, $files) {
     if ( !empty($room_exists) ) {
         return [
             'type' => 'danger',
-            'message' => 'The address you entered already exists.'
+            'message' => 'This room cannot be changed. The entered address already exists.'
         ];
     }
 
@@ -1654,7 +1666,7 @@ function update_room($pdo, $form_data) {
     if ($form_address == $room and $room != $current_address) {
         return [
             'type' => 'danger',
-            'message' => 'The room cannot be changed. The address already exists.'
+            'message' => 'This room cannot be changed. The entered address already exists.'
         ];
     }
 

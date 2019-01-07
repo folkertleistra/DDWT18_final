@@ -141,15 +141,14 @@ elseif (new_route('/DDWT18_final/test-route/', 'get')) {
 
     /* User info */
     $user_id = 8;
-
-    include use_template('edit-account');
+    print_r(random_room_id($db));
 }
 
 /* test route (POST)
 TODO: remove before handing in
 */
 elseif (new_route('/DDWT18_final/test-route/', 'post')) {
-    print_r(update_user($db, $_POST));
+    print_r(random_room_id($db));
 
 }
 
@@ -258,9 +257,12 @@ elseif (new_route('/DDWT18_final/edit-account/', 'get')) {
     /* Get the ID of the user from the session */
     $user_id = $_SESSION['user_id'];
 
-    /* TODO: misschien de user info proberen uit de $_GET te halen als je terug komt uit de edit post met error
-    /* Retrieve the information about the user from the database */
-    $user_info = get_user_info($db, $user_id);
+    /* Retrieve the information about the user from the database or GET */
+    if ( isset($_GET['user_info'])){
+        $user_info = json_decode($_GET['user_info'], true);
+    } else {
+        $user_info = get_user_info($db, $user_id);
+    }
 
     if ( isset($_GET['error_msg']) ) {
         $error_msg = get_error($_GET['error_msg']);
@@ -278,7 +280,7 @@ elseif (new_route('/DDWT18_final/edit-account/', 'post')) {
     $feedback = update_user($db, $_POST);
 
     /* Redirect to edit account route */
-    redirect(sprintf('/DDWT18_final/edit-account/?error_msg=%s&user_info=%s', json_encode($feedback), $_POST));
+    redirect(sprintf('/DDWT18_final/edit-account/?error_msg=%s&user_info=%s', json_encode($feedback), json_encode($_POST)));
 
     /* choose template */
     include use_template('edit-account');
@@ -389,6 +391,10 @@ elseif (new_route('/DDWT18_final/add-room/', 'get')) {
         redirect(sprintf('/DDWT18_final/my-account/?error_msg=%s', json_encode($error_msg)));
     }
 
+    if (isset($_GET['room_info'])){
+        $room_info = json_decode($_GET['room_info'], true);
+    }
+
     $page_title = 'ApartRent';
     $page_subtitle = 'Add a room';
 
@@ -411,7 +417,7 @@ elseif (new_route('/DDWT18_final/add-room/', 'post')) {
     $error_msg = add_room($db, $_POST, $_FILES);
 
     /* Redirect to add (GET) page */
-    redirect(sprintf('/DDWT18_final/add-room/?error_msg=%s', json_encode($error_msg)));
+    redirect(sprintf('/DDWT18_final/add-room/?error_msg=%s&room_info=%s', json_encode($error_msg), json_encode($_POST)));
 }
 
 /* Edit room (GET) */
@@ -426,7 +432,12 @@ elseif (new_route('/DDWT18_final/edit-room/', 'get')) {
 
     /* Get room info from db */
     $room_id = $_GET['id'];
-    $room_info = get_room_info($db, $room_id);
+
+    if (isset($_GET['room_info'])){
+        $room_info = json_decode($_GET['room_info'], true);
+    } else {
+        $room_info = get_room_info($db, $room_id);
+    }
 
     /* Check if room owner */
     if ( !owns_room($db, $room_id, $_SESSION['user_id'])) {
@@ -462,8 +473,8 @@ elseif (new_route('/DDWT18_final/edit-room/', 'post')) {
     /* edit room in database */
     $feedback = update_room($db, $_POST);
 
-    /* Redirect to serie GET route */
-    redirect(sprintf('/DDWT18_final/room/?id=%s&error_msg=%s', $_POST['room_id'], json_encode($feedback)));
+    /* Redirect to edit-room GET route */
+    redirect(sprintf('/DDWT18_final/edit-room/?id=%s&error_msg=%s&room_info=%s', $_POST['room_id'], json_encode($feedback), json_encode($_POST)));
 
     /*choose template */
     include use_template('add-edit-room');
