@@ -32,51 +32,69 @@
                 </div>
 
                 <div class="col-lg-4 edit-col single-col">
-                    <form action='/DDWT18_final/edit-account' method="POST">
+                    <form action='/DDWT18_final/edit-account/' method="POST">
 
                         <!-- Personal details -->
                         <h3>Personal Information</h3>
                         <div class="form-row">
                             <label for="firstname">First Name</label>
-                            <input type="text" name="firstname" value="<?php if (isset($user_info)){echo $user_info['firstname'];} ?>" required>
+                            <input type="text" name="firstname" value="<?php if (isset($user_info)){echo htmlspecialchars($user_info['firstname']);} ?>" required>
                         </div>
 
                         <div class="form-row">
                             <label for="lastname">Last Name</label>
-                            <input type="text" name="lastname"  value="<?php if (isset($user_info)){echo $user_info['lastname'];} ?>" required>
+                            <input type="text" name="lastname"  value="<?php if (isset($user_info)){echo htmlspecialchars($user_info['lastname']);} ?>" required>
                         </div>
 
                         <div class="form-row">
                             <label for="email" >E-mail</label>
-                            <input type="email" name="email"  value="<?php if (isset($user_info)){echo $user_info['email'];} ?>" required>
+                            <input type="email" name="email"  value="<?php if (isset($user_info)){echo htmlspecialchars($user_info['email']);} ?>" required>
                         </div>
 
                         <div class="form-row">
                             <label for="birthdate">Date of Birth</label>
-                            <input type="date" name="birthdate"  class="form-input" value="<?php if (isset($user_info)){echo $user_info['birthdate'];} ?>" required>
+                            <input type="date" name="birthdate"  class="form-input" value="<?php if (isset($user_info)){echo htmlspecialchars($user_info['birthdate']);} ?>" required>
                         </div>
 
                         <div class="form-row">
                             <label for="phone">Phone Number</label>
-                            <input type="tel" name="phone" placeholder="0612345678" class="form-input" value="<?php if (isset($user_info)){echo $user_info['phone'];} ?>" required>
+                            <input type="tel" name="phone" placeholder="0612345678" class="form-input" value="<?php if (isset($user_info)){echo htmlspecialchars($user_info['phone']);} ?>" required>
                         </div>
 
                         <div class="form-row">
                             <label for="language">Language</label>
-                            <input type="text" name="language"  class="form-input" value="<?php if (isset($user_info)){echo $user_info['language'];} ?>" required>
+                            <input type="text" name="language"  class="form-input" value="<?php if (isset($user_info)){echo htmlspecialchars($user_info['language']);} ?>" required>
                         </div>
 
                         <div class="form-row">
                             <label for="occupation">Occupation</label>
-                            <input type="text" name="occupation" value="<?php if (isset($user_info)){echo $user_info['occupation'];} ?>" required>
+                            <input type="text" name="occupation" value="<?php if (isset($user_info)){echo htmlspecialchars($user_info['occupation']);} ?>" required>
                         </div>
 
                         <div class="form-row">
                             <label for="biography">Biography</label>
-                            <textarea class="form-input"  name="biography" required><?php if (isset($user_info)){echo $user_info['biography'];} ?></textarea>
+                            <textarea class="form-input"  name="biography" required><?php if (isset($user_info)){echo htmlspecialchars($user_info['biography']);} ?></textarea>
                         </div>
 
-                        <input type="hidden" name="user_id" value="<?= $user_id ?>">
+                        <input type="hidden" name="user_id" value="<?= htmlspecialchars($user_id) ?>">
+
+                        <!-- Change password -->
+                        <h3>Change password</h3>
+
+                        <div class="form-row">
+                            <label for="old-password">Old password</label>
+                            <input type="password" name="old-password">
+                        </div>
+
+                        <div class="form-row">
+                            <label for="password1">New password</label>
+                            <input type="password" name="password1">
+                        </div>
+
+                        <div class="form-row">
+                            <label for="password2">Confirm new password</label>
+                            <input type="password" name="password2">
+                        </div>
 
                         <!-- Save changes button -->
                         <div class="btn-wrapper">

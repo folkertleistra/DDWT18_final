@@ -1114,7 +1114,7 @@ function register_user($pdo, $form_data) {
     /* check if phone number consists of 10 digits. */
     $amount = strlen($form_data['phone']);
     $max = 10;
-    if (!$amount === $max) {
+    if (!($amount === $max)) {
         return [
             'type' => 'danger',
             'message' => 'Please enter a phone number that consists of 10 digits.'
@@ -1478,10 +1478,16 @@ function update_user($pdo, $form_data){
         ];
     }
 
+    $stmt = $pdo->prepare('SELECT password, firstname, lastname, email, birthdate, phone, language, occupation, 
+                           biography FROM users WHERE id = ?');
+    $stmt->execute([$form_data['user_id']]);
+    $data = $stmt->fetchAll();
+    $user_data = $data[0];
+    $current_password = $user_data['password'];
+
     /* Check if all fields are set */
     $user_id = get_user_id();
     if (
-        empty($form_data['username']) or
         empty($form_data['firstname']) or
         empty($form_data['lastname']) or
         empty($form_data['email']) or
@@ -1496,6 +1502,7 @@ function update_user($pdo, $form_data){
             'message' => 'There was an error. Not all fields were filled in.'
         ];
     }
+
     /* Check phone number data type */
     if (!is_numeric($form_data['phone'])) {
         return [
@@ -1503,63 +1510,68 @@ function update_user($pdo, $form_data){
             'message' => 'Please only enter numbers in the \'Phone Number\' field.'
         ];
     }
-    /* Get current user name */
-    $stmt = $pdo->prepare('SELECT * FROM users WHERE id = ?');
-    $stmt->execute([$user_id]);
-    $user = $stmt->fetch();
-    $current_name = $user['username'];
 
-    /* Check if username already exists */
-    $stmt = $pdo->prepare('SELECT * FROM users WHERE username = ?');
-    $stmt->execute([$form_data['username']]);
-    $user = $stmt->fetch();
-    if ($form_data['username'] == $user['username'] and $user['username'] != $current_name){
+    /* Check if phone number consists of 10 digits. */
+    $amount = strlen($form_data['phone']);
+    $max = 10;
+    if (!($amount === $max)) {
         return [
             'type' => 'danger',
-            'message' => sprintf("Your username cannot be changed. %s already exists.", $form_data['username'])
+            'message' => 'Please enter a phone number that consists of 10 digits.'
         ];
     }
 
-    /* password security checks */
-    if ($form_data['new-password'] != $form_data['check-password']) {
-        return [
-            'type' => 'danger',
-            'message' => 'The entered passwords do not match.'
-        ];
+    /* Check if new password has been set */
+    if (!empty($form_data['password1'])){
+        /* Check if old password has been set */
+        if (empty($form_data['old-password'])){
+            return [
+                'type' => 'danger',
+                'message' => 'You need to enter your old password to change it.'
+            ];
+        }
+        /* Check if old password matches */
+        if (!password_verify($form_data['old-password'], $current_password)){
+            return [
+                'type' => 'danger',
+                'message' => 'Your entered \'old password\' does not match your current password.'
+            ];
+        }
+        /* Check if new password matches confirmation */
+        if ($form_data['password1'] != $form_data['password2']){
+            return [
+                'type' => 'danger',
+                'message' => 'The confirmation does not match your new password.'
+            ];
+        }
+        /* Check if new password matches old password */
+        if ($form_data['password1'] == $form_data['old-password']){
+            return [
+                'type' => 'warning',
+                'message' => 'You cannot enter your current password as your new password.'
+            ];
+        }
+        /* Hash password */
+        $password = password_hash($form_data['password1'], PASSWORD_DEFAULT);
+
+        /* Update Account information */
+        $stmt1 = $pdo->prepare("UPDATE users SET password = ? WHERE id = ?");
+        $stmt1->execute([$password, $user_id]);
+        $updated1 = $stmt1->rowCount();
     }
-    /* Hash password */
-    $password = password_hash($form_data['new-password'], PASSWORD_DEFAULT);;
-
-
-    /* Update Account information */
-    $stmt1 = $pdo->prepare("UPDATE users SET username = ?, password = ? WHERE id = ?");
-    $stmt1->execute([
-        $form_data['username'],
-        $password,
-        $user_id
-    ]);
-    $updated1 = $stmt1->rowCount();
 
     /* Update personal information*/
     $stmt2 = $pdo->prepare("UPDATE users SET firstname = ?, lastname = ?, email = ?, 
                             phone = ?, birthdate = ?, language = ?, occupation = ?, biography = ? WHERE id = ?");
-    $stmt2->execute([
-        $form_data['firstname'],
-        $form_data['lastname'],
-        $form_data['email'],
-        $form_data['phone'],
-        $form_data['birthdate'],
-        $form_data['language'],
-        $form_data['occupation'],
-        $form_data['biography'],
-        $user_id
-    ]);
+    $stmt2->execute([$form_data['firstname'], $form_data['lastname'], $form_data['email'], $form_data['phone'],
+        $form_data['birthdate'], $form_data['language'], $form_data['occupation'], $form_data['biography'], $user_id]);
     $updated2 = $stmt2->rowCount();
     if ($updated1 ==  1 or $updated2 == 1) {
-        return [
+        $feedback = [
             'type' => 'success',
             'message' => sprintf("%s, your profile was successfully updated.", $form_data['firstname'])
         ];
+        redirect(sprintf('/DDWT18_final/my-account/?error_msg=%s', json_encode($feedback)));
     }
     else {
         return [

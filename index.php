@@ -134,28 +134,22 @@ elseif (new_route('/DDWT18_final/rentable-rooms/', 'get')) {
 TODO: remove before handing in
 */
 elseif (new_route('/DDWT18_final/test-route/', 'get')) {
-    $room_id = 23;
 
     /* Page info */
     $page_title = 'Rooms for rent';
     $navigation = get_navigation($nav_template, 2, $state, $role);
 
     /* User info */
-    $user_id = get_user_id();
-    $user_info = get_user_info($db, $user_id);
+    $user_id = 8;
 
-    /* Personal info */
-    $personal_info = get_personal_info_html($db, $user_info);
-
-
-    include use_template('test-route');
+    include use_template('edit-account');
 }
 
 /* test route (POST)
 TODO: remove before handing in
 */
 elseif (new_route('/DDWT18_final/test-route/', 'post')) {
-    save_images(create_image_folder(4), $_FILES);
+    print_r(update_user($db, $_POST));
 
 }
 
@@ -264,6 +258,7 @@ elseif (new_route('/DDWT18_final/edit-account/', 'get')) {
     /* Get the ID of the user from the session */
     $user_id = $_SESSION['user_id'];
 
+    /* TODO: misschien de user info proberen uit de $_GET te halen als je terug komt uit de edit post met error
     /* Retrieve the information about the user from the database */
     $user_info = get_user_info($db, $user_id);
 
@@ -279,11 +274,11 @@ elseif (new_route('/DDWT18_final/edit-account/', 'post')) {
 
     $navigation = get_navigation($nav_template, 4, $state, $role);
 
+    /* Update the user account */
     $feedback = update_user($db, $_POST);
 
-    /* Redirect to serie GET route */
-    redirect(sprintf('/DDWT18_final/my-account/?error_msg=%s',
-        json_encode($feedback)));
+    /* Redirect to edit account route */
+    redirect(sprintf('/DDWT18_final/edit-account/?error_msg=%s&user_info=%s', json_encode($feedback), $_POST));
 
     /* choose template */
     include use_template('edit-account');
