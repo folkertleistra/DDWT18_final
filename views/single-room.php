@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
     <head>
@@ -12,7 +11,6 @@
         <?= $navigation ?>
 
         <!-- Content -->
-
         <div class="jumbotron jumbotron-fluid rr-jumbo">
             <div class="container hero-container">
                 <div class="hero-text">
@@ -24,14 +22,11 @@
 
         <div class="container">
             <div class="row sr-row r1">
-
                 <div class="col-lg-7 slider-col order-lg-1 order-2">
-
                     <!-- Slideshow container -->
                     <div class="slideshow-container">
                         <!-- Dynamic slider -->
                         <?php
-
                             $img_amnt = count($room_images);
 
                             foreach ($room_images as $image) {
@@ -39,14 +34,12 @@
                             }
                         ?>
                     </div>
-
                     <!-- Do not display slider controls when only 1 image is uploaded -->
                     <?php
                         if ($img_amnt > 1) {
                             echo get_slider_dots_html($img_amnt);
                         }
                     ?>
-
                 </div>
 
                 <div class="room-info-col col-lg-5 order-lg-2 order-1">
@@ -63,6 +56,7 @@
                         </p>
                         <hr>
                     </div>
+
                     <div class="description">
                         <p><?php echo($room_info['description']) ?></p>
                     </div>
@@ -116,7 +110,7 @@
                             <input type='hidden' name='room_id' value='<?php echo "$room_id"?>'/>
                             <input type='hidden' name='tenant_id' value='<?php echo "$user_id"?>'/>
                             <div class="opt-btn-wrapper">
-                                <button name="opt-in" type="submit" id="opt-in-btn">Remove room request</button>
+                                <button name="opt-in" type="submit" id="opt-in-btn">Remove application</button>
                             </div>
                         </form>
                     </div>
@@ -124,15 +118,12 @@
 
             <?php }?>
 
-
             <div class="row map-row r3">
                 <div class="col-12 map-col">
                     <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.it/maps?q=<?php echo ($address); ?>&output=embed"></iframe>
                 </div>
             </div>
         </div>
-
-
 
         <!-- Footer -->
         <?= $footer ?>

@@ -386,8 +386,9 @@ function get_personal_info_html($db, $user_info) {
         </div>
     </div>';
 
+    $birthdate = date("d-m-Y", strtotime($user_info['birthdate']));
     return strtr($template, array('$name' => $user_info['firstname'] . ' ' . $user_info['lastname'], '$lang' => $user_info['language'],
-         '$birthdate' => $user_info['birthdate'], '$occupation' => $user_info['occupation'], '$mail' => $user_info['email'],
+         '$birthdate' => $birthdate, '$occupation' => $user_info['occupation'], '$mail' => $user_info['email'],
          '$phone' => $user_info['phone'], '$bio' => $user_info['biography'], '$role' => get_role($db, $user_info['id'])));
 }
 
@@ -1399,7 +1400,7 @@ function opt_in($pdo, $form_data) {
     /* Redirect to room page */
     $feedback = [
         'type' => 'success',
-        'message' => sprintf('You applied successfully for %s %d%s %s', $room_info['street'],
+        'message' => sprintf('You have successfully applied for %s %d%s %s', $room_info['street'],
             $room_info['street_number'], $room_info['addition'], $room_info['city'])
     ];
     redirect(sprintf('/DDWT18_final/room/?id=%s&error_msg=%s', $form_data['room_id'], json_encode($feedback)));
@@ -1810,7 +1811,7 @@ function opt_out($pdo, $form_data) {
     if ($deleted ==  1) {
         return [
             'type' => 'success',
-            'message' => sprintf("Your application for %s %s%d %s was successfully removed.",
+            'message' => sprintf("Your application for %s %d%s %s was successfully removed.",
                 $room_info['street'], $room_info['street_number'], $room_info['addition'], $room_info['city'])
         ];
     }
