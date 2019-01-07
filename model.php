@@ -35,6 +35,21 @@ function connect_db($host, $db, $user, $pass) {
     return $pdo;
 }
 
+/**
+ * Get registration form data without passwords
+ * @param $form_data
+ * @return array
+ */
+function get_register_data($form_data) {
+    $output = Array();
+    foreach ($form_data as $key => $value){
+        if (!($key == 'password' or $key == 'rt-password')){
+            $output[$key] = $value;
+        }
+    }
+    return $output;
+}
+
 /*
  * ------------
  * START: ROUTE

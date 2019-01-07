@@ -257,6 +257,9 @@ elseif (new_route('/DDWT18_final/register/', 'get')) {
     /* Page content */
     $page_title = 'Register';
 
+    if (isset($_GET['form_data'])){
+        $form_data = json_decode($_GET['form_data'], true);
+    }
     /* Get error message from POST route */
     if (isset($_GET['error_msg'])){
         $error_msg = get_error($_GET['error_msg']);
@@ -269,9 +272,10 @@ elseif (new_route('/DDWT18_final/register/', 'get')) {
 elseif (new_route('/DDWT18_final/register/', 'post')) {
     /* Register user */
     $error_msg = register_user($db, $_POST);
+    $form_data = get_register_data($_POST);
 
     /* Redirect to homepage */
-    redirect(sprintf('/DDWT18_final/register/?error_msg=%s', json_encode($error_msg)));
+    redirect(sprintf('/DDWT18_final/register/?error_msg=%s&form_data=%s', json_encode($error_msg), json_encode($form_data)));
 }
 
 /* Login user (GET) */
@@ -294,7 +298,7 @@ elseif (new_route('/DDWT18_final/login/', 'post')) {
     $error_msg = login_user($db, $_POST);
 
     /* Redirect to homepage */
-    redirect(sprintf('/DDWT18_final/my-account/?id=%s', $_POST['id']));
+    redirect(sprintf('/DDWT18_final/login/?error_msg=%s', json_encode($error_msg)));
 }
 
 /* Logout user (GET) */
