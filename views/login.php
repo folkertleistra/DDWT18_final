@@ -53,6 +53,8 @@
         </div>
 
 
+        <!-- Error message -->
+        <div class="error-fade"><?php if (isset($error_msg)){echo $error_msg;} ?></div>
 
         <?= $imported_scripts ?>
     </body>
