@@ -109,7 +109,7 @@ a.next, a.prev {
     transition: background-color 0.6s ease;
 }
 
-.active, .dot:hover {
+.sr-row .active, .dot:hover {
     background-color: #f26b3a;
     opacity: 0.8;
 }

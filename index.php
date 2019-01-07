@@ -113,6 +113,33 @@ if (new_route('/DDWT18_final/', 'get')) {
         $error_msg = get_error($_GET['error_msg']);
     }
 
+    /* Page content */
+    $room_amnt = count_rooms($db);
+    $tenant_amnt = count_tenants($db);
+    $owner_amnt = count_owners($db);
+    $header_subtitle = 'Boom, I want you in my room';
+
+    /* Intro text button */
+
+    if (check_login()) {
+
+        $user_id = $_SESSION['user_id'];
+
+        if (is_owner($db, $user_id)) {
+            $intro_btn = '<a class="intro-btn" href="/DDWT18_final/add-room/">List a room</a>';
+        } else {
+            $intro_btn = '<a class="intro-btn" href="/DDWT18_final/rentable-rooms/">Start searching now</a>';
+        }
+    } else {
+        $intro_btn = '<a class="intro-btn" href="/DDWT18_final/register/">Register now</a>';
+    }
+
+    /* Featured room */
+    $room_id = 1;
+    $room_info = get_room_info($db, $room_id);
+    $room_images = get_images($room_id);
+    $address = get_room_address($db, $room_id);
+
     include use_template('home');
 }
 
