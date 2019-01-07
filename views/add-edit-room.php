@@ -11,8 +11,8 @@
             <div class="jumbotron jumbotron-fluid add-edit-jumbo">
                 <div class="container hero-container">
                     <div class="hero-text">
-                        <h1 class="display-4"><?= $header_title ?></h1>
-                        <h2 class="display-6">Lorem ipsum di amor</h2>
+                        <h1 class="display-4"><?= $page_title ?></h1>
+                        <h2 class="display-6"><?= $page_subtitle ?></h2>
                     </div>
                 </div>
             </div>

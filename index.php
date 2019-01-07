@@ -136,13 +136,17 @@ TODO: remove before handing in
 elseif (new_route('/DDWT18_final/test-route/', 'get')) {
     $room_id = 23;
 
-    /* page info */
+    /* Page info */
     $page_title = 'Rooms for rent';
     $navigation = get_navigation($nav_template, 2, $state, $role);
-    /*page content */
-    $page_subtitle = 'Living on my own!';
-    $page_content = 'Boom Boom Boom Boom, I want you in my room!';
-    echo '<br/><br/><br/><br/>';
+
+    /* User info */
+    $user_id = get_user_id();
+    $user_info = get_user_info($db, $user_id);
+
+    /* Personal info */
+    $personal_info = get_personal_info_html($db, $user_info);
+
 
     include use_template('test-route');
 }
@@ -384,8 +388,8 @@ elseif (new_route('/DDWT18_final/add-room/', 'get')) {
         redirect(sprintf('/DDWT18_final/my-account/?error_msg=%s', json_encode($error_msg)));
     }
 
-    $page_title = 'Add room';
-    $header_title = 'Add a room';
+    $page_title = 'ApartRent';
+    $page_subtitle = 'Add a room';
 
     $form_action = '/DDWT18_final/add-room/';
     $submit_btn = "Add";
@@ -468,6 +472,33 @@ elseif (new_route('/DDWT18_final/remove-room/', 'post')) {
     /* Redirect to add (GET) page */
     redirect(sprintf('/DDWT18_final/rentable-rooms/?error_msg=%s', json_encode($feedback)));
 }
+
+/* User profile (GET) */
+elseif (new_route('/DDWT18_final/profile/', 'get')) {
+    /* Check if logged in */
+    if ( !check_login() ) {
+        redirect('/DDWT18_final/login/');
+    }
+
+    $user_id = $_GET['id'];
+    $user_info = get_user_info($db, $user_id);
+    $name = sprintf('%s %s', $user_info['firstname'], $user_info['lastname']);
+
+    /* Page content */
+    $page_title = $name;
+    $navigation = get_navigation($nav_template, 0, $state);
+    $personal_info = get_personal_info_html($db, $user_info);
+
+    /* Get error msg from POST route */
+    if ( isset($_GET['error_msg']) ) {
+        $error_msg = get_error($_GET['error_msg']);
+    }
+
+    /* Choose template */
+    include use_template('profile');
+}
+
+/* User profile (POST) */
 
 /*
  * ---------------
