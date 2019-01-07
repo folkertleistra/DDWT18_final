@@ -2,7 +2,8 @@
 <html lang="en">
     <head>
         <?= $head_upper_content ?>
-        <link rel="stylesheet" href="/DDWT18_final/css/add-edit.css">
+        <link rel="stylesheet" href="/DDWT18_final/css/add-edit-room.css">
+        <link rel="stylesheet" href="/DDWT18_final/css/form.css">
         <title><?= $page_title ?></title>
     </head>
     <body>
@@ -30,7 +31,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 add-col">
+                <div class="col-lg-4 single-col">
                     <form action=<?=$form_action?> method="POST" enctype="multipart/form-data">
 
                         <div class="form-row">

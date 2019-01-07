@@ -258,7 +258,7 @@ elseif (new_route('/DDWT18_final/edit-account/', 'get')) {
     if ( !check_login() ) {
         redirect('/DDWT18_final/login/');
     }
-    $page_title = 'Edit personal information';
+    $page_title = 'Edit account';
     $navigation = get_navigation($nav_template, 4, $state, $role);
 
     /* Get the ID of the user from the session */
