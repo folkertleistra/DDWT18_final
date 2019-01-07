@@ -23,48 +23,8 @@
             <div class="row justify-content-between main-row">
                 <!--- Left Content --->
                 <div class="col-lg-3 col-md-12 personal-col-wrapper">
-                    <div class="personal-column">
-                        <h3 class="name capitalize"><?= $user_info['firstname'] . ' ' . $user_info['lastname']?></h3>
-                        <hr>
-
-                        <!-- Personal information -->
-                        <div>
-                            <i class="fas fa-flag"></i>
-                            <p class="personal-text capitalize"><?= $user_info['language']  ?></p>
-                        </div>
-
-                        <div>
-                            <i class="fas fa-birthday-cake"></i>
-                            <p class="personal-text"><?= $user_info['birthdate']  ?></p>
-                        </div>
-
-                        <div>
-                            <i class="fas fa-chalkboard-teacher"></i>
-                            <p class="personal-text"><?= $user_info['occupation']  ?></p>
-                        </div>
-
-                        <div>
-                            <i class="fas fa-envelope"></i>
-                            <p class="personal-text"><?= $user_info['email']  ?></p>
-                        </div>
-
-                        <div>
-                            <i class="fas fa-phone"></i>
-                            <p class="personal-text"><?= $user_info['phone']  ?></p>
-                        </div>
-
-                        <hr>
-
-                        <!-- Biography -->
-                        <h4 class="bio">Biography</h4>
-                        <p class="personal-text bio"><?= $user_info['biography']  ?></p>
-                        <hr>
-
-                        <!-- Edit profile button -->
-                        <div class="edit-btn-wrapper">
-                            <a href="/DDWT18_final/edit-account/" role="button" class="btn edit-btn">Edit account</a>
-                        </div>
-                    </div>
+                    <!-- Display personal information -->
+                    <?= $personal_info ?>
                 </div>
 
                 <!--- Right Content --->
@@ -76,22 +36,21 @@
                         echo '
                               <h3 class="optin">Requested rooms</h3>
                               <hr>';
-                        /* Print HTML */
-                        get_optin_html($db, $user_id);
                     }
+                    // If role is owner
                     else {
                         echo '
                           <h3 class="optin">My rooms</h3>
                           <hr>';
-                        /* Print HTML */
-                        get_optin_html($db, $user_id);
                     }
+
+                    /* Print HTML */
+                    get_optin_html($db, $user_id);
+
                     ?>
                 </div>
             </div>
         </div>
-
-
 
         <!-- Footer -->
         <?= $footer ?>

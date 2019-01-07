@@ -307,6 +307,57 @@ function logout_user() {
  * --------------------
  */
 
+function get_personal_info_html($user_info) {
+
+    $template ='
+    <div class="personal-column">
+        <h3 class="name capitalize">$name</h3>
+        <hr>
+    
+        <!-- Personal information -->
+        <div>
+            <i class="fas fa-flag"></i>
+            <p class="personal-text capitalize">$lang</p>
+        </div>
+    
+        <div>
+            <i class="fas fa-birthday-cake"></i>
+            <p class="personal-text">$birthdate</p>
+        </div>
+    
+        <div>
+            <i class="fas fa-chalkboard-teacher"></i>
+            <p class="personal-text">$occupation</p>
+        </div>
+    
+        <div>
+            <i class="fas fa-envelope"></i>
+            <p class="personal-text">$mail</p>
+        </div>
+    
+        <div>
+            <i class="fas fa-phone"></i>
+            <p class="personal-text">$phone</p>
+        </div>
+    
+        <hr>
+    
+        <!-- Biography -->
+        <h4 class="bio">Biography</h4>
+        <p class="personal-text bio">$bio</p>
+        <hr>
+    
+        <!-- Edit profile button -->
+        <div class="edit-btn-wrapper">
+            <a href="/DDWT18_final/edit-account/" role="button" class="btn edit-btn">Edit account</a>
+        </div>
+    </div>';
+
+    return strtr($template, array('$name' => $user_info['firstname'] . ' ' . $user_info['lastname'], '$lang' => $user_info['language'],
+         '$birthdate' => $user_info['birthdate'], '$occupation' => $user_info['occupation'], '$mail' => $user_info['email'],
+         '$phone' => $user_info['phone'], '$bio' => $user_info['biography']));
+}
+
 /**
  * Create HTML alert code with information about the success or failure
  * @param bool $type True if success, False if failure
