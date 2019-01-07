@@ -378,7 +378,7 @@ elseif (new_route('/DDWT18_final/add-room/', 'get')) {
     $page_subtitle = 'Add a room';
 
     $form_action = '/DDWT18_final/add-room/';
-    $submit_btn = "Add";
+    $submit_btn = "Add room";
 
     $navigation = get_navigation($nav_template, 2, $state);
     /* Get error message from POST route */
@@ -396,7 +396,7 @@ elseif (new_route('/DDWT18_final/add-room/', 'post')) {
     $error_msg = add_room($db, $_POST, $_FILES);
 
     /* Redirect to add (GET) page */
-    redirect(sprintf('/DDWT18_final/add/?error_msg=%s', json_encode($error_msg)));
+    redirect(sprintf('/DDWT18_final/add-room/?error_msg=%s', json_encode($error_msg)));
 }
 
 /* Edit room (GET) */
@@ -423,7 +423,7 @@ elseif (new_route('/DDWT18_final/edit-room/', 'get')) {
     $page_title = 'Edit Room';
     $header_title = 'Edit your room';
     $form_action = '/DDWT18_final/edit-room/';
-    $submit_btn = 'Edit';
+    $submit_btn = 'Edit room';
     $navigation = get_navigation($nav_template, 2, $state);
 
     /* Get error msg from POST route */
