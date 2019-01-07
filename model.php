@@ -325,7 +325,7 @@ function logout_user() {
  * --------------------
  */
 
-function get_personal_info_html($user_info) {
+function get_personal_info_html($db, $user_info) {
 
     $template ='
     <div class="personal-column">
@@ -333,6 +333,11 @@ function get_personal_info_html($user_info) {
         <hr>
     
         <!-- Personal information -->
+        <div>
+            <i class="fas fa-user"></i>
+            <p class="personal-text capitalize">$role</p>
+        </div>
+        
         <div>
             <i class="fas fa-flag"></i>
             <p class="personal-text capitalize">$lang</p>
@@ -373,7 +378,7 @@ function get_personal_info_html($user_info) {
 
     return strtr($template, array('$name' => $user_info['firstname'] . ' ' . $user_info['lastname'], '$lang' => $user_info['language'],
          '$birthdate' => $user_info['birthdate'], '$occupation' => $user_info['occupation'], '$mail' => $user_info['email'],
-         '$phone' => $user_info['phone'], '$bio' => $user_info['biography']));
+         '$phone' => $user_info['phone'], '$bio' => $user_info['biography'], '$role' => get_role($db, $user_info['id'])));
 }
 
 /**
@@ -786,6 +791,21 @@ function is_tenant($pdo, $user_id) {
 }
 
 /**
+ *
+ * @param $pdo
+ * @param $id
+ * @return string
+ */
+function get_role($pdo, $id) {
+    if (is_owner($pdo, $id)) {
+        return 'owner';
+    }
+    else {
+        return 'tenant';
+    }
+}
+
+/**
  * Returns all applications for a single room
  * @param $pdo
  * @param $room_id
@@ -994,28 +1014,6 @@ function owns_room($pdo, $room_id, $user_id) {
     }
 }
 
-/**
- * This function checks whether or not a user is already opted in to a room.
- * @param $pdo
- * @param $room_id
- * @param $user_id
- */
-function opted_in($pdo, $room_id, $user_id) {
-    $stmt = $pdo->prepare('SELECT tenant_id FROM optin WHERE room_id = ?');
-    $stmt->execute([$room_id]);
-    $tenant_arrray = $stmt->fetchAll();
-
-    $tenant_array = array();
-    foreach ($tenant_arrray as $key=>$value) {
-        array_push($tenant_array, $value['tenant_id']);
-    }
-    if (in_array($user_id, $tenant_array)) {
-        return true;
-    } else {
-        return false;
-    }
-
-}
 
 /*
  * --------------------

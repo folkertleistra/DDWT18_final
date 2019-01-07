@@ -223,7 +223,7 @@ elseif (new_route('/DDWT18_final/my-account/', 'get')) {
     $page_title = "My Account";
     $page_subtitle = "My Account";
     $navigation = get_navigation($nav_template, 3, $state);
-    $personal_info = get_personal_info_html($user_info);
+    $personal_info = get_personal_info_html($db, $user_info);
 
     /* Get error message from POST route */
     if (isset($_GET['error_msg'])){
