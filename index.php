@@ -443,7 +443,7 @@ elseif (new_route('/DDWT18_final/edit-room/', 'get')) {
     }
 
     /* Page content */
-    $page_title = 'Edit Room';
+    $page_title = 'ApartRent';
     $header_title = 'Edit your room';
     $form_action = '/DDWT18_final/edit-room/';
     $submit_btn = 'Edit room';

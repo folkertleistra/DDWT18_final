@@ -64,22 +64,25 @@
                     <!-- The following section is only displayed when you are the owner of the room -->
                     <div>
                         <?php if($display_buttons) { ?>
-                        <div>
-                            <a href="/DDWT18_final/edit-room/?id=<?= htmlspecialchars($room_id) ?>" role="button" class="btn btn-warning">Edit</a>
+                        <div class="edit-btn-wrapper">
+                            <div>
+                                <a href="/DDWT18_final/edit-room/?id=<?= htmlspecialchars($room_id) ?>" role="button" class="btn btn-edit">Edit</a>
+                            </div>
+                            <div>
+                            <form action="/DDWT18_final/remove-room/" method="POST">
+                                <input type="hidden" value="<?= htmlspecialchars($room_id) ?>" name="room_id">
+                                <button type="submit" class="btn btn-remove">Remove</button>
+                            </form>
+                            </div>
                         </div>
-                        <div>
-                        <form action="/DDWT18_final/remove-room/" method="POST">
-                            <input type="hidden" value="<?= htmlspecialchars($room_id) ?>" name="room_id">
-                            <button type="submit" class="btn btn-danger">Remove</button>
-                        </form>
-                        </div>
+
                         <?php } ?>
                     </div>
 
                     <!-- Message that will be displayed when not logged in -->
                     <?php if(!$login) { ?>
                         <div>
-                            <p>Login when you want to apply for this room.</p>
+                            <p class="red">Login if you want to apply for this room.</p>
                         </div>
                     <?php } ?>
                 </div>

@@ -72,7 +72,7 @@ textarea:focus {
 button:focus {
     outline: 0;
 }
-button {
+.btn-wrapper button {
     width: 200px;
     color: white;
     height: 40px;

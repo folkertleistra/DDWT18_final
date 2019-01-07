@@ -339,13 +339,13 @@ function get_personal_info_html($db, $user_info) {
 
     $template ='
     <div class="personal-column">
-        <h3 class="name capitalize">$name</h3>
+        <h3 class="name">$name</h3>
         <hr>
     
         <!-- Personal information -->
         <div>
             <i class="fas fa-user"></i>
-            <p class="personal-text capitalize">$role</p>
+            <p class="personal-text">$username<br>$role</p>
         </div>
         
         <div>
@@ -389,7 +389,8 @@ function get_personal_info_html($db, $user_info) {
     $birthdate = date("d-m-Y", strtotime($user_info['birthdate']));
     return strtr($template, array('$name' => $user_info['firstname'] . ' ' . $user_info['lastname'], '$lang' => $user_info['language'],
          '$birthdate' => $birthdate, '$occupation' => $user_info['occupation'], '$mail' => $user_info['email'],
-         '$phone' => $user_info['phone'], '$bio' => $user_info['biography'], '$role' => get_role($db, $user_info['id'])));
+         '$phone' => $user_info['phone'], '$bio' => $user_info['biography'], '$role' => get_role($db, $user_info['id']),
+         '$username' => $user_info['username']));
 }
 
 /**
