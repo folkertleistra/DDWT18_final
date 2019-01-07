@@ -126,3 +126,36 @@ hr.bottom-hr {
     color: #ff0000;
 }
 /* END: optin sections */
+
+/* responsive */
+@media screen and (max-width: 575px) {
+    .main-row {
+        margin-top: 0;
+    }
+}
+@media screen and (max-width: 991px) {
+    .personal-col-wrapper {
+        margin-bottom: 20px;
+    }
+    .optin-thumb-wrapper {
+        height: 250px;
+        margin-bottom: 20px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -60,7 +60,7 @@
                         </div>
 
                         <div class="form-row">
-                            <label for="size">Size</label>
+                            <label for="size">Size (m²)</label>
                             <input type="text" name="size" value="<?php if (isset($room_info)){echo htmlspecialchars($room_info['size']);} ?>">
                         </div>
 
@@ -70,7 +70,7 @@
                         </div>
 
                         <div class="form-row">
-                            <label for="price">Price</label>
+                            <label for="price">Price (€)</label>
                             <input type="text" name="price" value="<?php if (isset($room_info)){echo htmlspecialchars($room_info['price']);} ?>">
                         </div>
 
