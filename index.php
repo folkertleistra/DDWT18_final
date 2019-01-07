@@ -374,8 +374,8 @@ elseif (new_route('/DDWT18_final/add-room/', 'get')) {
         redirect(sprintf('/DDWT18_final/my-account/?error_msg=%s', json_encode($error_msg)));
     }
 
-    $page_title = 'Add room';
-    $header_title = 'Add a room';
+    $page_title = 'ApartRent';
+    $page_subtitle = 'Add a room';
 
     $form_action = '/DDWT18_final/add-room/';
     $submit_btn = "Add";
@@ -460,7 +460,7 @@ elseif (new_route('/DDWT18_final/remove-room/', 'post')) {
 }
 
 /* User profile (GET) */
-elseif (new_route('/DDWT_final/profile/', 'get')) {
+elseif (new_route('/DDWT18_final/profile/', 'get')) {
     /* Check if logged in */
     if ( !check_login() ) {
         redirect('/DDWT18_final/login/');
