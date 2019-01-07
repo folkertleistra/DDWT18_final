@@ -4,6 +4,7 @@
         <?= $head_upper_content ?>
         <link rel="stylesheet" href="/DDWT18_final/css/account.css">
         <title><?= $page_title ?></title>
+
     </head>
     <body>
         <!-- Navigation Menu -->
