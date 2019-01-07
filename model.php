@@ -67,7 +67,7 @@ function new_route($route_uri, $request_type) {
     $route_uri_expl = array_filter(explode('/', $route_uri));
     $current_path_expl = array_filter(explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)));
     if ($route_uri_expl == $current_path_expl && $_SERVER['REQUEST_METHOD'] == strtoupper($request_type)) {
-        return True;
+        return true;
     }
 }
 
@@ -222,15 +222,15 @@ function check_login() {
         session_start();
     }
     if (isset($_SESSION['user_id'])){
-        return True;
+        return true;
     } else {
-        return False;
+        return false;
     }
 }
 
 /**
  * Get current user id
- * @return bool current user id or False if not logged in
+ * @return bool current user id or false if not logged in
  */
 function get_user_id(){
     if (session_status() == PHP_SESSION_NONE) {
@@ -239,7 +239,7 @@ function get_user_id(){
     if (isset($_SESSION['user_id'])){
         return $_SESSION['user_id'];
     } else {
-        return False;
+        return false;
     }
 }
 
@@ -378,12 +378,12 @@ function get_personal_info_html($user_info) {
 
 /**
  * Create HTML alert code with information about the success or failure
- * @param bool $type True if success, False if failure
+ * @param bool $type true if success, false if failure
  * @param string $message Error/Success message
  * @return string
  */
 function get_error($feedback) {
-    $feedback = json_decode($feedback, True);
+    $feedback = json_decode($feedback, true);
     $error_exp = '
         <div class="error-fade">
             <div class="alert alert-'.$feedback['type'].'" role="alert">
@@ -987,10 +987,10 @@ function owns_room($pdo, $room_id, $user_id) {
     $original_owner = $original_owner_array[0]['owner_id'];
 
     if ($user_id === $original_owner) {
-        return True;
+        return true;
     }
     else {
-        return False;
+        return false;
     }
 }
 
