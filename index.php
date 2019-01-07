@@ -143,6 +143,12 @@ elseif (new_route('/DDWT18_final/test-route/', 'post')) {
 
 /* Single room (GET) */
 elseif (new_route('/DDWT18_final/room/', 'get')) {
+    if (!check_login()){
+        $login = false;
+    } else {
+        $login = true;
+    }
+
     /* get room id */
     $room_id = $_GET['id'];
 
@@ -170,16 +176,27 @@ elseif (new_route('/DDWT18_final/room/', 'get')) {
     /* Address string */
     $address = get_room_address($db, $room_id);
 
+    /* check if the current user is the owner of the room */
+    $user_id = get_user_id();
     if (owns_room($db, $room_id, $user_id)) {
         $display_buttons = true;
     } else {
         $display_buttons = false;
     }
 
+    /* check if the current user is a tenant */
     if (is_tenant($db, $user_id)) {
         $display_optin = true;
+        /* check if the tenant has already opted in */
+        if (opted_in($db, $room_id, $user_id)) {
+            $display_optout = true;
+            $display_optin = false;
+        } else {
+            $display_optout = false;
+        }
     } else {
         $display_optin = false;
+        $display_optout= false;
     }
 
     /* Get error message from POST route */
