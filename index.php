@@ -459,6 +459,33 @@ elseif (new_route('/DDWT18_final/remove-room/', 'post')) {
     redirect(sprintf('/DDWT18_final/rentable-rooms/?error_msg=%s', json_encode($feedback)));
 }
 
+/* User profile (GET) */
+elseif (new_route('/DDWT_final/profile/', 'get')) {
+    /* Check if logged in */
+    if ( !check_login() ) {
+        redirect('/DDWT18_final/login/');
+    }
+
+    $user_id = $_GET['id'];
+    $user_info = get_user_info($db, $user_id);
+    $name = sprintf('%s %s', $user_info['firstname'], $user_info['lastname']);
+
+    /* Page content */
+    $page_title = $name;
+    $navigation = get_navigation($nav_template, 0, $state);
+    $personal_info = get_personal_info_html($db, $user_info);
+
+    /* Get error msg from POST route */
+    if ( isset($_GET['error_msg']) ) {
+        $error_msg = get_error($_GET['error_msg']);
+    }
+
+    /* Choose template */
+    include use_template('profile');
+}
+
+/* User profile (POST) */
+
 /*
  * ---------------
  * END: OWNER ONLY
