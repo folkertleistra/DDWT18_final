@@ -189,6 +189,10 @@ function get_imported_scripts() {
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>';
 }
 
+// TODO: description
+/**
+ * @return string
+ */
 function get_footer_content() {
     return '<footer class="page-footer font-small">
         <div class="footer-img-wrapper">
@@ -197,8 +201,6 @@ function get_footer_content() {
         <div class="footer-copyright text-center py-3">© <?php echo date("Y") ?> Copyright - ApartRent</div>
         </footer>';
 }
-
-
 
 /*
  * -----------------
@@ -325,6 +327,12 @@ function logout_user() {
  * --------------------
  */
 
+// TODO: description
+/**
+ * @param $db
+ * @param $user_info
+ * @return string
+ */
 function get_personal_info_html($db, $user_info) {
 
     $template ='
@@ -477,12 +485,12 @@ function get_slider_dots_html($img_amnt) {
             </div>';
 }
 
-/*
- * ------------------
- * END: HTML GENERATE
- * ------------------
+// TODO: description
+/**
+ * @param $db
+ * @param $user_id
+ * @return string
  */
-
 function get_optin_html($db, $user_id) {
 
     /* Determine role and get optins */
@@ -567,7 +575,7 @@ function get_optin_html($db, $user_id) {
                 '$price' => $room_info['price'], '$message' => $room_optin['message'],
                 '$href' => '/DDWT18_final/room/?id=' . $room_optin['room_id']));
         }
-    // IF owner
+        // IF owner
     } else {
 
         // Get all room ID's owned by the owner
@@ -583,8 +591,8 @@ function get_optin_html($db, $user_id) {
             // Echo room HTML
             $room_info = get_room_info($db, $room_id);
             echo strtr($template_room_owner, array('$city' => $room_info['city'], '$thumbnail' => get_images($room_info['id'])[0], '$street' => $room_info['street'],
-            '$nr' => $room_info['street_number'], '$add' => $room_info['addition'], '$postal_code' => $room_info['postal_code'], '$size' => $room_info['size'], '$type' => $type = $room_info['type'],
-            '$price' => $room_info['price'], '$href' => '/DDWT18_final/room/?id=' . $room_id));
+                '$nr' => $room_info['street_number'], '$add' => $room_info['addition'], '$postal_code' => $room_info['postal_code'], '$size' => $room_info['size'], '$type' => $type = $room_info['type'],
+                '$price' => $room_info['price'], '$href' => '/DDWT18_final/room/?id=' . $room_id));
 
             // Echo messages
             foreach($optins as $key2 => $optin_info) {
@@ -603,8 +611,8 @@ function get_optin_html($db, $user_id) {
             // Echo room HTML
             $room_info = get_room_info($db, $room_id);
             echo strtr($template_room_owner, array('$city' => $room_info['city'], '$thumbnail' => get_images($room_info['id'])[0], '$street' => $room_info['street'],
-            '$nr' => $room_info['street_number'], '$add' => $room_info['addition'], '$postal_code' => $room_info['postal_code'], '$size' => $room_info['size'], '$type' => $type = $room_info['type'],
-            '$price' => $room_info['price'], '$href' => '/DDWT18_final/room/?id=' . $room_id));
+                '$nr' => $room_info['street_number'], '$add' => $room_info['addition'], '$postal_code' => $room_info['postal_code'], '$size' => $room_info['size'], '$type' => $type = $room_info['type'],
+                '$price' => $room_info['price'], '$href' => '/DDWT18_final/room/?id=' . $room_id));
             echo '<h5 class="message no-optin">No room opt-ins.</h5>';
             echo '<hr class="bottom-hr">';
         }
@@ -613,8 +621,17 @@ function get_optin_html($db, $user_id) {
     }
 }
 
+/*
+ * ------------------
+ * END: HTML GENERATE
+ * ------------------
+ */
+
+// TODO: description and reposition
 /**
- * Return room IDs that have opt-ins from an array of room IDs
+ * @param $pdo
+ * @param $owned_room_ids
+ * @return array
  */
 function check_optins($pdo, $owned_room_ids) {
     /* Create and execute SQL statement */
@@ -635,8 +652,12 @@ function check_optins($pdo, $owned_room_ids) {
     // Owned room ID's that have opt-ins
     return array_intersect($owned_room_ids, $room_ids);
 }
+
+// TODO: description and reposition
 /**
- * Return room IDs that do NOT have opt-ins from an array of room IDs
+ * @param $pdo
+ * @param $owned_room_ids
+ * @return array
  */
 function check_optins_diff($pdo, $owned_room_ids) {
     /* Create and execute SQL statement */
@@ -790,8 +811,8 @@ function is_tenant($pdo, $user_id) {
     return true;
 }
 
+// TODO: description
 /**
- *
  * @param $pdo
  * @param $id
  * @return string
@@ -892,6 +913,7 @@ function get_room_info($pdo, $room_id) {
     return $room_exp;
 }
 
+// TODO: description
 /**
  * @param $pdo
  * @param $room_id
@@ -997,6 +1019,7 @@ function get_images($room_id) {
  * @param $pdo
  * @param $room_id
  * @param $user_id
+ * @return bool
  */
 function opted_in($pdo, $room_id, $user_id) {
     $stmt = $pdo->prepare('SELECT tenant_id FROM optin WHERE room_id = ?');
@@ -1012,9 +1035,7 @@ function opted_in($pdo, $room_id, $user_id) {
     } else {
         return false;
     }
-
 }
-
 
 /**
  * This function checks if the currently logged in user is also the owner of the current room
@@ -1190,6 +1211,7 @@ function register_user($pdo, $form_data) {
     redirect(sprintf('/DDWT18_final/my-account/?error_msg=%s', json_encode($feedback)));
 }
 
+// TODO: description
 /**
  * @param $pdo
  * @param $form_data
@@ -1309,6 +1331,7 @@ function add_room($pdo, $form_data, $files) {
     redirect(sprintf('/DDWT18_final/room/?id=%s&error_msg=%s', $room_id, json_encode($feedback)));
 }
 
+// TODO: description
 /**
  * @param $pdo
  * @param $form_data
@@ -1529,11 +1552,11 @@ function update_user($pdo, $form_data){
     }
 }
 
-
+// TODO: description
 /**
- * updates a room from the database
  * @param $pdo
  * @param $form_data
+ * @return array
  */
 function update_room($pdo, $form_data) {
     /* Get current room address */
@@ -1743,8 +1766,7 @@ function remove_account($pdo, $user_id) {
 /**
  * Removes opt-in for given user and room
  * @param $pdo
- * @param $user_id
- * @param $room_id
+ * @param $form_data
  * @return array
  */
 function opt_out($pdo, $form_data) {
