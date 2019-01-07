@@ -136,9 +136,9 @@
 
         <!-- Footer -->
         <?= $footer ?>
+
         <!-- Error message -->
-        <div class="error-fade"><?php if (isset($error_msg)){echo $error_msg;} ?></div>
-        <?= $imported_scripts ?>
+        <?php if (isset($error_msg)){echo $error_msg;} ?>
 
         <!-- Slider script -->
         <script type="text/javascript" src="/DDWT18_final/js/single-room.js"></script>

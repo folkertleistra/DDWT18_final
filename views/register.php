@@ -38,13 +38,15 @@
                         <div class="checkbox-section">
                             <!-- Box 1 -->
                             <div class="inputGroup">
-                                <input id="radio1" name="radio" type="radio" value="owner"/>
+                                <input id="radio1" name="radio" type="radio" value="owner"
+                                    <?php if (isset($form_data) and $form_data['radio'] == "owner"){echo "checked";}?>/>
                                 <label for="radio1">Owner</label>
                             </div>
 
                             <!-- Box 2 -->
                             <div class="inputGroup">
-                                <input id="radio2" name="radio" type="radio" value="tenant"/>
+                                <input id="radio2" name="radio" type="radio" value="tenant"
+                                    <?php if (isset($form_data) and $form_data['radio'] == "owner"){echo "checked";}?>/>
                                 <label for="radio2">Tenant</label>
                             </div>
                         </div>
@@ -53,7 +55,8 @@
                         <h3 class="section-heading">Account Details</h3>
                         <div class="form-row">
                             <label for="username"  class="sign-in-register-label">Username</label>
-                            <input type="text" name="username" placeholder="Enter username" class="form-input" required>
+                            <input type="text" name="username" placeholder="Enter username" class="form-input"
+                                   value="<?php if (isset($form_data)){echo htmlspecialchars($form_data['username']);} ?>" required>
                         </div>
                         <div class="form-row">
                             <label for="password"  class="sign-in-register-label">Password</label>
@@ -65,9 +68,9 @@
                         </div>
                         <div class="form-row">
                             <label for="email"  class="sign-in-register-label">E-mail</label>
-                            <input type="email" name="email" placeholder="mail@mail.com" class="form-input" required>
+                            <input type="email" name="email" placeholder="mail@mail.com" class="form-input"
+                                   value="<?php if (isset($form_data)){echo htmlspecialchars($form_data['email']);} ?>" required>
                         </div>
-
                     </div>
 
                     <!-- Right column lg/md, bottom column sm/xs -->
@@ -76,27 +79,33 @@
                         <h3 class="section-heading">Personal Details</h3>
                         <div class="form-row">
                             <label for="firstname"  class="sign-in-register-label">First Name</label>
-                            <input type="text" name="firstname" placeholder="First Name" class="form-input" required>
+                            <input type="text" name="firstname" placeholder="First Name" class="form-input"
+                                   value="<?php if (isset($form_data)){echo htmlspecialchars($form_data['firstname']);} ?>" required>
                         </div>
                         <div class="form-row">
                             <label for="lastname" class="sign-in-register-label">Last Name</label>
-                            <input type="text" name="lastname" placeholder="Last Name" class="form-input" required>
+                            <input type="text" name="lastname" placeholder="Last Name" class="form-input"
+                                   value="<?php if (isset($form_data)){echo htmlspecialchars($form_data['lastname']);} ?>" required>
                         </div>
                         <div class="form-row">
                             <label for="birthdate" class="sign-in-register-label">Date of Birth</label>
-                            <input type="date" name="birthdate"  class="form-input" required>
+                            <input type="date" name="birthdate"  class="form-input"
+                                   value="<?php if (isset($form_data)){echo htmlspecialchars($form_data['birthdate']);} ?>" required>
                         </div>
                         <div class="form-row">
                             <label for="phone" class="sign-in-register-label">Phone Number</label>
-                            <input type="tel" name="phone" placeholder="0612345678" maxlength="10"  class="form-input" required>
+                            <input type="tel" name="phone" placeholder="0612345678" maxlength="10"  class="form-input"
+                                   value="<?php if (isset($form_data)){echo htmlspecialchars($form_data['phone']);} ?>" required>
                         </div>
                         <div class="form-row">
                             <label for="language"  class="sign-in-register-label">Language</label>
-                            <input type="text" name="language" placeholder="Language" class="form-input" required>
+                            <input type="text" name="language" placeholder="Language" class="form-input"
+                                   value="<?php if (isset($form_data)){echo htmlspecialchars($form_data['language']);} ?>" required>
                         </div>
                         <div class="form-row">
                             <label for="occupation"  class="sign-in-register-label">Occupation</label>
-                            <input type="text" name="occupation" placeholder="Occupation" class="form-input" required>
+                            <input type="text" name="occupation" placeholder="Occupation" class="form-input"
+                                   value="<?php if (isset($form_data)){echo htmlspecialchars($form_data['occupation']);} ?>" required>
                         </div>
                     </div>
 
@@ -104,7 +113,8 @@
                     <div class="col-lg-12 bot-col">
                         <h3 class="section-heading">Biography</h3>
                         <div class="form-row">
-                            <textarea class="form-input" placeholder="Tell us a bit more about yourself!" name="biography" required></textarea>
+                            <textarea class="form-input" placeholder="Tell us a bit more about yourself!" name="biography"
+                                      required><?php if (isset($form_data)){echo htmlspecialchars($form_data['biography']);} ?></textarea>
                         </div>
 
                         <!-- Register / return to home -->
@@ -121,7 +131,8 @@
 
 
     <!-- Error message -->
-    <div class="error-fade"><?php if (isset($error_msg)){echo $error_msg;} ?></div>
+    <?php if (isset($error_msg)){echo $error_msg;} ?>
+
     <?= $imported_scripts ?>
     </body>
 </html>

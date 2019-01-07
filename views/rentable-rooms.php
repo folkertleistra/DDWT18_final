@@ -49,8 +49,10 @@
 
         <!-- Footer -->
         <?= $footer ?>
+
         <!-- Error message -->
-        <div class="error-fade"><?php if (isset($error_msg)){echo $error_msg;} ?></div>
+        <?php if (isset($error_msg)){echo $error_msg;} ?>
+
         <?= $imported_scripts ?>
     </body>
 </html>

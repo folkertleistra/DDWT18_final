@@ -8,6 +8,12 @@
 
 include 'model.php';
 
+/*
+ * -------------------
+ * START: PAGE CONTENT
+ * -------------------
+ */
+
 /* Connect to DB */
 $db = connect_db('localhost','ddwt18_final','ddwt18','ddwt18');
 
@@ -20,7 +26,7 @@ $imported_scripts = get_imported_scripts();
 /* Footer HTML content */
 $footer = get_footer_content();
 
-/* Global login check */
+/* Global login check for navigation bar */
 if (check_login()){
     $state = 'login';
 }
@@ -68,6 +74,13 @@ $nav_template =
             'role' => 'all'
         )
     );
+
+/*
+ * -----------------
+ * END: PAGE CONTENT
+ * -----------------
+ */
+
 
 /*
  * -------------
@@ -130,54 +143,22 @@ elseif (new_route('/DDWT18_final/test-route/', 'post')) {
 
 /* Single room (GET) */
 elseif (new_route('/DDWT18_final/room/', 'get')) {
-    /* check login */
-    if (!check_login()){
-        $login = false;
-    } else {
-        $login = true;
-    }
-    /* Page content */
-    $page_title = "Single room"; // TODO: adres weergeven als dynamische titel (zie subtitle)
-    $navigation = get_navigation($nav_template, 0, $state);
-
     /* get room id */
     $room_id = $_GET['id'];
 
     /* get room info */
     $room_info = get_room_info($db, $room_id);
 
+    /* Page content */
+    $page_title = sprintf('%s %d%s, %s',
+        $room_info['street'], $room_info['street_number'], $room_info['addition'], $room_info['city']);
+    $navigation = get_navigation($nav_template, 0, $state);
+
     /* room images */
     $room_images = get_images($room_id);
 
     /* check if the current user is the owner of the room */
     $user_id = get_user_id();
-    if (owns_room($db, $room_id, $user_id)) {
-        $display_buttons = true;
-    } else {
-        $display_buttons = false;
-    }
-
-    /* check if the current user is a tenant */
-    if (is_tenant($db, $user_id)) {
-        $display_optin = true;
-        /* check if the tenant has already opted in */
-        if (opted_in($db, $room_id, $user_id)) {
-            $display_optout = true;
-            $display_optin = false;
-        } else {
-            $display_optout = false;
-        }
-    } else {
-        $display_optin = false;
-        $display_optout= false;
-    }
-
-    /* Get error message from POST route */
-    if (isset($_GET['error_msg'])){
-
-        $error_msg = get_error($_GET['error_msg']);
-    }
-
 
     /* page subtitle */
     $page_subtitle = sprintf('%s %d%s, %s',
@@ -188,6 +169,18 @@ elseif (new_route('/DDWT18_final/room/', 'get')) {
 
     /* Address string */
     $address = get_room_address($db, $room_id);
+
+    if (owns_room($db, $room_id, $user_id)) {
+        $display_buttons = true;
+    } else {
+        $display_buttons = false;
+    }
+
+    if (is_tenant($db, $user_id)) {
+        $display_optin = true;
+    } else {
+        $display_optin = false;
+    }
 
     /* Get error message from POST route */
     if (isset($_GET['error_msg'])){
@@ -213,6 +206,7 @@ elseif (new_route('/DDWT18_final/my-account/', 'get')) {
     $page_title = "My Account";
     $page_subtitle = "My Account";
     $navigation = get_navigation($nav_template, 3, $state);
+    $personal_info = get_personal_info_html($user_info);
 
     /* Get error message from POST route */
     if (isset($_GET['error_msg'])){
@@ -276,6 +270,9 @@ elseif (new_route('/DDWT18_final/register/', 'get')) {
     /* Page content */
     $page_title = 'Register';
 
+    if (isset($_GET['form_data'])){
+        $form_data = json_decode($_GET['form_data'], true);
+    }
     /* Get error message from POST route */
     if (isset($_GET['error_msg'])){
         $error_msg = get_error($_GET['error_msg']);
@@ -288,9 +285,10 @@ elseif (new_route('/DDWT18_final/register/', 'get')) {
 elseif (new_route('/DDWT18_final/register/', 'post')) {
     /* Register user */
     $error_msg = register_user($db, $_POST);
+    $form_data = get_register_data($_POST);
 
     /* Redirect to homepage */
-    redirect(sprintf('/DDWT18_final/register/?error_msg=%s', json_encode($error_msg)));
+    redirect(sprintf('/DDWT18_final/register/?error_msg=%s&form_data=%s', json_encode($error_msg), json_encode($form_data)));
 }
 
 /* Login user (GET) */
@@ -313,7 +311,7 @@ elseif (new_route('/DDWT18_final/login/', 'post')) {
     $error_msg = login_user($db, $_POST);
 
     /* Redirect to homepage */
-    redirect(sprintf('/DDWT18_final/my-account/?id=%s', $_POST['id']));
+    redirect(sprintf('/DDWT18_final/login/?error_msg=%s', json_encode($error_msg)));
 }
 
 /* Logout user (GET) */

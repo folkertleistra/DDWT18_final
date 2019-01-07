@@ -35,6 +35,21 @@ function connect_db($host, $db, $user, $pass) {
     return $pdo;
 }
 
+/**
+ * Get registration form data without passwords
+ * @param $form_data
+ * @return array
+ */
+function get_register_data($form_data) {
+    $output = Array();
+    foreach ($form_data as $key => $value){
+        if (!($key == 'password' or $key == 'rt-password')){
+            $output[$key] = $value;
+        }
+    }
+    return $output;
+}
+
 /*
  * ------------
  * START: ROUTE
@@ -158,7 +173,10 @@ function get_head_upper_content() {
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
         <!-- Custom CSS -->
-        <link rel="stylesheet" href="/DDWT18_final/css/main.css">';
+        <link rel="stylesheet" href="/DDWT18_final/css/main.css">
+        
+        <!-- Custom JS -->
+        <script src="/DDWT18_final/js/main.js"></script>';
 }
 
 /**
@@ -273,7 +291,7 @@ function login_user($pdo, $form_data) {
         $_SESSION['user_id'] = $user_info['id'];
         $feedback = [
             'type' => 'success',
-            'message' => sprintf('%s, you were logged in successfully.', get_user_username($pdo, $_SESSION['user_id']))
+            'message' => sprintf('%s, you were logged in successfully.', get_user_firstname($pdo, $_SESSION['user_id']))
         ];
         redirect(sprintf('/DDWT18_final/my-account/?error_msg=%s', json_encode($feedback)));
     }
@@ -307,6 +325,57 @@ function logout_user() {
  * --------------------
  */
 
+function get_personal_info_html($user_info) {
+
+    $template ='
+    <div class="personal-column">
+        <h3 class="name capitalize">$name</h3>
+        <hr>
+    
+        <!-- Personal information -->
+        <div>
+            <i class="fas fa-flag"></i>
+            <p class="personal-text capitalize">$lang</p>
+        </div>
+    
+        <div>
+            <i class="fas fa-birthday-cake"></i>
+            <p class="personal-text">$birthdate</p>
+        </div>
+    
+        <div>
+            <i class="fas fa-chalkboard-teacher"></i>
+            <p class="personal-text">$occupation</p>
+        </div>
+    
+        <div>
+            <i class="fas fa-envelope"></i>
+            <p class="personal-text">$mail</p>
+        </div>
+    
+        <div>
+            <i class="fas fa-phone"></i>
+            <p class="personal-text">$phone</p>
+        </div>
+    
+        <hr>
+    
+        <!-- Biography -->
+        <h4 class="bio">Biography</h4>
+        <p class="personal-text bio">$bio</p>
+        <hr>
+    
+        <!-- Edit profile button -->
+        <div class="edit-btn-wrapper">
+            <a href="/DDWT18_final/edit-account/" role="button" class="btn edit-btn">Edit account</a>
+        </div>
+    </div>';
+
+    return strtr($template, array('$name' => $user_info['firstname'] . ' ' . $user_info['lastname'], '$lang' => $user_info['language'],
+         '$birthdate' => $user_info['birthdate'], '$occupation' => $user_info['occupation'], '$mail' => $user_info['email'],
+         '$phone' => $user_info['phone'], '$bio' => $user_info['biography']));
+}
+
 /**
  * Create HTML alert code with information about the success or failure
  * @param bool $type True if success, False if failure
@@ -316,8 +385,10 @@ function logout_user() {
 function get_error($feedback) {
     $feedback = json_decode($feedback, True);
     $error_exp = '
-        <div class="alert alert-'.$feedback['type'].'" role="alert">
-            '.$feedback['message'].'
+        <div class="error-fade">
+            <div class="alert alert-'.$feedback['type'].'" role="alert">
+                '.$feedback['message'].'
+            </div>
         </div>';
     return $error_exp;
 }
@@ -499,7 +570,9 @@ function get_optin_html($db, $user_id) {
 
         // Get all room ID's owned by the owner that have opt-ins
         $room_ids_with_optin = check_optins($db, $owned_room_ids);
+        $room_ids_without_optin = check_optins_diff($db, $owned_room_ids);
 
+        // HTML for rooms with opt-ins
         foreach($room_ids_with_optin as $key => $room_id) {
 
             // Echo room HTML
@@ -518,6 +591,20 @@ function get_optin_html($db, $user_id) {
             }
             echo '<hr class="bottom-hr">';
         }
+
+        // HTML for rooms without opt-ins
+        foreach($room_ids_without_optin as $key => $room_id) {
+
+            // Echo room HTML
+            $room_info = get_room_info($db, $room_id);
+            echo strtr($template_room_owner, array('$city' => $room_info['city'], '$thumbnail' => get_images($room_info['id'])[0], '$street' => $room_info['street'],
+            '$nr' => $room_info['street_number'], '$add' => $room_info['addition'], '$postal_code' => $room_info['postal_code'], '$size' => $room_info['size'], '$type' => $type = $room_info['type'],
+            '$price' => $room_info['price'], '$href' => '/DDWT18_final/room/?id=' . $room_id));
+            echo '<h5 class="message no-optin">No room opt-ins.</h5>';
+            echo '<hr class="bottom-hr">';
+        }
+
+
     }
 }
 
@@ -542,6 +629,28 @@ function check_optins($pdo, $owned_room_ids) {
 
     // Owned room ID's that have opt-ins
     return array_intersect($owned_room_ids, $room_ids);
+}
+/**
+ * Return room IDs that do NOT have opt-ins from an array of room IDs
+ */
+function check_optins_diff($pdo, $owned_room_ids) {
+    /* Create and execute SQL statement */
+    $stmt = $pdo->prepare('SELECT DISTINCT room_id FROM optin');
+    $stmt->execute();
+    $rooms = $stmt->fetchAll();
+
+    // array with all room_id's that have opt-ins
+    $room_ids = Array();
+
+    /* Create array with htmlspecialchars */
+    foreach ($rooms as $key => $value){
+        foreach ($value as $user_key => $user_input) {
+            $room_ids[] = htmlspecialchars($user_input);
+        }
+    }
+
+    // Owned room ID's that have opt-ins
+    return array_diff($owned_room_ids, $room_ids);
 }
 
 /*
@@ -627,20 +736,19 @@ function get_user_info($pdo, $user_id) {
 }
 
 /**
- * Returns username for a single user
+ * Returns firstname for a single user
  * @param $pdo
  * @param $user_id
  * @return string
  */
-function get_user_username($pdo, $user_id) {
+function get_user_firstname($pdo, $user_id) {
     /* Create and execute SQL statement */
-    $stmt = $pdo->prepare('SELECT username FROM users WHERE id = ?');
+    $stmt = $pdo->prepare('SELECT firstname FROM users WHERE id = ?');
     $stmt->execute([$user_id]);
-    $users = $stmt->fetchAll();
-    $user = $users[0];
+    $user = $stmt->fetch();
 
-    $username = htmlspecialchars($user['username']);
-    return $username;
+    $firstname = htmlspecialchars($user['firstname']);
+    return $firstname;
 }
 
 /**
@@ -1055,7 +1163,7 @@ function register_user($pdo, $form_data) {
     $_SESSION['user_id'] = $user_id;
     $feedback = [
         'type' => 'success',
-        'message' => sprintf('%s, your account was successfully created!', get_user_username($pdo, $_SESSION['user_id']))
+        'message' => sprintf('%s, your account was successfully created!', get_user_firstname($pdo, $_SESSION['user_id']))
     ];
     redirect(sprintf('/DDWT18_final/my-account/?error_msg=%s', json_encode($feedback)));
 }

@@ -47,6 +47,9 @@
         <!-- Footer -->
         <?= $footer ?>
 
+        <!-- Error message -->
+        <?php if (isset($error_msg)){echo $error_msg;} ?>
+
         <?= $imported_scripts ?>
     </body>
 </html>
