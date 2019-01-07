@@ -129,7 +129,6 @@ function get_navigation($template, $active_id, $state, $role) {
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">';
-    print_r($active_id);
 
     foreach ($template as $name => $info) {
         if ($info['role'] == $role or $info['role'] == 'all' ) {
@@ -387,8 +386,9 @@ function get_personal_info_html($db, $user_info) {
         </div>
     </div>';
 
+    $birthdate = date("d-m-Y", strtotime($user_info['birthdate']));
     return strtr($template, array('$name' => $user_info['firstname'] . ' ' . $user_info['lastname'], '$lang' => $user_info['language'],
-         '$birthdate' => $user_info['birthdate'], '$occupation' => $user_info['occupation'], '$mail' => $user_info['email'],
+         '$birthdate' => $birthdate, '$occupation' => $user_info['occupation'], '$mail' => $user_info['email'],
          '$phone' => $user_info['phone'], '$bio' => $user_info['biography'], '$role' => get_role($db, $user_info['id'])));
 }
 
@@ -1222,6 +1222,14 @@ function register_user($pdo, $form_data) {
  * @return array|bool
  */
 function add_room($pdo, $form_data, $files) {
+    /* Check authorization */
+    if (!(check_login() && is_owner($pdo, $_SESSION['user_id']))){
+        return [
+            'type' => 'danger',
+            'message' => 'You are not authorized to add a room.'
+        ];
+    }
+
     /* Check if all fields are set */
     if (
         empty($form_data['city']) or
@@ -1286,7 +1294,6 @@ function add_room($pdo, $form_data, $files) {
     /* Perform file checks */
     foreach ($files['files']['name'] as $key => $value) {
         $filetype = strtolower(pathinfo($files['files']['name'][$key],PATHINFO_EXTENSION));
-        echo $filetype;
         /* Check if file is a real or fake image */
         if (getimagesize($files['files']['tmp_name'][$key]) == false) {
             return [
@@ -1341,6 +1348,13 @@ function add_room($pdo, $form_data, $files) {
  * @return array
  */
 function opt_in($pdo, $form_data) {
+    /* Check authorization */
+    if (!(check_login() && is_tenant($pdo, $_SESSION['user_id']))){
+        return [
+            'type' => 'danger',
+            'message' => 'You are not authorized to apply for this room.'
+        ];
+    }
     /* Check if all fields are set */
     if (empty($form_data['message'])){
         return [
@@ -1386,7 +1400,7 @@ function opt_in($pdo, $form_data) {
     /* Redirect to room page */
     $feedback = [
         'type' => 'success',
-        'message' => sprintf('You applied successfully for %s %d%s %s', $room_info['street'],
+        'message' => sprintf('You have successfully applied for %s %d%s %s', $room_info['street'],
             $room_info['street_number'], $room_info['addition'], $room_info['city'])
     ];
     redirect(sprintf('/DDWT18_final/room/?id=%s&error_msg=%s', $form_data['room_id'], json_encode($feedback)));
@@ -1456,13 +1470,13 @@ function save_images($uploaddir, $files) {
  * @return array
  */
 function update_user($pdo, $form_data){
-    /* Check authorization
+    /* Check authorization */
     if (!(check_login() && $form_data['user_id'] == $_SESSION['user_id'])){
         return [
             'type' => 'danger',
-            'message' => 'You are not authorized to perform this action.'
+            'message' => 'You are not authorized to edit this account.'
         ];
-    }*/
+    }
 
     /* Check if all fields are set */
     $user_id = get_user_id();
@@ -1569,7 +1583,13 @@ function update_room($pdo, $form_data) {
     $current_address = sprintf('%s %d%s %s', $data['street'], $data['street_number'], $data['addition'], $data['city']);
     $form_address = sprintf('%s %d%s %s', $form_data['street'], $form_data['street_number'], $form_data['addition'], $form_data['city']);
 
-    /* TODO: user authorization */
+    /* Check authorization */
+    if (!(check_login() && $data['owner_id'] == $_SESSION['user_id'])){
+        return [
+            'type' => 'danger',
+            'message' => 'You are not authorized to edit this room.'
+        ];
+    }
 
     /* Check if all fields are filled in */
     if (
@@ -1681,13 +1701,13 @@ function remove_room($pdo, $room_id) {
     /* Get room information */
     $room_info = get_room_info($pdo, $room_id);
 
-    /* Check authorization
+    /* Check authorization */
     if (!(check_login() && $room_info['owner_id'] == $_SESSION['user_id'])){
         return [
             'type' => 'danger',
             'message' => 'You are not authorized to remove this room.'
         ];
-    }*/
+    }
 
     /* Remove the room images */
     $target = 'resources/rooms/' . $room_id . '/';
@@ -1740,13 +1760,13 @@ function remove_account($pdo, $user_id) {
     /* Get user information */
     $user_info = get_user_info($pdo, $user_id);
 
-    /* Check authorization
+    /* Check authorization */
     if (!(check_login() && $user_id == $_SESSION['user_id'])){
         return [
             'type' => 'danger',
             'message' => 'You are not authorized to remove this account.'
         ];
-    }*/
+    }
 
     /* Delete room */
     $stmt = $pdo->prepare("DELETE FROM users WHERE id = ?");
@@ -1773,13 +1793,13 @@ function remove_account($pdo, $user_id) {
  * @return array
  */
 function opt_out($pdo, $form_data) {
-    /* Check authorization
-    if (!(check_login() && $user_id == $_SESSION['user_id'])){
+    /* Check authorization */
+    if (!(check_login() && is_tenant($pdo, $form_data['tenant_id']))){
         return [
             'type' => 'danger',
-            'message' => 'You are not authorized to remove this account.'
+            'message' => 'You are not authorized to remove this application.'
         ];
-    }*/
+    }
 
     /* Get room information */
     $room_info = get_room_info($pdo, $form_data['room_id']);
@@ -1791,7 +1811,7 @@ function opt_out($pdo, $form_data) {
     if ($deleted ==  1) {
         return [
             'type' => 'success',
-            'message' => sprintf("Your application for %s %s%d %s was successfully removed.",
+            'message' => sprintf("Your application for %s %d%s %s was successfully removed.",
                 $room_info['street'], $room_info['street_number'], $room_info['addition'], $room_info['city'])
         ];
     }

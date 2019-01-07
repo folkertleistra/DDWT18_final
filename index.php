@@ -303,6 +303,9 @@ elseif (new_route('/DDWT18_final/remove-account/', 'post')) {
 
 /* Register user (GET) */
 elseif (new_route('/DDWT18_final/register/', 'get')) {
+    if ( check_login() ) {
+        redirect('/DDWT18_final/my-account/');
+    }
     /* Page content */
     $page_title = 'Register';
 
@@ -329,6 +332,9 @@ elseif (new_route('/DDWT18_final/register/', 'post')) {
 
 /* Login user (GET) */
 elseif (new_route('/DDWT18_final/login/', 'get')) {
+    if ( check_login() ) {
+        redirect('/DDWT18_final/my-account/');
+    }
     /* Page content */
     $navigation = get_navigation($nav_template, 6, $state, $role);
     $page_title = 'Login';
