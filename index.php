@@ -270,7 +270,7 @@ elseif (new_route('/DDWT18_final/register/', 'post')) {
     $error_msg = register_user($db, $_POST);
 
     /* Redirect to homepage */
-    redirect(sprintf('/DDWT18_final/my-account/?error_msg=%s', json_encode($error_msg)));
+    redirect(sprintf('/DDWT18_final/register/?error_msg=%s', json_encode($error_msg)));
 }
 
 /* Login user (GET) */
@@ -348,7 +348,7 @@ elseif (new_route('/DDWT18_final/add-room/', 'post')) {
     redirect(sprintf('/DDWT18_final/add/?error_msg=%s', json_encode($error_msg)));
 }
 
-/* edit room for. (GET) */
+/* Edit room (GET) */
 elseif (new_route('/DDWT18_final/edit-room/', 'get')) {
     /* Check if logged in */
     if ( !check_login() ) {
@@ -365,7 +365,6 @@ elseif (new_route('/DDWT18_final/edit-room/', 'get')) {
     $submit_btn = 'Edit';
     $navigation = get_navigation($nav_template, 2, $state);
 
-
     /* Get error msg from POST route */
     if ( isset($_GET['error_msg']) ) {
         $error_msg = get_error($_GET['error_msg']);
@@ -374,7 +373,7 @@ elseif (new_route('/DDWT18_final/edit-room/', 'get')) {
     include use_template('add-edit-room');
 }
 
-/* edit room (POST) */
+/* Edit room (POST) */
 elseif (new_route('/DDWT18_final/edit-room/', 'post')) {
     /* Check if logged in */
     if (!check_login()) {
@@ -384,11 +383,10 @@ elseif (new_route('/DDWT18_final/edit-room/', 'post')) {
     $navigation = get_navigation($nav_template, 2, $state);
 
     /* edit room in database */
-
     $feedback = update_room($db, $_POST);
+
     /* Redirect to serie GET route */
     redirect(sprintf('/DDWT18_final/room/?id=%s&error_msg=%s', $_POST['room_id'], json_encode($feedback)));
-
 
     /*choose template */
     include use_template('add-edit-room');
