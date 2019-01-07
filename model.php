@@ -118,7 +118,7 @@ function use_template($template) {
  * @param array $navigation Array with as Key the page name and as Value the corresponding url
  * @return string html code that represents the navigation
  */
-function get_navigation($template, $active_id, $state) {
+function get_navigation($template, $active_id, $state, $role) {
     $navigation_exp = '
     <nav class="navbar fixed-top navbar-expand-lg navbar-light">
     <a class="navbar-brand">
@@ -129,21 +129,24 @@ function get_navigation($template, $active_id, $state) {
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">';
+    print_r($active_id);
+
     foreach ($template as $name => $info) {
-        if ($info['state'] == $state or $info['state'] == 'all') {
-            /* makes the active url bold */
-            if ($name == $active_id) {
-                $navigation_exp .= '<li class="nav-item active">';
-                $navigation_exp .= '<a class="nav-link" href="' . $template[$active_id]['url'] . '">' . $template[$active_id]['name'] . '</a>';
+        if ($info['role'] == $role or $info['role'] == 'all' ) {
+            if ($info['state'] == $state or $info['state'] == 'neutral'){
+                /* makes the active url bold */
+                if ($name == $active_id) {
+                    $navigation_exp .= '<li class="nav-item active">';
+                    $navigation_exp .= '<a class="nav-link" href="' . $template[$active_id]['url'] . '">' . $template[$active_id]['name'] . '</a>';
+                    }
+                else {
+                    $navigation_exp .= '<li class="nav-item">';
+                    $navigation_exp .= '<a class="nav-link" href="' . $info['url'] . '">' . $info['name'] . '</a>';
+                    }
             }
-            else {
-                $navigation_exp .= '<li class="nav-item">';
-                $navigation_exp .= '<a class="nav-link" href="' . $info['url'] . '">' . $info['name'] . '</a>';
-            }
-            $navigation_exp .= '</li>';
 
         }
-
+        $navigation_exp .= '</li>';
     }
     $navigation_exp .= '
     </ul>
