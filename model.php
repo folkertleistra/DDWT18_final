@@ -993,6 +993,30 @@ function get_images($room_id) {
 }
 
 /**
+ * This function checks whether or not a user is already opted in to a room.
+ * @param $pdo
+ * @param $room_id
+ * @param $user_id
+ */
+function opted_in($pdo, $room_id, $user_id) {
+    $stmt = $pdo->prepare('SELECT tenant_id FROM optin WHERE room_id = ?');
+    $stmt->execute([$room_id]);
+    $tenant_arrray = $stmt->fetchAll();
+
+    $tenant_array = array();
+    foreach ($tenant_arrray as $key=>$value) {
+        array_push($tenant_array, $value['tenant_id']);
+    }
+    if (in_array($user_id, $tenant_array)) {
+        return true;
+    } else {
+        return false;
+    }
+
+}
+
+
+/**
  * This function checks if the currently logged in user is also the owner of the current room
  * @param $pdo
  * @param $room_id int
