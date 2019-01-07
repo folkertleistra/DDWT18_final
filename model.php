@@ -570,7 +570,9 @@ function get_optin_html($db, $user_id) {
 
         // Get all room ID's owned by the owner that have opt-ins
         $room_ids_with_optin = check_optins($db, $owned_room_ids);
+        $room_ids_without_optin = check_optins_diff($db, $owned_room_ids);
 
+        // HTML for rooms with opt-ins
         foreach($room_ids_with_optin as $key => $room_id) {
 
             // Echo room HTML
@@ -589,6 +591,20 @@ function get_optin_html($db, $user_id) {
             }
             echo '<hr class="bottom-hr">';
         }
+
+        // HTML for rooms without opt-ins
+        foreach($room_ids_without_optin as $key => $room_id) {
+
+            // Echo room HTML
+            $room_info = get_room_info($db, $room_id);
+            echo strtr($template_room_owner, array('$city' => $room_info['city'], '$thumbnail' => get_images($room_info['id'])[0], '$street' => $room_info['street'],
+            '$nr' => $room_info['street_number'], '$add' => $room_info['addition'], '$postal_code' => $room_info['postal_code'], '$size' => $room_info['size'], '$type' => $type = $room_info['type'],
+            '$price' => $room_info['price'], '$href' => '/DDWT18_final/room/?id=' . $room_id));
+            echo '<h5 class="message no-optin">No room opt-ins.</h5>';
+            echo '<hr class="bottom-hr">';
+        }
+
+
     }
 }
 
@@ -613,6 +629,28 @@ function check_optins($pdo, $owned_room_ids) {
 
     // Owned room ID's that have opt-ins
     return array_intersect($owned_room_ids, $room_ids);
+}
+/**
+ * Return room IDs that do NOT have opt-ins from an array of room IDs
+ */
+function check_optins_diff($pdo, $owned_room_ids) {
+    /* Create and execute SQL statement */
+    $stmt = $pdo->prepare('SELECT DISTINCT room_id FROM optin');
+    $stmt->execute();
+    $rooms = $stmt->fetchAll();
+
+    // array with all room_id's that have opt-ins
+    $room_ids = Array();
+
+    /* Create array with htmlspecialchars */
+    foreach ($rooms as $key => $value){
+        foreach ($value as $user_key => $user_input) {
+            $room_ids[] = htmlspecialchars($user_input);
+        }
+    }
+
+    // Owned room ID's that have opt-ins
+    return array_diff($owned_room_ids, $room_ids);
 }
 
 /*

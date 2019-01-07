@@ -83,6 +83,7 @@ p.personal-text {
     border-radius: 3px;
     height: 100%;
     width: 100%;
+    margin-bottom: 15px;
 }
 .optin-row h4 {
     font-size: 18px;
@@ -120,5 +121,8 @@ hr.bottom-hr {
 }
 .viewroom-btn-wrapper {
     margin-top: 20px;
+}
+.no-optin {
+    color: #ff0000;
 }
 /* END: optin sections */
