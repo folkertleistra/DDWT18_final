@@ -1435,17 +1435,15 @@ function update_room($pdo, $form_data) {
         ];
     }
 
-
-
-    /* TODO: Check if room address already exists */
+    /* Check if room address already exists */
     $stmt = $pdo->prepare('SELECT * FROM rooms WHERE street = ? AND street_number = ? AND addition = ? AND city = ?');
-    $stmt->execute([$current_address['street'], $current_address['street_number'], $current_address['addition'], $current_address['city']]);
+    $stmt->execute([$form_data['street'], $form_data['street_number'], $form_data['addition'], $form_data['city']]);
     $data = $stmt->fetch();
     $room = sprintf('%s %d%s %s', $data['street'], $data['street_number'], $data['addition'], $data['city']);
     if ($form_address == $room and $room != $current_address) {
         return [
             'type' => 'danger',
-            'message' => sprintf("The room cannot be changed. The address already exists.")
+            'message' => 'The room cannot be changed. The address already exists.'
         ];
     }
 
@@ -1468,9 +1466,10 @@ function update_room($pdo, $form_data) {
     if ($updated ==  1) {
         $feedback = [
             'type' => 'success',
-            'message' =>  ("the room was successfully updated.")
+            'message' => sprintf("%s %d%s was successfully updated.", $form_data['street'],
+                $form_data['street_number'], $form_data['addition'])
         ];
-        redirect(sprintf('/DDWT18_final/rentable-rooms/?error_msg=%s', json_encode($feedback)));
+        redirect(sprintf('/DDWT18_final/room/?id=%s&error_msg=%s', $form_data['room_id'], json_encode($feedback)));
     }
     else {
         return [

@@ -62,7 +62,7 @@
 
                         <!-- Edit profile button -->
                         <div class="edit-btn-wrapper">
-                            <a href="/DDWT18_final/edit-personal/" role="button" class="btn edit-btn">Edit account</a>
+                            <a href="/DDWT18_final/edit-account/" role="button" class="btn edit-btn">Edit account</a>
                         </div>
                     </div>
                 </div>
