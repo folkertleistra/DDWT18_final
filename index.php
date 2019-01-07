@@ -208,6 +208,7 @@ elseif (new_route('/DDWT18_final/room/', 'get')) {
 
 }
 
+/* My account (GET) */
 elseif (new_route('/DDWT18_final/my-account/', 'get')) {
     /* Check if logged in */
     if ( !check_login() ) {
@@ -223,7 +224,7 @@ elseif (new_route('/DDWT18_final/my-account/', 'get')) {
     $page_title = "My Account";
     $page_subtitle = "My Account";
     $navigation = get_navigation($nav_template, 3, $state);
-    $personal_info = get_personal_info_html($user_info);
+    $personal_info = get_personal_info_html($db, $user_info);
 
     /* Get error message from POST route */
     if (isset($_GET['error_msg'])){
@@ -233,9 +234,12 @@ elseif (new_route('/DDWT18_final/my-account/', 'get')) {
     include use_template('my-account');
 }
 
-/* edit personal-information for (GET) */
+/* Edit account (GET) */
 elseif (new_route('/DDWT18_final/edit-account/', 'get')) {
-
+    /* Check if logged in */
+    if ( !check_login() ) {
+        redirect('/DDWT18_final/login/');
+    }
     $page_title = 'Edit personal information';
     $navigation = get_navigation($nav_template, 3, $state);
 
@@ -252,7 +256,7 @@ elseif (new_route('/DDWT18_final/edit-account/', 'get')) {
     include use_template('edit-account');
 }
 
-/* edit user-information for (POST) */
+/* Edit account (POST) */
 elseif (new_route('/DDWT18_final/edit-account/', 'post')) {
 
     $navigation = get_navigation($nav_template, 3, $state);
@@ -268,10 +272,7 @@ elseif (new_route('/DDWT18_final/edit-account/', 'post')) {
 }
 
 elseif (new_route('/DDWT18_final/remove-account/', 'post')) {
-    /* Check if logged in */
-    if ( !check_login() ) {
-        redirect('/DDWT18_final/login/');
-    }
+
     $feedback = remove_account($db, $_POST['user_id']);
     redirect(sprintf('/DDWT18_final/?error_msg=%s', json_encode($feedback)));
 }
@@ -359,6 +360,16 @@ elseif (new_route('/DDWT18_final/add-room/', 'get')) {
     if ( !check_login() ) {
         redirect('/DDWT18_final/login/');
     }
+
+    /* Check if owner */
+    if (!is_owner($db, $_SESSION['user_id'])){
+        $error_msg = [
+            'type' => 'danger',
+            'message' => 'You are not authorized to add a room.'
+        ];
+        redirect(sprintf('/DDWT18_final/my-account/?error_msg=%s', json_encode($error_msg)));
+    }
+
     $page_title = 'Add room';
     $header_title = 'Add a room';
 
@@ -376,6 +387,7 @@ elseif (new_route('/DDWT18_final/add-room/', 'get')) {
 
 /* Add room (POST) */
 elseif (new_route('/DDWT18_final/add-room/', 'post')) {
+
     /* Add room */
     $error_msg = add_room($db, $_POST, $_FILES);
 
@@ -393,6 +405,16 @@ elseif (new_route('/DDWT18_final/edit-room/', 'get')) {
     /* Get room info from db */
     $room_id = $_GET['id'];
     $room_info = get_room_info($db, $room_id);
+
+    /* Check if room owner */
+    if ( !owns_room($db, $room_id, $_SESSION['user_id'])) {
+        $error_msg = [
+            'type' => 'danger',
+            'message' => 'You are not authorized to edit this room.'
+        ];
+        redirect(sprintf('/DDWT18_final/room/?id=%s&error_msg=%s', $room_id, json_encode($error_msg)));
+    }
+
     /* Page content */
     $page_title = 'Edit Room';
     $header_title = 'Edit your room';
@@ -410,10 +432,6 @@ elseif (new_route('/DDWT18_final/edit-room/', 'get')) {
 
 /* Edit room (POST) */
 elseif (new_route('/DDWT18_final/edit-room/', 'post')) {
-    /* Check if logged in */
-    if (!check_login()) {
-        redirect('/DDWT18_final/login/');
-    }
 
     $navigation = get_navigation($nav_template, 2, $state);
 
@@ -430,10 +448,6 @@ elseif (new_route('/DDWT18_final/edit-room/', 'post')) {
 
 /* Remove room (POST) */
 elseif (new_route('/DDWT18_final/remove-room/', 'post')) {
-    /* Check if logged in */
-    if ( !check_login() ) {
-        redirect('/DDWT18_final/login/');
-    }
 
     $feedback = remove_room($db, $_POST['room_id']);
 
@@ -456,10 +470,6 @@ elseif (new_route('/DDWT18_final/remove-room/', 'post')) {
 
 /* Opt-in to a room (POST) */
 elseif (new_route('/DDWT18_final/optin/', 'post')) {
-    /* Check if logged in */
-    if (!check_login()) {
-        redirect('/DDWT18_final/login/');
-    }
 
     $feedback = opt_in($db, $_POST);
     redirect(sprintf('/DDWT18_final/room/?id=%s&error_msg=%s', $_POST['room_id'], json_encode($feedback)));
@@ -467,10 +477,6 @@ elseif (new_route('/DDWT18_final/optin/', 'post')) {
 
 /* Opt-out to a room (POST) */
 elseif (new_route('/DDWT18_final/optout/', 'post')) {
-    /* Check if logged in */
-    if (!check_login()) {
-        redirect('/DDWT18_final/login/');
-    }
 
     $feedback = opt_out($db, $_POST);
     redirect(sprintf('/DDWT18_final/room/?id=%s&error_msg=%s', $_POST['room_id'], json_encode($feedback)));
