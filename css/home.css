@@ -127,4 +127,41 @@ a.intro-btn:hover {
         flex: 0 0 100%;
     }
 }
+.counter-container {
+    background-color: #fff;
+    margin-bottom: 40px;
+}
 /* END: counter section */
+
+/* featured room */
+.featured-text {
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.divider-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+.divider {
+    width: 50px;
+    height: 3px;
+    background-color: #f26b3a;
+}
+.featured-room-container {
+    padding-top: 10px;
+    padding-bottom: 30px;
+}
+h3.introduction-header {
+    text-align: left;
+}
+
+
+
+
+
+
+
+
+

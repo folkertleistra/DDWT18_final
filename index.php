@@ -135,7 +135,7 @@ if (new_route('/DDWT18_final/', 'get')) {
     }
 
     /* Featured room */
-    $room_id = 1;
+    $room_id = get_random_room_id($db);
     $room_info = get_room_info($db, $room_id);
     $room_images = get_images($room_id);
     $address = get_room_address($db, $room_id);

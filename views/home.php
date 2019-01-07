@@ -49,7 +49,7 @@
         <div class="container-fluid intro-text-container">
             <div class="row justify-content-center intro-text-row">
                 <div class="col-lg-6 col-md-8 col-sm-8 intro-text-col">
-                    <h3>A room for everyone</h3>
+                    <h3 class="introduction-header">A room for everyone</h3>
                     <p class="intro-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
                     <p class="intro-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
                     <div class="intro-btn-wrapper"><?= $intro_btn ?></div>
@@ -81,7 +81,11 @@
         </div>
 
         <!-- Featured room section -->
-        <div class="container">
+        <div class="container featured-room-container">
+            <h3 class="featured-text">Featured room</h3>
+            <div class="divider-wrapper">
+                <div class="divider"></div>
+            </div>
             <div class="row sr-row r1">
                 <div class="col-lg-7 slider-col order-lg-1 order-2">
                     <!-- Slideshow container -->
