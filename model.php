@@ -273,7 +273,7 @@ function login_user($pdo, $form_data) {
         $_SESSION['user_id'] = $user_info['id'];
         $feedback = [
             'type' => 'success',
-            'message' => sprintf('%s, you were logged in successfully.', get_user_username($pdo, $_SESSION['user_id']))
+            'message' => sprintf('%s, you were logged in successfully.', get_user_firstname($pdo, $_SESSION['user_id']))
         ];
         redirect(sprintf('/DDWT18_final/my-account/?error_msg=%s', json_encode($feedback)));
     }
@@ -680,20 +680,19 @@ function get_user_info($pdo, $user_id) {
 }
 
 /**
- * Returns username for a single user
+ * Returns firstname for a single user
  * @param $pdo
  * @param $user_id
  * @return string
  */
-function get_user_username($pdo, $user_id) {
+function get_user_firstname($pdo, $user_id) {
     /* Create and execute SQL statement */
-    $stmt = $pdo->prepare('SELECT username FROM users WHERE id = ?');
+    $stmt = $pdo->prepare('SELECT firstname FROM users WHERE id = ?');
     $stmt->execute([$user_id]);
-    $users = $stmt->fetchAll();
-    $user = $users[0];
+    $user = $stmt->fetch();
 
-    $username = htmlspecialchars($user['username']);
-    return $username;
+    $firstname = htmlspecialchars($user['firstname']);
+    return $firstname;
 }
 
 /**
@@ -1086,7 +1085,7 @@ function register_user($pdo, $form_data) {
     $_SESSION['user_id'] = $user_id;
     $feedback = [
         'type' => 'success',
-        'message' => sprintf('%s, your account was successfully created!', get_user_username($pdo, $_SESSION['user_id']))
+        'message' => sprintf('%s, your account was successfully created!', get_user_firstname($pdo, $_SESSION['user_id']))
     ];
     redirect(sprintf('/DDWT18_final/my-account/?error_msg=%s', json_encode($feedback)));
 }
