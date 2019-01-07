@@ -107,6 +107,10 @@ a.intro-btn:hover {
 /* END: text section */
 
 /* START: counter section */
+.counter-container {
+    background-color: #fff;
+    margin-bottom: 40px;
+}
 .counter-inner-col {
     padding: 20px;
     margin: 20px;
@@ -126,10 +130,13 @@ a.intro-btn:hover {
         max-width: 100%;
         flex: 0 0 100%;
     }
-}
-.counter-container {
-    background-color: #fff;
-    margin-bottom: 40px;
+    .featured-room-container {
+        margin-bottom: 20px;
+        width: calc(100% - 40px);
+    }
+    .counter-container {
+        margin-bottom: 10px;
+    }
 }
 /* END: counter section */
 

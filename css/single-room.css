@@ -172,6 +172,9 @@ strong {
 .red {
     color: #ff0000;
 }
+.room-info-col h2 {
+    font-size: 26px;
+}
 /* END: room information */
 
 /* START: opt-in section */
