@@ -839,7 +839,7 @@ function get_random_room_id($pdo) {
     $stmt = $pdo->prepare('SELECT id FROM rooms ORDER BY RAND() LIMIT 1;');
     $stmt->execute();
     $result = $stmt->fetchAll();
-    return $result[0];
+    return $result[0]['id'];
 }
 
 /**

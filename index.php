@@ -141,14 +141,14 @@ elseif (new_route('/DDWT18_final/test-route/', 'get')) {
 
     /* User info */
     $user_id = 8;
-    print_r(random_room_id($db));
+    print_r(get_random_room_id($db));
 }
 
 /* test route (POST)
 TODO: remove before handing in
 */
 elseif (new_route('/DDWT18_final/test-route/', 'post')) {
-    print_r(random_room_id($db));
+    print_r(get_random_room_id($db));
 
 }
 
