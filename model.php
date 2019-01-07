@@ -175,8 +175,8 @@ function get_head_upper_content() {
         <!-- Custom CSS -->
         <link rel="stylesheet" href="/DDWT18_final/css/main.css">
         
-        Œ<!-- Custom JS -->
-        <script src="/DDWT18_final/js/main.js"></script>\';';
+        <!-- Custom JS -->
+        <script src="/DDWT18_final/js/main.js"></script>';
 }
 
 /**
