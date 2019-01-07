@@ -156,6 +156,7 @@ footer {
     height: 72px;
     overflow: hidden;
     margin-top: -22px;
+    pointer-events: none;
 
     -webkit-transform: translateY(-50px);
     -webkit-animation: slideDown 2.5s 1.0s 1 ease forwards;
