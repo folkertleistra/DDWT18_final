@@ -325,7 +325,7 @@ function logout_user() {
  * --------------------
  */
 
-function get_personal_info_html($user_info) {
+function get_personal_info_html($db, $user_info) {
 
     $template ='
     <div class="personal-column">
@@ -333,6 +333,11 @@ function get_personal_info_html($user_info) {
         <hr>
     
         <!-- Personal information -->
+        <div>
+            <i class="fas fa-user"></i>
+            <p class="personal-text capitalize">$role</p>
+        </div>
+        
         <div>
             <i class="fas fa-flag"></i>
             <p class="personal-text capitalize">$lang</p>
@@ -373,7 +378,7 @@ function get_personal_info_html($user_info) {
 
     return strtr($template, array('$name' => $user_info['firstname'] . ' ' . $user_info['lastname'], '$lang' => $user_info['language'],
          '$birthdate' => $user_info['birthdate'], '$occupation' => $user_info['occupation'], '$mail' => $user_info['email'],
-         '$phone' => $user_info['phone'], '$bio' => $user_info['biography']));
+         '$phone' => $user_info['phone'], '$bio' => $user_info['biography'], '$role' => get_role($db, $user_info['id'])));
 }
 
 /**
@@ -570,7 +575,9 @@ function get_optin_html($db, $user_id) {
 
         // Get all room ID's owned by the owner that have opt-ins
         $room_ids_with_optin = check_optins($db, $owned_room_ids);
+        $room_ids_without_optin = check_optins_diff($db, $owned_room_ids);
 
+        // HTML for rooms with opt-ins
         foreach($room_ids_with_optin as $key => $room_id) {
 
             // Echo room HTML
@@ -589,6 +596,20 @@ function get_optin_html($db, $user_id) {
             }
             echo '<hr class="bottom-hr">';
         }
+
+        // HTML for rooms without opt-ins
+        foreach($room_ids_without_optin as $key => $room_id) {
+
+            // Echo room HTML
+            $room_info = get_room_info($db, $room_id);
+            echo strtr($template_room_owner, array('$city' => $room_info['city'], '$thumbnail' => get_images($room_info['id'])[0], '$street' => $room_info['street'],
+            '$nr' => $room_info['street_number'], '$add' => $room_info['addition'], '$postal_code' => $room_info['postal_code'], '$size' => $room_info['size'], '$type' => $type = $room_info['type'],
+            '$price' => $room_info['price'], '$href' => '/DDWT18_final/room/?id=' . $room_id));
+            echo '<h5 class="message no-optin">No room opt-ins.</h5>';
+            echo '<hr class="bottom-hr">';
+        }
+
+
     }
 }
 
@@ -613,6 +634,28 @@ function check_optins($pdo, $owned_room_ids) {
 
     // Owned room ID's that have opt-ins
     return array_intersect($owned_room_ids, $room_ids);
+}
+/**
+ * Return room IDs that do NOT have opt-ins from an array of room IDs
+ */
+function check_optins_diff($pdo, $owned_room_ids) {
+    /* Create and execute SQL statement */
+    $stmt = $pdo->prepare('SELECT DISTINCT room_id FROM optin');
+    $stmt->execute();
+    $rooms = $stmt->fetchAll();
+
+    // array with all room_id's that have opt-ins
+    $room_ids = Array();
+
+    /* Create array with htmlspecialchars */
+    foreach ($rooms as $key => $value){
+        foreach ($value as $user_key => $user_input) {
+            $room_ids[] = htmlspecialchars($user_input);
+        }
+    }
+
+    // Owned room ID's that have opt-ins
+    return array_diff($owned_room_ids, $room_ids);
 }
 
 /*
@@ -745,6 +788,21 @@ function is_tenant($pdo, $user_id) {
         return false;
     }
     return true;
+}
+
+/**
+ *
+ * @param $pdo
+ * @param $id
+ * @return string
+ */
+function get_role($pdo, $id) {
+    if (is_owner($pdo, $id)) {
+        return 'owner';
+    }
+    else {
+        return 'tenant';
+    }
 }
 
 /**
@@ -933,6 +991,30 @@ function get_images($room_id) {
     }
     return $images;
 }
+
+/**
+ * This function checks whether or not a user is already opted in to a room.
+ * @param $pdo
+ * @param $room_id
+ * @param $user_id
+ */
+function opted_in($pdo, $room_id, $user_id) {
+    $stmt = $pdo->prepare('SELECT tenant_id FROM optin WHERE room_id = ?');
+    $stmt->execute([$room_id]);
+    $tenant_arrray = $stmt->fetchAll();
+
+    $tenant_array = array();
+    foreach ($tenant_arrray as $key=>$value) {
+        array_push($tenant_array, $value['tenant_id']);
+    }
+    if (in_array($user_id, $tenant_array)) {
+        return true;
+    } else {
+        return false;
+    }
+
+}
+
 
 /**
  * This function checks if the currently logged in user is also the owner of the current room
