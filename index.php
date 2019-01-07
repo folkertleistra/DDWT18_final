@@ -420,6 +420,9 @@ elseif (new_route('/DDWT18_final/edit-room/', 'get')) {
         redirect('/DDWT18_final/login/');
     }
 
+    /* info */
+    $page_subtitle = "Edit room";
+
     /* Get room info from db */
     $room_id = $_GET['id'];
     $room_info = get_room_info($db, $room_id);
