@@ -43,33 +43,33 @@
                 </div>
 
                 <div class="room-info-col col-lg-5 order-lg-2 order-1">
-                    <h2><?php echo($room_info['street'] . ' ' . $room_info['street_number'] . $room_info['addition']) ?></h2>
+                    <h2><?php echo(htmlspecialchars($room_info['street'] . ' ' . $room_info['street_number'] . $room_info['addition'])) ?></h2>
                     <hr>
                     <div class="room-info-wrapper">
                         <p class="room-info">
-                            <span><strong>Type:</strong><?php echo($room_info['type']) ?></span>
-                            <span><strong>Size:</strong><?php echo($room_info['size']) ?> m²</span>
-                            <span class="price">€ <?php echo($room_info['price']) ?></span></span>
+                            <span><strong>Type:</strong><?php echo htmlspecialchars($room_info['type']) ?></span>
+                            <span><strong>Size:</strong><?php echo htmlspecialchars($room_info['size']) ?> m²</span>
+                            <span class="price">€ <?php echo htmlspecialchars($room_info['price']) ?></span></span>
                             <br>
-                            <span><strong>Street:</strong><?php echo($room_info['street'] . ' ' . $room_info['street_number'] . $room_info['addition']) ?></span><br>
-                            <span><strong>Address:</strong><?php echo($room_info['postal_code'] . ' ' . $room_info['city'])?></span>
+                            <span><strong>Street:</strong><?php echo htmlspecialchars($room_info['street'] . ' ' . $room_info['street_number'] . $room_info['addition']) ?></span><br>
+                            <span><strong>Address:</strong><?php echo htmlspecialchars($room_info['postal_code'] . ' ' . $room_info['city'])?></span>
                         </p>
                         <hr>
                     </div>
 
                     <div class="description">
-                        <p><?php echo($room_info['description']) ?></p>
+                        <p><?php echo htmlspecialchars($room_info['description']) ?></p>
                     </div>
 
                     <!-- The following section is only displayed when you are the owner of the room -->
                     <div>
                         <?php if($display_buttons) { ?>
                         <div>
-                            <a href="/DDWT18_final/edit-room/?id=<?= $room_id ?>" role="button" class="btn btn-warning">Edit</a>
+                            <a href="/DDWT18_final/edit-room/?id=<?= htmlspecialchars($room_id) ?>" role="button" class="btn btn-warning">Edit</a>
                         </div>
                         <div>
                         <form action="/DDWT18_final/remove-room/" method="POST">
-                            <input type="hidden" value="<?= $room_id ?>" name="room_id">
+                            <input type="hidden" value="<?= htmlspecialchars($room_id) ?>" name="room_id">
                             <button type="submit" class="btn btn-danger">Remove</button>
                         </form>
                         </div>
