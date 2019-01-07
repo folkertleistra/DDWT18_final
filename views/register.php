@@ -88,7 +88,7 @@
                         </div>
                         <div class="form-row">
                             <label for="phone" class="sign-in-register-label">Phone Number</label>
-                            <input type="tel" name="phone" placeholder="0612345678"  class="form-input" required>
+                            <input type="tel" name="phone" placeholder="0612345678" maxlength="10"  class="form-input" required>
                         </div>
                         <div class="form-row">
                             <label for="language"  class="sign-in-register-label">Language</label>
@@ -120,7 +120,8 @@
     </form>
 
 
-
+    <!-- Error message -->
+    <div class="error-fade"><?php if (isset($error_msg)){echo $error_msg;} ?></div>
     <?= $imported_scripts ?>
     </body>
 </html>
