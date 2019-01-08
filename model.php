@@ -121,7 +121,7 @@ function use_template($template) {
 function get_navigation($template, $active_id, $state, $role) {
     $navigation_exp = '
     <nav class="navbar fixed-top navbar-expand-lg navbar-light">
-    <a class="navbar-brand">
+    <a href="/DDWT18_final/" class="navbar-brand">
         <img src="/DDWT18_final/resources/logo/apartrent-logo.png" class="navbar-logo" alt="">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
