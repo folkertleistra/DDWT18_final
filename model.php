@@ -162,6 +162,11 @@ function get_head_upper_content() {
     return '<meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         
+        <!-- Favicon: NB: this does not work when hosting locally on MAMP -->
+        <link rel="icon" 
+            type="image/png" 
+            href="/favicon.ico">
+        
         <!-- Custom Google fonts -->
         <link href="https://fonts.googleapis.com/css?family=Vidaloka" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i" rel="stylesheet">
