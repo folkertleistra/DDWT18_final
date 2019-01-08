@@ -778,6 +778,11 @@ function get_user_info($pdo, $user_id) {
     $stmt = $pdo->prepare('SELECT * FROM users WHERE id = ?');
     $stmt->execute([$user_id]);
     $users = $stmt->fetchAll();
+
+    /* Return if no user was found */
+    if (empty($users)){
+        return;
+    }
     $user = $users[0];
     $user_exp = Array();
 
@@ -942,6 +947,11 @@ function get_room_info($pdo, $room_id) {
     $stmt = $pdo->prepare('SELECT * FROM rooms WHERE id = ?');
     $stmt->execute([$room_id]);
     $rooms = $stmt->fetchAll();
+
+    /* Return if no room was found */
+    if (empty($rooms)){
+        return;
+    }
     $room = $rooms[0];
     $room_exp = Array();
 
