@@ -120,6 +120,12 @@ if (new_route('/DDWT18_final/', 'get')) {
         $error_msg = get_error($_GET['error_msg']);
     }
 
+    /* Page content */
+    $room_amnt = count_rooms($db);
+    $tenant_amnt = count_tenants($db);
+    $owner_amnt = count_owners($db);
+    $header_subtitle = 'Room for everyone';
+
     /* Intro text button */
     if (check_login()) {
 
