@@ -295,7 +295,6 @@ elseif (new_route('/DDWT18_final/edit-account/', 'post')) {
     /* Redirect to edit account route */
     redirect(sprintf('/DDWT18_final/edit-account/?error_msg=%s&user_info=%s', json_encode($feedback), json_encode($_POST)));
 
-    include use_template('edit-account');
 }
 
 /* Remove account (POST) */
@@ -329,7 +328,6 @@ elseif (new_route('/DDWT18_final/register/', 'get')) {
     if (isset($_GET['error_msg'])){
         $error_msg = get_error($_GET['error_msg']);
     }
-
     include use_template('register');
 }
 
@@ -536,7 +534,6 @@ elseif (new_route('/DDWT18_final/profile/', 'get')) {
     include use_template('profile');
 }
 
-/* User profile (POST) */
 
 /*
  * ---------------
