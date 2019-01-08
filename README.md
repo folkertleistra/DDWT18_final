@@ -2,8 +2,8 @@
 
 The increase of students coming to Groningen and other cities brings up difficulties regarding housing. The issues are 
 getting so pressing that some foreign students have even had to sleep in tents due to lack of available rooms and the 
-difficulty of finding one. We think it should be easier for owners of rooms and tenants to connect. That is why we have 
-developed a platform on which room owners and tenants can easily get in touch.
+difficulty of finding one. We think it should be easier for owners of rooms and tenants to connect, which is why we have 
+developed a platform where room owners and tenants can easily get in touch.
 
 ## Getting Started
 
