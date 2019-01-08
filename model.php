@@ -259,6 +259,15 @@ function get_user_id(){
  * @return array
  */
 function login_user($pdo, $form_data) {
+    /* Check if user is already logged in */
+    if ( check_login() ){
+        $feedback = [
+            'type' => 'warning',
+            'message' => 'You are already logged in.'
+        ];
+        redirect(sprintf('/DDWT18_final/my-account/?error_msg=%s', json_encode($feedback)));
+    }
+
     /* Check if all fields are set */
     if (
         empty($form_data['username']) or
@@ -311,6 +320,15 @@ function login_user($pdo, $form_data) {
  * @return array
  */
 function logout_user() {
+    /* Check if user is already logged out */
+    if ( !check_login() ){
+        $feedback = [
+            'type' => 'warning',
+            'message' => 'You are already logged out.'
+        ];
+        redirect(sprintf('/DDWT18_final/?error_msg=%s', json_encode($feedback)));
+    }
+
     session_start();
     session_unset();
     session_destroy();
