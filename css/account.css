@@ -126,8 +126,17 @@ hr.bottom-hr {
 .viewroom-btn-wrapper {
     margin-top: 20px;
 }
+
+@media screen and (min-width: 992px) {
+    .viewroom-btn-wrapper {
+        margin-bottom: 27px;
+    }
+}
 .no-optin {
     color: #ff0000;
+}
+h5.message a {
+    color: #5c5cdc;
 }
 /* END: optin sections */
 
@@ -145,5 +154,9 @@ hr.bottom-hr {
         height: 250px;
         margin-bottom: 20px;
     }
+    .viewroom-btn-wrapper {
+        margin-bottom: 13px;
+    }
+
 }
 
