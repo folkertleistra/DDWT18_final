@@ -500,124 +500,128 @@ function get_optin_html($db, $user_id) {
         $optins = get_owner_optin($db, $user_id);
     }
 
-    /* No optins */
+    /* If tenant with no opt-ins */
     if (count($optins) == 0 && $role == "tenant") {
-        return '<p class="no-optin">You have not yet requested any rooms.</p>';
-    } elseif (count($optins) == 0 && $role == "owner") {
-        return '<p class="no-optin">You have not yet registered any rooms.</p>';
-    }
-
-    /* HTML templates */
-    $template_room_tenant = '
-    
-        <div class="row optin-row">
-            <!-- image col -->
-            <div class="col-lg-5">
-                <div class="optin-thumb-wrapper">
-                    <img src="$thumbnail" class="optin-thumb">
-                </div>               
-            </div>
-        
-            <!-- optin info col -->
-            <div class="col-lg-7 optin-info-col">
-                <h4>$street $nr$add</h4>
-                <p>$postal_code $city</p>
-                <p>$size m² - $type</p>
-                <p class="price">€ $price</p>
-                <h5 class="message">Message:</h5>
-                <p class="message"><i>$message</i></p>
-                <div class="viewroom-btn-wrapper">
-                    <a href="$href" class="view-room">View room</a>
-                </div>
-            </div>
-        </div>
-        <hr class="bottom-hr">
-    ';
-
-    $template_room_owner = '
-    
-        <div class="row optin-row">
-            <!-- image col -->
-            <div class="col-lg-5">
-                <div class="optin-thumb-wrapper">
-                    <img src="$thumbnail" class="optin-thumb">
-                </div>               
-            </div>
-        
-            <!-- optin info col -->
-            <div class="col-lg-7 optin-info-col">
-                <h4>$street $nr$add</h4>
-                <p>$postal_code $city</p>
-                <p>$size m² - $type</p>
-                <p class="price">€ $price</p>
-                <div class="viewroom-btn-wrapper">
-                    <a href="$href" class="view-room">View room</a>
-                </div>
-            </div>
-        </div>
-    ';
-
-    $template_messages = '
-        <h5 class="message">Opt-in by: <span class="capitalize"><a href="$profile-href">$optin-user</a></span></h5>
-        <p class="message"><i>$message</i></p><hr>
-        ';
-
-    // IF tenant
-    if ($role == "tenant") {
-        foreach ($optins as $key => $room_optin) {
-            $room_info = get_room_info($db, $room_optin['room_id']);
-
-            // Echo room HTML
-            echo strtr($template_room_tenant, array('$city' => $room_info['city'], '$thumbnail' => get_images($room_info['id'])[0], '$street' => $room_info['street'],
-                '$nr' => $room_info['street_number'], '$add' => $room_info['addition'], '$postal_code' => $room_info['postal_code'], '$size' => $room_info['size'], '$type' => $type = $room_info['type'],
-                '$price' => $room_info['price'], '$message' => $room_optin['message'],
-                '$href' => '/DDWT18_final/room/?id=' . $room_optin['room_id']));
-        }
-        // IF owner
+        echo '<p class="no-optin">You have not yet requested any rooms.</p>';
+    /* If owner with no registered rooms */
+    } elseif (count(get_owned_rooms_id($db, $user_id)) == 0 && $role == "owner") {
+        echo '<p class="no-optin">You have not yet registered any rooms.</p>';
     } else {
 
-        // Get all room ID's owned by the owner
-        $owned_room_ids = get_owned_rooms_id($db, $user_id);
+        /* HTML templates */
+        $template_room_tenant = '
+        
+            <div class="row optin-row">
+                <!-- image col -->
+                <div class="col-lg-5">
+                    <div class="optin-thumb-wrapper">
+                        <img src="$thumbnail" class="optin-thumb">
+                    </div>               
+                </div>
+            
+                <!-- optin info col -->
+                <div class="col-lg-7 optin-info-col">
+                    <h4>$street $nr$add</h4>
+                    <p>$postal_code $city</p>
+                    <p>$size m² - $type</p>
+                    <p class="price">€ $price</p>
+                    <h5 class="message">Message:</h5>
+                    <p class="message"><i>$message</i></p>
+                    <div class="viewroom-btn-wrapper">
+                        <a href="$href" class="view-room">View room</a>
+                    </div>
+                </div>
+            </div>
+            <hr class="bottom-hr">
+        ';
 
-        // Get all room ID's owned by the owner that have opt-ins
-        $room_ids_with_optin = check_optins($db, $owned_room_ids);
-        $room_ids_without_optin = check_optins_diff($db, $owned_room_ids);
+        $template_room_owner = '
+        
+            <div class="row optin-row">
+                <!-- image col -->
+                <div class="col-lg-5">
+                    <div class="optin-thumb-wrapper">
+                        <img src="$thumbnail" class="optin-thumb">
+                    </div>               
+                </div>
+            
+                <!-- optin info col -->
+                <div class="col-lg-7 optin-info-col">
+                    <h4>$street $nr$add</h4>
+                    <p>$postal_code $city</p>
+                    <p>$size m² - $type</p>
+                    <p class="price">€ $price</p>
+                    <div class="viewroom-btn-wrapper">
+                        <a href="$href" class="view-room">View room</a>
+                    </div>
+                </div>
+            </div>
+        ';
 
+        $template_messages = '
+            <h5 class="message">Request by <span class="capitalize"><a href="$profile-href">$optin-user</a></span></h5>
+            <p class="message"><i>$message</i></p>
+            ';
 
-        // HTML for rooms with opt-ins
-        foreach($room_ids_with_optin as $key => $room_id) {
+        // IF tenant
+        if ($role == "tenant") {
 
-            // Echo room HTML
-            $room_info = get_room_info($db, $room_id);
-            echo strtr($template_room_owner, array('$city' => $room_info['city'], '$thumbnail' => get_images($room_info['id'])[0], '$street' => $room_info['street'],
-                '$nr' => $room_info['street_number'], '$add' => $room_info['addition'], '$postal_code' => $room_info['postal_code'], '$size' => $room_info['size'], '$type' => $type = $room_info['type'],
-                '$price' => $room_info['price'], '$href' => '/DDWT18_final/room/?id=' . $room_id));
+            foreach ($optins as $key => $room_optin) {
+                $room_info = get_room_info($db, $room_optin['room_id']);
 
-            // Echo messages
-
-            foreach($optins as $key2 => $optin_info) {
-                if($room_id == $optin_info['room_id']) {
-                    $tenant_info = get_user_info($db, $optin_info['tenant_id']);
-                    echo strtr($template_messages, array('$message' => $optin_info['message'],
-                        '$optin-user' => $tenant_info['firstname'] . ' ' . $tenant_info['lastname'],
-                        '$profile-href' => '/DDWT18_final/profile/?id=' . $optin_info['tenant_id']));
-                }
+                // Echo room HTML
+                echo strtr($template_room_tenant, array('$city' => $room_info['city'], '$thumbnail' => get_images($room_info['id'])[0], '$street' => $room_info['street'],
+                    '$nr' => $room_info['street_number'], '$add' => $room_info['addition'], '$postal_code' => $room_info['postal_code'], '$size' => $room_info['size'], '$type' => $type = $room_info['type'],
+                    '$price' => $room_info['price'], '$message' => $room_optin['message'],
+                    '$href' => '/DDWT18_final/room/?id=' . $room_optin['room_id']));
             }
+
+        // IF owner
+        } elseif ($role == "owner") {
+
+            // Get all room ID's owned by the owner
+            $owned_room_ids = get_owned_rooms_id($db, $user_id);
+
+            // Get all room ID's owned by the owner that have opt-ins
+            $room_ids_with_optin = check_optins($db, $owned_room_ids);
+            $room_ids_without_optin = check_optins_diff($db, $owned_room_ids);
+
+
+            // HTML for rooms with opt-ins
+            foreach ($room_ids_with_optin as $key => $room_id) {
+
+                // Echo room HTML
+                $room_info = get_room_info($db, $room_id);
+                echo strtr($template_room_owner, array('$city' => $room_info['city'], '$thumbnail' => get_images($room_info['id'])[0], '$street' => $room_info['street'],
+                    '$nr' => $room_info['street_number'], '$add' => $room_info['addition'], '$postal_code' => $room_info['postal_code'], '$size' => $room_info['size'], '$type' => $type = $room_info['type'],
+                    '$price' => $room_info['price'], '$href' => '/DDWT18_final/room/?id=' . $room_id));
+
+                // Echo messages
+                foreach ($optins as $key2 => $optin_info) {
+                    if ($room_id == $optin_info['room_id']) {
+                        $tenant_info = get_user_info($db, $optin_info['tenant_id']);
+                        echo strtr($template_messages, array('$message' => $optin_info['message'],
+                            '$optin-user' => $tenant_info['firstname'] . ' ' . $tenant_info['lastname'],
+                            '$profile-href' => '/DDWT18_final/profile/?id=' . $optin_info['tenant_id']));
+                    }
+                }
+                echo '<hr class="bottom-hr">';
+            }
+
+            // HTML for rooms without opt-ins
+            foreach ($room_ids_without_optin as $key => $room_id) {
+
+                // Echo room HTML
+                $room_info = get_room_info($db, $room_id);
+                echo strtr($template_room_owner, array('$city' => $room_info['city'], '$thumbnail' => get_images($room_info['id'])[0], '$street' => $room_info['street'],
+                    '$nr' => $room_info['street_number'], '$add' => $room_info['addition'], '$postal_code' => $room_info['postal_code'], '$size' => $room_info['size'], '$type' => $type = $room_info['type'],
+                    '$price' => $room_info['price'], '$href' => '/DDWT18_final/room/?id=' . $room_id));
+                echo '<h5 class="message no-optin">No room requests.</h5>';
+                echo '<hr class="bottom-hr">';
+
+            }
+
         }
-
-        // HTML for rooms without opt-ins
-        foreach($room_ids_without_optin as $key => $room_id) {
-
-            // Echo room HTML
-            $room_info = get_room_info($db, $room_id);
-            echo strtr($template_room_owner, array('$city' => $room_info['city'], '$thumbnail' => get_images($room_info['id'])[0], '$street' => $room_info['street'],
-                '$nr' => $room_info['street_number'], '$add' => $room_info['addition'], '$postal_code' => $room_info['postal_code'], '$size' => $room_info['size'], '$type' => $type = $room_info['type'],
-                '$price' => $room_info['price'], '$href' => '/DDWT18_final/room/?id=' . $room_id));
-            echo '<h5 class="message no-optin">No room opt-ins.</h5>';
-
-        }
-
-
     }
 }
 
