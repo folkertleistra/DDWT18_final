@@ -117,7 +117,7 @@ if (new_route('/DDWT18_final/', 'get')) {
     $room_amnt = count_rooms($db);
     $tenant_amnt = count_tenants($db);
     $owner_amnt = count_owners($db);
-    $header_subtitle = 'Boom, I want you in my room';
+    $header_subtitle = 'Room for everyone';
 
     /* Intro text button */
 

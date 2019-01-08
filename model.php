@@ -1593,14 +1593,14 @@ function update_user($pdo, $form_data){
             'type' => 'success',
             'message' => sprintf("%s, your profile was successfully updated.", $form_data['firstname'])
         ];
-        redirect(sprintf('/DDWT18_final/my-account/?error_msg=%s', json_encode($feedback)));
     }
     else {
-        return [
+        $feedback = [
             'type' => 'warning',
             'message' => 'Your profile was not edited. No changes were detected'
         ];
     }
+    redirect(sprintf('/DDWT18_final/my-account/?error_msg=%s', json_encode($feedback)));
 }
 
 // TODO: description
