@@ -121,7 +121,7 @@
                         <div class="form-row">
                             <button type="submit" id="form-btn">Register</button>
                         </div>
-                        <a href="/DDWT18_final/" class="return-home"> Return to the Homepage</a>
+                        <a href="/DDWT18_final/" class="return-home"> Return to homepage</a>
                     </div>
 
                 </div>

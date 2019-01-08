@@ -246,7 +246,7 @@ elseif (new_route('/DDWT18_final/my-account/', 'get')) {
     $user_info = get_user_info($db, $user_id);
 
     /* Page content */
-    $header_subtitle = "My Account";
+    $header_subtitle = $page_title = "My Account";
     $navigation = get_navigation($nav_template, 4, $state, $role);
     $personal_info = get_personal_info_html($db, $user_info);
 
@@ -266,7 +266,8 @@ elseif (new_route('/DDWT18_final/edit-account/', 'get')) {
         redirect('/DDWT18_final/login/');
     }
 
-    $header_subtitle= 'Edit account';
+    /* Page content */
+    $header_subtitle = $page_title = 'Edit account';
     $navigation = get_navigation($nav_template, 4, $state, $role);
 
     /* Get the ID of the user from the session */
