@@ -1692,14 +1692,14 @@ function update_room($pdo, $form_data) {
             'message' => sprintf("%s %d%s was successfully updated.", $form_data['street'],
                 $form_data['street_number'], $form_data['addition'])
         ];
-        redirect(sprintf('/DDWT18_final/room/?id=%s&error_msg=%s', $form_data['room_id'], json_encode($feedback)));
     }
     else {
-        return [
+        $feedback = [
             'type' => 'warning',
             'message' => 'The room was not edited. No changes were detected'
         ];
     }
+    redirect(sprintf('/DDWT18_final/room/?id=%s&error_msg=%s', $form_data['room_id'], json_encode($feedback)));
 }
 
 
