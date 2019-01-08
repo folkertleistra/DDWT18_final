@@ -93,6 +93,18 @@ p.personal-text {
     .remove-btn {
         margin-top: 12px;
     }
+    .modal .remove-btn {
+        margin-top: 0;
+    }
+}
+@media screen and (max-width: 335px) {
+    div.edit-btn-wrapper {
+        width: 100%;
+        justify-content: center;
+    }
+    div.edit-btn-wrapper a:nth-of-type(2) {
+        margin-top: 12px;
+    }
 }
 
 /* START: optin sections */
