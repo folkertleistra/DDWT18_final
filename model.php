@@ -533,7 +533,7 @@ function get_optin_html($db, $user_id) {
                     <h5 class="message">Message:</h5>
                     <p class="message"><i>$message</i></p>
                     <div class="viewroom-btn-wrapper">
-                        <a href="$href" class="view-room">View room</a>
+                        <a href="$href" class="view-room btn">View room</a>
                     </div>
                 </div>
             </div>
@@ -557,7 +557,7 @@ function get_optin_html($db, $user_id) {
                     <p>$size m² - $type</p>
                     <p class="price">€ $price</p>
                     <div class="viewroom-btn-wrapper">
-                        <a href="$href" class="view-room">View room</a>
+                        <a href="$href" class="view-room btn">View room</a>
                     </div>
                 </div>
             </div>
