@@ -352,9 +352,11 @@ function logout_user() {
  * --------------------
  */
 
+
 /**
  * Returns HTML of the bubtton in the intro section on the homepage, based on state
- * @param $state
+ * @param $pdo
+ * @return string
  */
 function get_intro_button($pdo) {
     if (check_login()) {
