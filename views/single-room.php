@@ -67,16 +67,36 @@
                         <div class="edit-btn-wrapper">
                             <div>
                                 <a href="/DDWT18_final/edit-room/?id=<?= htmlspecialchars($room_id) ?>" role="button" class="btn btn-edit">Edit room</a>
-                            </div>
-                            <div>
-                            <form action="/DDWT18_final/remove-room/" method="POST">
-                                <input type="hidden" value="<?= htmlspecialchars($room_id) ?>" name="room_id">
-                                <button type="submit" class="btn btn-remove">Remove room</button>
-                            </form>
+                                <a href="#" role="button" class="btn btn-remove" data-toggle="modal" data-target="#removeModal">Remove room</a>
                             </div>
                         </div>
 
                         <?php } ?>
+                    </div>
+
+                    <!-- Remove room modal -->
+                    <div id="removeModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                  <h4 class="modal-title">Remove Room</h4>
+                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                              </div>
+                              <div class="modal-body">
+                                  <p>Are you sure you want to remove this room?</p>
+                              </div>
+                              <div class="modal-footer">
+                                  <form action="/DDWT18_final/remove-room/" method="POST">
+                                      <input type="hidden" value="<?= htmlspecialchars($room_id) ?>" name="room_id">
+                                      <button type="submit" class="btn btn-remove">Remove room</button>
+                                  </form>
+                                  <button type="button" class="btn" data-dismiss="modal">Close</button>
+                              </div>
+                            </div>
+
+                        </div>
                     </div>
 
                     <!-- Message that will be displayed when not logged in -->
