@@ -30,6 +30,7 @@
                         <!-- Edit profile button -->
                         <div class="edit-btn-wrapper">
                             <a href="/DDWT18_final/edit-account/" role="button" class="btn edit-btn">Edit account</a>
+                            <a href="/DDWT18_final/rem/" role="button" class="btn remove-btn">Remove account</a>
                         </div>
                     </div>
                 </div>
