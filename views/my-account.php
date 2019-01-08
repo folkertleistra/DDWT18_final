@@ -30,7 +30,10 @@
                         <!-- Edit profile button -->
                         <div class="edit-btn-wrapper">
                             <a href="/DDWT18_final/edit-account/" role="button" class="btn edit-btn">Edit account</a>
-                            <a href="/DDWT18_final/rem/" role="button" class="btn remove-btn">Remove account</a>
+                            <form action="/DDWT18_final/remove-account/" method="POST">
+                                <input type="hidden" value="<?= htmlspecialchars($user_id) ?>" name="user_id">
+                                <button type="submit" class="btn remove-btn">Remove account</button>
+                            </form>
                         </div>
                     </div>
                 </div>

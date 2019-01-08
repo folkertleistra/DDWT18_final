@@ -1834,6 +1834,7 @@ function remove_account($pdo, $user_id) {
     $stmt->execute([$user_id]);
     $deleted = $stmt->rowCount();
     if ($deleted ==  1) {
+        logout_user();
         return [
             'type' => 'success',
             'message' => sprintf("%s, your account was successfully removed.", $user_info['firstname'])

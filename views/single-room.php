@@ -66,12 +66,12 @@
                         <?php if($display_buttons) { ?>
                         <div class="edit-btn-wrapper">
                             <div>
-                                <a href="/DDWT18_final/edit-room/?id=<?= htmlspecialchars($room_id) ?>" role="button" class="btn btn-edit">Edit</a>
+                                <a href="/DDWT18_final/edit-room/?id=<?= htmlspecialchars($room_id) ?>" role="button" class="btn btn-edit">Edit room</a>
                             </div>
                             <div>
                             <form action="/DDWT18_final/remove-room/" method="POST">
                                 <input type="hidden" value="<?= htmlspecialchars($room_id) ?>" name="room_id">
-                                <button type="submit" class="btn btn-remove">Remove</button>
+                                <button type="submit" class="btn btn-remove">Remove room</button>
                             </form>
                             </div>
                         </div>
