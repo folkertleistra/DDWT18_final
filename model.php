@@ -352,6 +352,27 @@ function logout_user() {
  * --------------------
  */
 
+/**
+ * Returns HTML of the bubtton in the intro section on the homepage, based on state
+ * @param $state
+ */
+function get_intro_button($pdo) {
+    if (check_login()) {
+
+        $user_id = $_SESSION['user_id'];
+
+        if (is_owner($pdo, $user_id)) {
+            $intro_btn = '<a class="intro-btn" href="/DDWT18_final/add-room/">List a room</a>';
+        } else {
+            $intro_btn = '<a class="intro-btn" href="/DDWT18_final/rentable-rooms/">Start searching now</a>';
+        }
+    } else {
+        $intro_btn = '<a class="intro-btn" href="/DDWT18_final/register/">Register now</a>';
+    }
+
+    return $intro_btn;
+}
+
 // TODO: description
 /**
  * @param $db

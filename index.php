@@ -127,18 +127,7 @@ if (new_route('/DDWT18_final/', 'get')) {
     $header_subtitle = 'Room for everyone';
 
     /* Intro text button */
-    if (check_login()) {
-
-        $user_id = $_SESSION['user_id'];
-
-        if (is_owner($db, $user_id)) {
-            $intro_btn = '<a class="intro-btn" href="/DDWT18_final/add-room/">List a room</a>';
-        } else {
-            $intro_btn = '<a class="intro-btn" href="/DDWT18_final/rentable-rooms/">Start searching now</a>';
-        }
-    } else {
-        $intro_btn = '<a class="intro-btn" href="/DDWT18_final/register/">Register now</a>';
-    }
+    $intro_btn = get_intro_button($db);
 
     /* Featured room */
     $room_id = get_random_room_id($db);
