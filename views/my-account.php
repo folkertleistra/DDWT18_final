@@ -25,11 +25,16 @@
                 <!--- Left Content --->
                 <div class="col-lg-3 col-md-12 personal-col-wrapper">
                     <!-- Display personal information -->
-                    <?= $personal_info ?>
+                    <div class ="personal-column">
+                        <?= $personal_info ?>
+                        <!-- Edit profile button -->
+                        <div class="edit-btn-wrapper">
+                            <a href="/DDWT18_final/edit-account/" role="button" class="btn edit-btn">Edit account</a>
+                        </div>
+                    </div>
                 </div>
 
                 <!--- Right Content --->
-
                 <div class="col-lg-8 col-md-12 info-column">
                     <!-- If role is tenant -->
                     <?php

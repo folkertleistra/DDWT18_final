@@ -338,7 +338,7 @@ function logout_user() {
 function get_personal_info_html($db, $user_info) {
 
     $template ='
-    <div class="personal-column">
+    <div>
         <h3 class="name">$name</h3>
         <hr>
     
@@ -372,18 +372,12 @@ function get_personal_info_html($db, $user_info) {
             <i class="fas fa-phone"></i>
             <p class="personal-text">$phone</p>
         </div>
-    
         <hr>
     
         <!-- Biography -->
         <h4 class="bio">Biography</h4>
         <p class="personal-text bio">$bio</p>
         <hr>
-    
-        <!-- Edit profile button -->
-        <div class="edit-btn-wrapper">
-            <a href="/DDWT18_final/edit-account/" role="button" class="btn edit-btn">Edit account</a>
-        </div>
     </div>';
 
     $birthdate = date("d-m-Y", strtotime($user_info['birthdate']));
@@ -564,8 +558,8 @@ function get_optin_html($db, $user_id) {
     ';
 
     $template_messages = '
-        <h5 class="message">Opt-in by: <span class="capitalize">$optin-user</span></h5>
-        <p class="message"><i>$message</i></p>
+        <h5 class="message">Opt-in by: <span class="capitalize"><a href="$profile-href">$optin-user</a></span></h5>
+        <p class="message"><i>$message</i></p><hr>
         ';
 
     // IF tenant
@@ -589,6 +583,7 @@ function get_optin_html($db, $user_id) {
         $room_ids_with_optin = check_optins($db, $owned_room_ids);
         $room_ids_without_optin = check_optins_diff($db, $owned_room_ids);
 
+
         // HTML for rooms with opt-ins
         foreach($room_ids_with_optin as $key => $room_id) {
 
@@ -599,14 +594,15 @@ function get_optin_html($db, $user_id) {
                 '$price' => $room_info['price'], '$href' => '/DDWT18_final/room/?id=' . $room_id));
 
             // Echo messages
+
             foreach($optins as $key2 => $optin_info) {
                 if($room_id == $optin_info['room_id']) {
                     $tenant_info = get_user_info($db, $optin_info['tenant_id']);
                     echo strtr($template_messages, array('$message' => $optin_info['message'],
-                        '$optin-user' => $tenant_info['firstname'] . ' ' . $tenant_info['lastname']));
+                        '$optin-user' => $tenant_info['firstname'] . ' ' . $tenant_info['lastname'],
+                        '$profile-href' => '/DDWT18_final/profile/?id=' . $optin_info['tenant_id']));
                 }
             }
-            echo '<hr class="bottom-hr">';
         }
 
         // HTML for rooms without opt-ins
@@ -618,7 +614,7 @@ function get_optin_html($db, $user_id) {
                 '$nr' => $room_info['street_number'], '$add' => $room_info['addition'], '$postal_code' => $room_info['postal_code'], '$size' => $room_info['size'], '$type' => $type = $room_info['type'],
                 '$price' => $room_info['price'], '$href' => '/DDWT18_final/room/?id=' . $room_id));
             echo '<h5 class="message no-optin">No room opt-ins.</h5>';
-            echo '<hr class="bottom-hr">';
+
         }
 
 
@@ -1030,6 +1026,19 @@ function get_images($room_id) {
     return $images;
 }
 
+/**
+ * This function retrieves the opt-in message for a given room and user
+ * @param $pdo
+ * @param $room_id int
+ * @param $user_id int
+ * @return mixed string
+ */
+function get_optin_message($pdo, $room_id, $user_id) {
+    $stmt = $pdo->prepare('SELECT message FROM optin WHERE tenant_id = ? AND room_id = ?');
+    $stmt->execute([$user_id, $room_id]);
+    $message_array = $stmt->fetchAll();
+    return $message_array[0]['message'];
+}
 /**
  * This function checks whether or not a user is already opted in to a room.
  * @param $pdo

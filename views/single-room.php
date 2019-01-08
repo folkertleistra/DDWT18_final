@@ -94,7 +94,7 @@
                 <div class="col-12 opt-in-col">
                     <h3>Interested? <strong>Leave a message!</strong></h3>
                     <form action="/DDWT18_final/optin/" method="POST">
-                        <input type='hidden' name='room_id' value='<?php echo "$room_id"?>'/>
+                        <input type='hidden' name='room_id' value='<?php echo htmlspecialchars("$room_id")?>'/>
                         <textarea name="message"></textarea>
                         <div class="opt-btn-wrapper">
                             <button name="opt-in" type="submit" id="opt-in-btn">Apply</button>
@@ -110,8 +110,13 @@
                     <div class="col-12 opt-in-col">
                         <h3>You have already opted in for this room</h3>
                         <form action="/DDWT18_final/optout/" method="POST">
-                            <input type='hidden' name='room_id' value='<?php echo "$room_id"?>'/>
-                            <input type='hidden' name='tenant_id' value='<?php echo "$user_id"?>'/>
+                            <hr>
+                            <div class="opt-in-message">
+                                <?=htmlspecialchars($message)?>
+                            </div>
+                            <!-- Display opt in message -->
+                            <input type='hidden' name='room_id' value='<?php echo htmlspecialchars("$room_id")?>'/>
+                            <input type='hidden' name='tenant_id' value='<?php echo htmlspecialchars("$user_id")?>'/>
                             <div class="opt-btn-wrapper">
                                 <button name="opt-in" type="submit" id="opt-in-btn">Remove application</button>
                             </div>

@@ -115,6 +115,10 @@ a.view-room:focus {
     outline: 0;
 }
 
+view-room:hover {
+    color: #f26b3a;
+    background-color: #fff;
+}
 hr.bottom-hr {
     margin-top: 25px;
     margin-bottom: 20px;
@@ -142,20 +146,4 @@ hr.bottom-hr {
         margin-bottom: 20px;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
