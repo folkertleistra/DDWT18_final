@@ -180,6 +180,15 @@ elseif (new_route('/DDWT18_final/room/', 'get')) {
     /* Get room info */
     $room_info = get_room_info($db, $room_id);
 
+    /* Check if room exists */
+    if ( empty($room_info)){
+        $feedback = [
+            'type' => 'danger',
+            'message' => 'The requested room does not exist.'
+        ];
+        redirect(sprintf('/DDWT18_final/rentable-rooms/?error_msg=%s', json_encode($feedback)));
+    }
+
     /* Page content */
     $page_title =  $header_subtitle =sprintf('%s %d%s, %s',
         $room_info['street'], $room_info['street_number'], $room_info['addition'], $room_info['city']);
@@ -246,7 +255,7 @@ elseif (new_route('/DDWT18_final/my-account/', 'get')) {
     $user_info = get_user_info($db, $user_id);
 
     /* Page content */
-    $header_subtitle = "My Account";
+    $header_subtitle = $page_title = "My Account";
     $navigation = get_navigation($nav_template, 4, $state, $role);
     $personal_info = get_personal_info_html($db, $user_info);
 
@@ -266,7 +275,8 @@ elseif (new_route('/DDWT18_final/edit-account/', 'get')) {
         redirect('/DDWT18_final/login/');
     }
 
-    $header_subtitle= 'Edit account';
+    /* Page content */
+    $header_subtitle = $page_title = 'Edit account';
     $navigation = get_navigation($nav_template, 4, $state, $role);
 
     /* Get the ID of the user from the session */
@@ -512,12 +522,24 @@ elseif (new_route('/DDWT18_final/remove-room/', 'post')) {
 /* User profile (GET) */
 elseif (new_route('/DDWT18_final/profile/', 'get')) {
     /* Check if logged in */
-    if ( !check_login() ) {
+    if ( !(check_login() && is_owner($db, $_SESSION['user_id'])) ) {
         redirect('/DDWT18_final/login/');
     }
 
     $user_id = $_GET['id'];
+
+    /* Get user information */
     $user_info = get_user_info($db, $user_id);
+
+    /* Check if room exists */
+    if ( empty($user_info)){
+        $feedback = [
+            'type' => 'danger',
+            'message' => 'The requested profile does not exist.'
+        ];
+        redirect(sprintf('/DDWT18_final/my-account/?error_msg=%s', json_encode($feedback)));
+    }
+
     $name = sprintf('%s %s', $user_info['firstname'], $user_info['lastname']);
 
     /* Page content */

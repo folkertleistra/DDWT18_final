@@ -297,6 +297,11 @@ button:focus {
     display: flex;
     justify-content: left;
 }
+@media screen and (max-width: 575px) {
+    .edit-btn-wrapper {
+        justify-content: center;
+    }
+}
 .btn-edit {
     background-color: #5c5cdc;
     padding-top: 8px;

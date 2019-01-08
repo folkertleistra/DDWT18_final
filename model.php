@@ -259,6 +259,15 @@ function get_user_id(){
  * @return array
  */
 function login_user($pdo, $form_data) {
+    /* Check if user is already logged in */
+    if ( check_login() ){
+        $feedback = [
+            'type' => 'warning',
+            'message' => 'You are already logged in.'
+        ];
+        redirect(sprintf('/DDWT18_final/my-account/?error_msg=%s', json_encode($feedback)));
+    }
+
     /* Check if all fields are set */
     if (
         empty($form_data['username']) or
@@ -311,6 +320,15 @@ function login_user($pdo, $form_data) {
  * @return array
  */
 function logout_user() {
+    /* Check if user is already logged out */
+    if ( !check_login() ){
+        $feedback = [
+            'type' => 'warning',
+            'message' => 'You are already logged out.'
+        ];
+        redirect(sprintf('/DDWT18_final/?error_msg=%s', json_encode($feedback)));
+    }
+
     session_start();
     session_unset();
     session_destroy();
@@ -533,7 +551,7 @@ function get_optin_html($db, $user_id) {
                     <h5 class="message">Message:</h5>
                     <p class="message"><i>$message</i></p>
                     <div class="viewroom-btn-wrapper">
-                        <a href="$href" class="view-room">View room</a>
+                        <a href="$href" class="view-room btn">View room</a>
                     </div>
                 </div>
             </div>
@@ -557,7 +575,7 @@ function get_optin_html($db, $user_id) {
                     <p>$size m² - $type</p>
                     <p class="price">€ $price</p>
                     <div class="viewroom-btn-wrapper">
-                        <a href="$href" class="view-room">View room</a>
+                        <a href="$href" class="view-room btn">View room</a>
                     </div>
                 </div>
             </div>
@@ -760,6 +778,11 @@ function get_user_info($pdo, $user_id) {
     $stmt = $pdo->prepare('SELECT * FROM users WHERE id = ?');
     $stmt->execute([$user_id]);
     $users = $stmt->fetchAll();
+
+    /* Return if no user was found */
+    if (empty($users)){
+        return;
+    }
     $user = $users[0];
     $user_exp = Array();
 
@@ -924,6 +947,11 @@ function get_room_info($pdo, $room_id) {
     $stmt = $pdo->prepare('SELECT * FROM rooms WHERE id = ?');
     $stmt->execute([$room_id]);
     $rooms = $stmt->fetchAll();
+
+    /* Return if no room was found */
+    if (empty($rooms)){
+        return;
+    }
     $room = $rooms[0];
     $room_exp = Array();
 
@@ -1816,6 +1844,7 @@ function remove_account($pdo, $user_id) {
     $stmt->execute([$user_id]);
     $deleted = $stmt->rowCount();
     if ($deleted ==  1) {
+        logout_user();
         return [
             'type' => 'success',
             'message' => sprintf("%s, your account was successfully removed.", $user_info['firstname'])

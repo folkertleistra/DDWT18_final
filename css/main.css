@@ -178,3 +178,9 @@ footer {
 }
 
 /* END: fade-in error message on top of screen*/
+
+/* START: modal */
+.modal-body p {
+    margin-bottom: 0;
+}
+/* END: modal */
