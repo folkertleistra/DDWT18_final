@@ -71,6 +71,7 @@ p.personal-text {
 }
 .edit-btn:focus, .remove-btn:focus {
     outline: 0;
+    box-shadow: none;
 }
 .edit-btn-wrapper {
     display: flex;
@@ -146,6 +147,7 @@ a.view-room {
 }
 a.view-room:focus {
     outline: 0;
+    box-shadow: none;
 }
 
 a.view-room:hover {

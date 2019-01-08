@@ -208,6 +208,7 @@ h3 {
 }
 button#opt-in-btn:focus {
     outline: 0;
+    box-shadow: none;
 }
 /* End: opt-in section */
 
@@ -282,6 +283,7 @@ button#opt-in-btn:focus {
 /* Edit and remove buttons */
 button:focus {
     outline: 0;
+    box-shadow: none;
 }
 .btn-edit, .btn-remove {
     color: white;
@@ -305,12 +307,21 @@ button:focus {
 .btn-edit {
     background-color: #5c5cdc;
     padding-top: 8px;
+    border: 1px solid #5c5cdc;
 }
 .btn-remove {
-    background-color: #f26b3a;
+    background-color: #ff3f3a;
     margin-left: 10px;
+    border: 1px solid #ff3f3a;
 }
-
+.btn-remove:hover {
+    color: #ff3f3a;
+    background-color: #fff;
+}
+.btn-edit:hover {
+    color: #5c5cdc;
+    background-color: #fff;
+}
 
 /* opt-in message box styling */
 

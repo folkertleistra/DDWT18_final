@@ -39,7 +39,7 @@
                                     <input type="password" name="password" placeholder="Enter Password" class="form-input" required>
                                 </div>
                                 <div class="form-row">
-                                    <button type="submit" id="form-btn">Sign In</button>
+                                    <button type="submit" class="btn" id="form-btn">Sign In</button>
                                 </div>
                             </form>
 
