@@ -228,6 +228,8 @@ elseif (new_route('/DDWT18_final/room/', 'get')) {
         /* check if the tenant has already opted in */
         if (opted_in($db, $room_id, $user_id)) {
             $display_optout = true;
+            $message = get_optin_message($db, $room_id, $user_id);
+
             $display_optin = false;
         } else {
             $display_optout = false;
@@ -530,7 +532,7 @@ elseif (new_route('/DDWT18_final/profile/', 'get')) {
 
     /* Page content */
     $page_title = $name;
-    $navigation = get_navigation($nav_template, 0, $state);
+    $navigation = get_navigation($nav_template, 0, $state, $role);
     $personal_info = get_personal_info_html($db, $user_info);
 
     /* Get error msg from POST route */

@@ -15,7 +15,7 @@
             <div class="container hero-container">
                 <div class="hero-text">
                     <h1 class="display-4">ApartRent</h1>
-                    <h2 class="display-6">Profile of <?php echo $name ?></h2>
+                    <h2 class="display-6">Profile of <?php echo htmlspecialchars($name) ?></h2>
                 </div>
             </div>
         </div>
@@ -25,7 +25,9 @@
                 <!--- Left Content --->
                 <div class="col-lg-4 col-md-12 personal-col-wrapper">
                     <!-- Display personal information -->
-                    <?= $personal_info ?>
+                    <div class="personal-column">
+                        <?=$personal_info ?>
+                    </div>
                 </div>
             </div>
         </div>
