@@ -14,8 +14,8 @@
         <div class="jumbotron jumbotron-fluid myaccount-jumbo">
             <div class="container hero-container">
                 <div class="hero-text">
-                    <h1 class="display-4">ApartRent</h1>
-                    <h2 class="display-6">My Account</h2>
+                    <h1 class="display-4"><?= $header_title ?></h1>
+                    <h2 class="display-6"><?= $header_subtitle ?></h2>
                 </div>
             </div>
         </div>

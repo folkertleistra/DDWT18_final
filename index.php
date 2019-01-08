@@ -36,11 +36,13 @@ if (check_login()){
     } else {
         $role = 'all';
     }
-}
-else {
+} else {
     $state = 'logout';
     $role = 'all';
 }
+
+/* Header title */
+$header_title = "ApartRent";
 
 /* Navigation template */
 $nav_template =
@@ -104,23 +106,21 @@ $nav_template =
 
 /* Landing page (GET) */
 if (new_route('/DDWT18_final/', 'get')) {
+
     /* Page content */
     $page_title = 'Home';
+    $header_subtitle = 'Room for everyone';
     $navigation = get_navigation($nav_template, 1, $state, $role);
+    $room_amnt = count_rooms($db);
+    $tenant_amnt = count_tenants($db);
+    $owner_amnt = count_owners($db);
 
     /* Get error message from POST route */
     if (isset($_GET['error_msg'])){
         $error_msg = get_error($_GET['error_msg']);
     }
 
-    /* Page content */
-    $room_amnt = count_rooms($db);
-    $tenant_amnt = count_tenants($db);
-    $owner_amnt = count_owners($db);
-    $header_subtitle = 'Boom, I want you in my room';
-
     /* Intro text button */
-
     if (check_login()) {
 
         $user_id = $_SESSION['user_id'];
@@ -145,8 +145,10 @@ if (new_route('/DDWT18_final/', 'get')) {
 
 /* Room overview (GET) */
 elseif (new_route('/DDWT18_final/rentable-rooms/', 'get')) {
+
     /* Page content */
     $page_title = 'Rooms for rent';
+    $header_subtitle = 'All available rooms';
     $navigation = get_navigation($nav_template, 2, $state, $role);
 
     /* Get error message from POST route */
@@ -157,56 +159,31 @@ elseif (new_route('/DDWT18_final/rentable-rooms/', 'get')) {
     include use_template('rentable-rooms');
 }
 
-/* test route (GET)
-TODO: remove before handing in
-*/
-elseif (new_route('/DDWT18_final/test-route/', 'get')) {
-
-    /* Page info */
-    $page_title = 'Rooms for rent';
-    $navigation = get_navigation($nav_template, 2, $state, $role);
-
-    /* User info */
-    $user_id = 8;
-    print_r(get_random_room_id($db));
-}
-
-/* test route (POST)
-TODO: remove before handing in
-*/
-elseif (new_route('/DDWT18_final/test-route/', 'post')) {
-    print_r(get_random_room_id($db));
-
-}
-
 /* Single room (GET) */
 elseif (new_route('/DDWT18_final/room/', 'get')) {
+
     if (!check_login()){
         $login = false;
     } else {
         $login = true;
     }
 
-    /* get room id */
+    /* Get room id */
     $room_id = $_GET['id'];
 
-    /* get room info */
+    /* Get room info */
     $room_info = get_room_info($db, $room_id);
 
     /* Page content */
-    $page_title = sprintf('%s %d%s, %s',
+    $page_title =  $header_subtitle =sprintf('%s %d%s, %s',
         $room_info['street'], $room_info['street_number'], $room_info['addition'], $room_info['city']);
     $navigation = get_navigation($nav_template, 0, $state, $role);
 
-    /* room images */
+    /* Goom images */
     $room_images = get_images($room_id);
 
-    /* check if the current user is the owner of the room */
+    /* Check if the current user is the owner of the room */
     $user_id = get_user_id();
-
-    /* page subtitle */
-    $page_subtitle = sprintf('%s %d%s, %s',
-        $room_info['street'], $room_info['street_number'], $room_info['addition'], $room_info['city']);
 
     /* Thumbnail */
     $thumbnail = get_images($room_id)[0];
@@ -214,7 +191,7 @@ elseif (new_route('/DDWT18_final/room/', 'get')) {
     /* Address string */
     $address = get_room_address($db, $room_id);
 
-    /* check if the current user is the owner of the room */
+    /* Check if the current user is the owner of the room */
     $user_id = get_user_id();
     if (owns_room($db, $room_id, $user_id)) {
         $display_buttons = true;
@@ -222,7 +199,7 @@ elseif (new_route('/DDWT18_final/room/', 'get')) {
         $display_buttons = false;
     }
 
-    /* check if the current user is a tenant */
+    /* Check if the current user is a tenant */
     if (is_tenant($db, $user_id)) {
         $display_optin = true;
         /* check if the tenant has already opted in */
@@ -250,10 +227,12 @@ elseif (new_route('/DDWT18_final/room/', 'get')) {
 
 /* My account (GET) */
 elseif (new_route('/DDWT18_final/my-account/', 'get')) {
+
     /* Check if logged in */
     if ( !check_login() ) {
         redirect('/DDWT18_final/login/');
     }
+
     /* Get the ID of the user from the session */
     $user_id = $_SESSION['user_id'];
 
@@ -261,8 +240,7 @@ elseif (new_route('/DDWT18_final/my-account/', 'get')) {
     $user_info = get_user_info($db, $user_id);
 
     /* Page content */
-    $page_title = "My Account";
-    $page_subtitle = "My Account";
+    $header_subtitle = "My Account";
     $navigation = get_navigation($nav_template, 4, $state, $role);
     $personal_info = get_personal_info_html($db, $user_info);
 
@@ -276,11 +254,13 @@ elseif (new_route('/DDWT18_final/my-account/', 'get')) {
 
 /* Edit account (GET) */
 elseif (new_route('/DDWT18_final/edit-account/', 'get')) {
+
     /* Check if logged in */
     if ( !check_login() ) {
         redirect('/DDWT18_final/login/');
     }
-    $page_title = 'Edit account';
+
+    $header_subtitle= 'Edit account';
     $navigation = get_navigation($nav_template, 4, $state, $role);
 
     /* Get the ID of the user from the session */
@@ -296,14 +276,12 @@ elseif (new_route('/DDWT18_final/edit-account/', 'get')) {
     if ( isset($_GET['error_msg']) ) {
         $error_msg = get_error($_GET['error_msg']);
     }
-    /* choose template */
+
     include use_template('edit-account');
 }
 
 /* Edit account (POST) */
 elseif (new_route('/DDWT18_final/edit-account/', 'post')) {
-
-    $navigation = get_navigation($nav_template, 4, $state, $role);
 
     /* Update the user account */
     $feedback = update_user($db, $_POST);
@@ -311,10 +289,10 @@ elseif (new_route('/DDWT18_final/edit-account/', 'post')) {
     /* Redirect to edit account route */
     redirect(sprintf('/DDWT18_final/edit-account/?error_msg=%s&user_info=%s', json_encode($feedback), json_encode($_POST)));
 
-    /* choose template */
     include use_template('edit-account');
 }
 
+/* Remove account (POST) */
 elseif (new_route('/DDWT18_final/remove-account/', 'post')) {
 
     $feedback = remove_account($db, $_POST['user_id']);
@@ -329,15 +307,18 @@ elseif (new_route('/DDWT18_final/remove-account/', 'post')) {
 
 /* Register user (GET) */
 elseif (new_route('/DDWT18_final/register/', 'get')) {
+
     if ( check_login() ) {
         redirect('/DDWT18_final/my-account/');
     }
+
     /* Page content */
     $page_title = 'Register';
 
     if (isset($_GET['form_data'])){
         $form_data = json_decode($_GET['form_data'], true);
     }
+
     /* Get error message from POST route */
     if (isset($_GET['error_msg'])){
         $error_msg = get_error($_GET['error_msg']);
@@ -348,6 +329,7 @@ elseif (new_route('/DDWT18_final/register/', 'get')) {
 
 /* Register user (POST) */
 elseif (new_route('/DDWT18_final/register/', 'post')) {
+
     /* Register user */
     $error_msg = register_user($db, $_POST);
     $form_data = get_register_data($_POST);
@@ -358,9 +340,11 @@ elseif (new_route('/DDWT18_final/register/', 'post')) {
 
 /* Login user (GET) */
 elseif (new_route('/DDWT18_final/login/', 'get')) {
+
     if ( check_login() ) {
         redirect('/DDWT18_final/my-account/');
     }
+
     /* Page content */
     $navigation = get_navigation($nav_template, 6, $state, $role);
     $page_title = 'Login';
@@ -375,6 +359,7 @@ elseif (new_route('/DDWT18_final/login/', 'get')) {
 
 /* Login user (POST) */
 elseif (new_route('/DDWT18_final/login/', 'post')) {
+
     /* Login user */
     $error_msg = login_user($db, $_POST);
 
@@ -384,6 +369,7 @@ elseif (new_route('/DDWT18_final/login/', 'post')) {
 
 /* Logout user (GET) */
 elseif (new_route('/DDWT18_final/logout/', 'get')) {
+
     /* Logout user */
     $error_msg = logout_user();
 
@@ -406,6 +392,7 @@ elseif (new_route('/DDWT18_final/logout/', 'get')) {
 
 /* Add room (GET) */
 elseif (new_route('/DDWT18_final/add-room/', 'get')) {
+
     /* Check if logged in */
     if ( !check_login() ) {
         redirect('/DDWT18_final/login/');
@@ -424,13 +411,14 @@ elseif (new_route('/DDWT18_final/add-room/', 'get')) {
         $room_info = json_decode($_GET['room_info'], true);
     }
 
-    $page_title = 'ApartRent';
-    $page_subtitle = 'Add a room';
+    /* Page content */
+    $header_subtitle = 'Add a room';
+    $page_title = 'Add room';
+    $navigation = get_navigation($nav_template, 3, $state, $role);
 
     $form_action = '/DDWT18_final/add-room/';
     $submit_btn = "Add room";
 
-    $navigation = get_navigation($nav_template, 3, $state, $role);
     /* Get error message from POST route */
     if (isset($_GET['error_msg'])){
         $error_msg = get_error($_GET['error_msg']);
@@ -451,13 +439,14 @@ elseif (new_route('/DDWT18_final/add-room/', 'post')) {
 
 /* Edit room (GET) */
 elseif (new_route('/DDWT18_final/edit-room/', 'get')) {
+
     /* Check if logged in */
     if ( !check_login() ) {
         redirect('/DDWT18_final/login/');
     }
 
-    /* info */
-    $page_subtitle = "Edit room";
+    /* Page content */
+    $header_subtitle = $page_title = "Edit room";
 
     /* Get room info from db */
     $room_id = $_GET['id'];
@@ -478,8 +467,7 @@ elseif (new_route('/DDWT18_final/edit-room/', 'get')) {
     }
 
     /* Page content */
-    $page_title = 'ApartRent';
-    $header_title = 'Edit your room';
+    $header_subtitle = 'Edit your room';
     $form_action = '/DDWT18_final/edit-room/';
     $submit_btn = 'Edit room';
     $navigation = get_navigation($nav_template, 2, $state, $role);
@@ -497,15 +485,13 @@ elseif (new_route('/DDWT18_final/edit-room/', 'get')) {
 /* Edit room (POST) */
 elseif (new_route('/DDWT18_final/edit-room/', 'post')) {
 
-    $navigation = get_navigation($nav_template, 2, $state, $role);
-
-    /* edit room in database */
+    /* Edit room in database */
     $feedback = update_room($db, $_POST);
 
     /* Redirect to edit-room GET route */
     redirect(sprintf('/DDWT18_final/edit-room/?id=%s&error_msg=%s&room_info=%s', $_POST['room_id'], json_encode($feedback), json_encode($_POST)));
 
-    /*choose template */
+
     include use_template('add-edit-room');
 }
 

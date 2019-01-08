@@ -14,7 +14,7 @@
         <div class="jumbotron jumbotron-fluid myaccount-jumbo">
             <div class="container hero-container">
                 <div class="hero-text">
-                    <h1 class="display-4">ApartRent</h1>
+                    <h1 class="display-4"><?= $header_title ?></h1>
                     <h2 class="display-6">Profile of <?php echo htmlspecialchars($name) ?></h2>
                 </div>
             </div>
