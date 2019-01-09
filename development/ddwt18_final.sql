@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jan 09, 2019 at 12:57 PM
+-- Generation Time: Jan 09, 2019 at 01:31 PM
 -- Server version: 5.6.34-log
 -- PHP Version: 7.2.1
 
@@ -33,7 +33,7 @@ USE `ddwt18_final`;
 CREATE TABLE `optin` (
   `tenant_id` int(11) NOT NULL,
   `room_id` int(11) NOT NULL,
-  `message` varchar(255) NOT NULL
+  `message` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -43,7 +43,7 @@ CREATE TABLE `optin` (
 INSERT INTO `optin` (`tenant_id`, `room_id`, `message`) VALUES
 (17, 28, 'This room seems like the perfect place for me to live, because it is so close to my school. I would love to stay there.'),
 (17, 29, 'This room is perfect for me, because my work is nearby. I am a quiet tenant, so I won\'t bother you.'),
-(17, 30, 'I would love to live in this room. Waaaahh'),
+(17, 30, 'I want to live in this room. Waaahhhh!'),
 (21, 33, 'Meeoowww');
 
 -- --------------------------------------------------------
@@ -134,7 +134,7 @@ CREATE TABLE `users` (
   `birthdate` date NOT NULL,
   `language` varchar(255) NOT NULL,
   `occupation` varchar(255) NOT NULL,
-  `biography` varchar(255) NOT NULL
+  `biography` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -147,7 +147,7 @@ INSERT INTO `users` (`id`, `username`, `password`, `firstname`, `lastname`, `ema
 (16, 'ownerpiet', '$2y$10$S1xWxR3S1rbjG6g.DRd2reyXRFx3xitSC/tppJdNF8fZLI6LZ0uPG', 'Piet', 'Paulusma', 'pietpaulusma@mail.com', '0643728147', '1974-10-03', 'Frisian', 'Weatherman', 'I am a weather presenter from Fryslân. Because my wife divorced me and took the kids I have a lot of rooms. I need company, so I want to let my empty rooms.'),
 (17, 'tenantluigi', '$2y$10$ekSGE4Ngr71HnEctjI8TfO/Rys6gbqDQr.FWW80Ek3CttQUxWd1I.', 'Luigi', 'Segale', 'luigisegale@mail.com', '0695523606', '1978-02-07', 'Italian', 'Construction', 'I am a woodworkers apprentice looking for a place to stay in Groningen. I am skilled with tools, so I can help around the house!'),
 (20, 'ownerspongebob', '$2y$10$W3RkBZ0ywLw0G8B6e438zuUIb7dKA6X7jmYpkMHOgOqMkhqNoVp0m', 'Spongebob', 'Squarepants', 'spongebob@mail.com', '0643845339', '1999-05-01', 'English', 'Fry cook', 'I live in a pineapple under the sea. I am absorbent, yellow and porous. I like nautical nonsense, such as dropping on the deck and flopping like a fish. '),
-(21, 'tenantgary', '$2y$10$muJ7IkvdVkvz5WhhJ0xQ8Oz8RsC8HwZbmgRgl0bWMl0NaRry9WUpW', 'Gary', 'the Snail', 'gary@mail.com', '0643553172', '1999-05-01', 'Snail', 'Pet', 'Meow!'),
+(21, 'tenantgary', '$2y$10$muJ7IkvdVkvz5WhhJ0xQ8Oz8RsC8HwZbmgRgl0bWMl0NaRry9WUpW', 'Gary', 'the Snail', 'gary@snailmail.com', '0643553172', '1999-05-01', 'Snail', 'Pet', 'Meow!'),
 (22, 'tenanttjepke', '$2y$10$pm9C8Mqk4wd1rVCahipXR.Y.UfkqTNoeHODh8pb3z78/3zw271h2C', 'Tjepke', 'Tjepkema', 'tjepketjepkema@mail.com', '0625549817', '1996-04-01', 'Frisian', 'Student Fryske Taal en Kultuer', 'Ik bin in spontane jonge út it noarden. Ik hâld fan fierljeppen en Fryske dúmkes.');
 
 --
