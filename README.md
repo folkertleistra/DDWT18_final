@@ -17,12 +17,12 @@ applicable for the use of MAMP.
 
 ### Installing
 
-Place the `DDWT18_final` folder in `MAMP/htdocs`. 
+Place `ddwt18_final.sql` in the `DDWT18_final` folder. Place the `DDWT18_final` folder and in `MAMP/htdocs`.
 
 ## Deployment
 
 In PHPMyAdmin create a user with username 'ddwt18', hostname 'localhost' and password 'ddwt18' that has access to the 
-`development/DDWT18_final.sql` file.
+`ddwt18_final.sql` file.
 
 In MAMP, start Apache and MySQL servers. In your browser, go to `localhost/DDWT18_final/`. You should now be on the 
 homepage.
