@@ -163,6 +163,27 @@ a.intro-btn:hover {
 h3.introduction-header {
     text-align: left;
 }
+a.view-room {
+    color: #fff;
+    background-color: #f26b3a;
+    border-radius: 4px;
+    margin-top: 15px;
+    padding: 6px 10px 6px 10px;
+    text-decoration: none;
+    border: 1px solid #f26b3a;
+}
+a.view-room:focus {
+    outline: 0;
+    box-shadow: none;
+}
+
+a.view-room:hover {
+    color: #f26b3a;
+    background-color: #fff;
+}
+a.view-room.btn {
+    margin-top: 2px;
+}
 
 
 

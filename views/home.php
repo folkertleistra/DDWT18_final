@@ -118,6 +118,9 @@
                             <span><strong>Street:</strong><?php echo htmlspecialchars($room_info['street'] . ' ' . $room_info['street_number'] . $room_info['addition']) ?></span><br>
                             <span><strong>Address:</strong><?php echo htmlspecialchars($room_info['postal_code'] . ' ' . $room_info['city'])?></span>
                         </p>
+                        <div class="viewroom-btn-wrapper">
+                            <a href="/DDWT18_final/room/?id=<?php echo $room_info['id'] ?>" class="view-room btn">View room</a>
+                        </div>
                         <hr>
                     </div>
 
