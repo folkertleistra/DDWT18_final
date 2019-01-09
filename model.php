@@ -1,9 +1,8 @@
 <?php
 /**
  * Model
- * User: Folkert Leistra, Thijmen Dam, Hylke van der Veen
- * Date: 28-11-2018
- * Time: 17:30
+ * User: Thijmen Dam, Folkert Leistra, Hylke van der Veen
+ * Date: 09-01-2019
  */
 
 /* Enable error reporting */
@@ -115,8 +114,11 @@ function use_template($template) {
 
 /**
  * Creates navigation HTML code using given array
- * @param array $navigation Array with as Key the page name and as Value the corresponding url
- * @return string html code that represents the navigation
+ * @param $template
+ * @param $active_id
+ * @param $state
+ * @param $role
+ * @return string
  */
 function get_navigation($template, $active_id, $state, $role) {
     $navigation_exp = '
@@ -196,8 +198,8 @@ function get_imported_scripts() {
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>';
 }
 
-// TODO: description
 /**
+ * Returns footer content
  * @return string
  */
 function get_footer_content() {
@@ -290,6 +292,7 @@ function login_user($pdo, $form_data) {
             'message' => sprintf('There was an error: %s', $e->getMessage())
         ];
     }
+
     /* Return error message for wrong username */
     if (empty($user_info)) {
         return [
@@ -352,7 +355,6 @@ function logout_user() {
  * --------------------
  */
 
-
 /**
  * Returns HTML of the bubtton in the intro section on the homepage, based on state
  * @param $pdo
@@ -375,8 +377,8 @@ function get_intro_button($pdo) {
     return $intro_btn;
 }
 
-// TODO: description
 /**
+ * Returns HTML for personal information box
  * @param $db
  * @param $user_info
  * @return string
@@ -434,9 +436,8 @@ function get_personal_info_html($db, $user_info) {
 }
 
 /**
- * Create HTML alert code with information about the success or failure
- * @param bool $type true if success, false if failure
- * @param string $message Error/Success message
+ * Create HTML alert code for feedback messages
+ * @param $feedback
  * @return string
  */
 function get_error($feedback) {
@@ -451,7 +452,7 @@ function get_error($feedback) {
 }
 
 /**
- * Pritty Print Array
+ * Pretty Print Array
  * @param $input
  */
 function p_print($input) {
@@ -497,6 +498,7 @@ function get_room_html($room) {
 /**
  * Returns the right slide HTML per image
  * @param $image
+ * @return string
  */
 function get_slider_img_html($image) {
     $template =
@@ -510,6 +512,7 @@ function get_slider_img_html($image) {
 /**
  * Returns the HTML of the slider dots based on the amount of images
  * @param $img_amnt
+ * @return string
  */
 function get_slider_dots_html($img_amnt) {
     $counter = 1;
@@ -529,8 +532,8 @@ function get_slider_dots_html($img_amnt) {
             </div>';
 }
 
-// TODO: description
 /**
+ * Returns the HTML for my-account right column
  * @param $db
  * @param $user_id
  * @return string
@@ -677,57 +680,6 @@ function get_optin_html($db, $user_id) {
  * ------------------
  */
 
-// TODO: description and reposition
-/**
- * @param $pdo
- * @param $owned_room_ids
- * @return array
- */
-function check_optins($pdo, $owned_room_ids) {
-    /* Create and execute SQL statement */
-    $stmt = $pdo->prepare('SELECT DISTINCT room_id FROM optin');
-    $stmt->execute();
-    $rooms = $stmt->fetchAll();
-
-    // array with all room_id's that have opt-ins
-    $room_ids = Array();
-
-    /* Create array with htmlspecialchars */
-    foreach ($rooms as $key => $value){
-        foreach ($value as $user_key => $user_input) {
-            $room_ids[] = htmlspecialchars($user_input);
-        }
-    }
-
-    // Owned room ID's that have opt-ins
-    return array_intersect($owned_room_ids, $room_ids);
-}
-
-// TODO: description and reposition
-/**
- * @param $pdo
- * @param $owned_room_ids
- * @return array
- */
-function check_optins_diff($pdo, $owned_room_ids) {
-    /* Create and execute SQL statement */
-    $stmt = $pdo->prepare('SELECT DISTINCT room_id FROM optin');
-    $stmt->execute();
-    $rooms = $stmt->fetchAll();
-
-    // array with all room_id's that have opt-ins
-    $room_ids = Array();
-
-    /* Create array with htmlspecialchars */
-    foreach ($rooms as $key => $value){
-        foreach ($value as $user_key => $user_input) {
-            $room_ids[] = htmlspecialchars($user_input);
-        }
-    }
-
-    // Owned room ID's that have opt-ins
-    return array_diff($owned_room_ids, $room_ids);
-}
 
 /*
  * ------------------
@@ -817,7 +769,7 @@ function get_user_info($pdo, $user_id) {
 }
 
 /**
- * Returns firstname for a single user
+ * Returns first name for a single user
  * @param $pdo
  * @param $user_id
  * @return string
@@ -866,8 +818,8 @@ function is_tenant($pdo, $user_id) {
     return true;
 }
 
-// TODO: description
 /**
+ * Returns an owner's role
  * @param $pdo
  * @param $id
  * @return string
@@ -985,8 +937,8 @@ function get_room_info($pdo, $room_id) {
     return $room_exp;
 }
 
-// TODO: description
 /**
+ * Returns the address of a given room id in string format
  * @param $pdo
  * @param $room_id
  * @return string
@@ -1048,6 +1000,7 @@ function get_owned_rooms($pdo, $owner_id) {
     }
     return $rooms_exp;
 }
+
 /**
  * Retrieve the ID's of the rooms owned by the owner
  * @param $pdo
@@ -1069,6 +1022,7 @@ function get_owned_rooms_id($pdo, $owner_id) {
     }
     return $room_ids;
 }
+
 /**
  * Returns array with all image urls for given room id
  * @param $room_id
@@ -1099,6 +1053,7 @@ function get_optin_message($pdo, $room_id, $user_id) {
     $message_array = $stmt->fetchAll();
     return $message_array[0]['message'];
 }
+
 /**
  * This function checks whether or not a user is already opted in to a room.
  * @param $pdo
@@ -1144,6 +1099,57 @@ function owns_room($pdo, $room_id, $user_id) {
     }
 }
 
+/**
+ * Checks which of the given room ids have been opted into
+ * @param $pdo
+ * @param $owned_room_ids
+ * @return array
+ */
+function check_optins($pdo, $owned_room_ids) {
+    /* Create and execute SQL statement */
+    $stmt = $pdo->prepare('SELECT DISTINCT room_id FROM optin');
+    $stmt->execute();
+    $rooms = $stmt->fetchAll();
+
+    /* Array with all room_id's that have opt-ins */
+    $room_ids = Array();
+
+    /* Create array with htmlspecialchars */
+    foreach ($rooms as $key => $value){
+        foreach ($value as $user_key => $user_input) {
+            $room_ids[] = htmlspecialchars($user_input);
+        }
+    }
+
+    /* Owned room ID's that have opt-ins */
+    return array_intersect($owned_room_ids, $room_ids);
+}
+
+/**
+ * Checks which of the given rooms have not been opted into
+ * @param $pdo
+ * @param $owned_room_ids
+ * @return array
+ */
+function check_optins_diff($pdo, $owned_room_ids) {
+    /* Create and execute SQL statement */
+    $stmt = $pdo->prepare('SELECT DISTINCT room_id FROM optin');
+    $stmt->execute();
+    $rooms = $stmt->fetchAll();
+
+    /* Array with all room_id's that have opt-ins */
+    $room_ids = Array();
+
+    /* Create array with htmlspecialchars */
+    foreach ($rooms as $key => $value){
+        foreach ($value as $user_key => $user_input) {
+            $room_ids[] = htmlspecialchars($user_input);
+        }
+    }
+
+    /* Owned room ID's that have opt-ins */
+    return array_diff($owned_room_ids, $room_ids);
+}
 
 /*
  * --------------------
@@ -1296,8 +1302,8 @@ function register_user($pdo, $form_data) {
     redirect(sprintf('/DDWT18_final/my-account/?error_msg=%s', json_encode($feedback)));
 }
 
-// TODO: description
 /**
+ * Add a room and images to the database
  * @param $pdo
  * @param $form_data
  * @param $files
@@ -1423,8 +1429,8 @@ function add_room($pdo, $form_data, $files) {
     redirect(sprintf('/DDWT18_final/room/?id=%s&error_msg=%s', $room_id, json_encode($feedback)));
 }
 
-// TODO: description
 /**
+ * Uploads an opt-in message for given user and room to the database
  * @param $pdo
  * @param $form_data
  * @return array
@@ -1663,8 +1669,8 @@ function update_user($pdo, $form_data){
     redirect(sprintf('/DDWT18_final/my-account/?error_msg=%s', json_encode($feedback)));
 }
 
-// TODO: description
 /**
+ * Updates a room in the database
  * @param $pdo
  * @param $form_data
  * @return array
@@ -1770,7 +1776,6 @@ function update_room($pdo, $form_data) {
     }
     redirect(sprintf('/DDWT18_final/room/?id=%s&error_msg=%s', $form_data['room_id'], json_encode($feedback)));
 }
-
 
 /*
  * --------------------

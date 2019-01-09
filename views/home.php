@@ -50,7 +50,7 @@
             <div class="row justify-content-center intro-text-row">
                 <div class="col-lg-6 col-md-8 col-sm-8 intro-text-col">
                     <h3 class="introduction-header">Room for everyone</h3>
-                    <p class="intro-text">The increase of students coming to Groningen and other cities brings up difficulties regarding housing. The issues are getting so pressing that some foreign students have even had to sleep in tents due to lack of available rooms and the difficulty of finding one. We think it should be easier for owners of rooms and tenants to connect. That is why we have developed a platform on which room owners and tenants can easily get in touch. </p>
+                    <p class="intro-text">The increase of students coming to Groningen and other cities brings up difficulties regarding housing. The issues are getting so pressing that some foreign students have even had to sleep in tents due to lack of available rooms and the difficulty of finding one. We think it should be easier for owners of rooms and tenants to connect, which is why we have developed a platform where room owners and tenants can easily get in touch.</p>
                     <div class="intro-btn-wrapper"><?= $intro_btn ?></div>
                 </div>
             </div>
