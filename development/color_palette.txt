@@ -1,5 +1,0 @@
-Colors used on the website (ApartRent):
-Orange: #f26b3a
-Blue: #5c5cdc
-Text: #353558
-Background: white

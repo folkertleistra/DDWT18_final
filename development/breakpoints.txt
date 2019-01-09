@@ -1,4 +1,0 @@
-Large: 1200px
-Medium: 992px - 1199px
-Tablet: 768px - 991px
-Phone: 576px - 767px
