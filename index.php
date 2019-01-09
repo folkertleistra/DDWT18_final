@@ -516,14 +516,23 @@ elseif (new_route('/DDWT18_final/remove-room/', 'post')) {
     $feedback = remove_room($db, $_POST['room_id']);
 
     /* Redirect to add (GET) page */
-    redirect(sprintf('/DDWT18_final/rentable-rooms/?error_msg=%s', json_encode($feedback)));
+    redirect(sprintf('/DDWT18_final/my-account/?error_msg=%s', json_encode($feedback)));
 }
 
 /* User profile (GET) */
 elseif (new_route('/DDWT18_final/profile/', 'get')) {
     /* Check if logged in */
-    if ( !(check_login() && is_owner($db, $_SESSION['user_id'])) ) {
+    if ( !check_login() ){
         redirect('/DDWT18_final/login/');
+    }
+
+    /* Check if owner */
+    if ( !is_owner($db, $_SESSION['user_id'])) {
+        $error_msg = [
+            'type' => 'danger',
+            'message' => 'You have to be an owner to look at this profile.'
+        ];
+        redirect(sprintf('/DDWT18_final/my-account/?error_msg=%s', json_encode($error_msg)));
     }
 
     /* Get user information */

@@ -1867,7 +1867,7 @@ function remove_account($pdo, $user_id) {
         ];
     }
 
-    /* Delete room */
+    /* Delete account */
     $stmt = $pdo->prepare("DELETE FROM users WHERE id = ?");
     $stmt->execute([$user_id]);
     $deleted = $stmt->rowCount();
