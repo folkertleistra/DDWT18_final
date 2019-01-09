@@ -225,7 +225,6 @@ elseif (new_route('/DDWT18_final/room/', 'get')) {
 
     /* Choose template */
     include use_template('single-room');
-
 }
 
 /*
